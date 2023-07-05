@@ -5,3 +5,4 @@ Repository for the Blockchain for Social Good project for GSET 2023.
 Add your name here. :)
 Chloe Lee
 Rebekah Wang
+Cy Rosenberg
