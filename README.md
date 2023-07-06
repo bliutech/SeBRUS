@@ -30,4 +30,5 @@ Chloe Lee
 Rebekah Wang
 Cy Rosenberg
 Anusha Iyer
+Trisha Reddy
 
