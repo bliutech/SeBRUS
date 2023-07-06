@@ -26,5 +26,5 @@ python app.py
 
 ## Authors
 Add your name here. :)
-Chloe Lee
+Chloe Lee 
 Rebekah Wang
