@@ -8,14 +8,28 @@ function HomePage() {
     return (
         <div>
             <p>
-                Hello this is our project on Blockchain for the Social Good
+                Hello, this is our project on Blockchain for the Social Good
             </p>
 
             <div className="home-image-container">
-                <img src="https://replicate.com/api/models/stability-ai/stable-diffusion/files/57f3a284-9cc1-4447-90c2-518971a3a8a5/out-0.png" />
-                <img src="https://replicate.com/api/models/stability-ai/stable-diffusion/files/1e326180-9e4d-425f-b903-5bd97a1770dd/out-0.png" />
-                <img src="https://replicate.com/api/models/stability-ai/stable-diffusion/files/928234b0-22b4-4938-8552-1af213b7294f/out-0.png" />
+                <img width="300" height="200" src="https://media.istockphoto.com/id/953499010/photo/blockchain-technology-structure-defocused.jpg?s=1024x1024&w=is&k=20&c=5x3Mmp9kIsHraabTUGK9Lbm9fJZ0PkbqW0WE_oYTF64=" />
             </div>
+            <a href="/signup">Sign up here!</a>
+            <p></p>
+            <a href="/signin">Login</a>
+
+            <p>
+            <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+        <p></p>
+        By Anusha, Beck, Chloe, Cy, and Trisha.
+      </p>
         </div>
         );
     }
