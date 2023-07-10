@@ -47,6 +47,29 @@ truffle compile
 truffle migrate
 ```
 
+## Linting
+This project supports CI/CD for linting. For the client application, it uses `prettier` for linting. To check if any formatting changes need to be made, run the following.
+
+```
+npm run check
+```
+
+To resolve any needed changes run
+```
+npm run fix
+```
+
+For the server application, it uses `black` for linting. To check if any formatting changes need to be made, run the following.
+
+```
+python -m black --check *.py */*.py
+```
+
+To resolve any needed changes run
+```
+python -m black *.py */*.py
+```
+
 ## Authors
 - Chloe Lee
 - Rebekah Wang
