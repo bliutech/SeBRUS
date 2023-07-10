@@ -6,12 +6,12 @@ async function createUser(username, password, callback = () => {}) {
     usr: username,
     pwd: password,
   };
-  const response = await fetch(base+`/signup`, {
+  const response = await fetch(base + `/signup`, {
     method: "POST",
     credentials: "include",
     headers: {
-        'Content-Type': 'application/json',
-      },
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(object),
   })
     .then(() => callback())
@@ -24,12 +24,12 @@ async function createUser(username, password, callback = () => {}) {
 }
 
 async function getUser(username, callback = () => {}) {
-  const response = await fetch(base+`/signin`, {
+  const response = await fetch(base + `/signin`, {
     method: "PULL",
     credentials: "include",
     headers: {
-        'Content-Type': 'application/json',
-      },
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ usr: username }),
   });
 
