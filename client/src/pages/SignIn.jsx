@@ -41,75 +41,82 @@ function SignIn() {
       return;
     }
   }
-      return (
-        
-        <div className={styles.rounded} style={{
-                border: '1px solid white',
-                borderTopLeftRadius: '10px',
-                borderTopRightRadius: '10px',                
-                borderBottomLeftRadius: '10px',
-                borderBottomRightRadius: '10px'
-            }}>
-            <p>
-                <br></br>
-                <header>Sign In</header>
-                <br></br>
-                <br></br>
-<span>
-        <p>Username:</p>{" "}
+  return (
+    <div
+      className={styles.rounded}
+      style={{
+        border: "1px solid white",
+        borderTopLeftRadius: "10px",
+        borderTopRightRadius: "10px",
+        borderBottomLeftRadius: "10px",
+        borderBottomRightRadius: "10px",
+      }}
+    >
+      <p>
+        <br></br>
+        <header>Sign In</header>
+        <br></br>
+        <br></br>
+        <span>
+          <p>Username:</p>{" "}
+          <input
+            type="text"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          ></input>
+        </span>
+        <span>
+          <p>Password:</p>{" "}
+          <input
+            type="text"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          ></input>
+        </span>
+        <input type="button" onClick={() => handleSignIn()}></input>
+        <p>{username}</p>
+        <p>{password}</p>
+      </p>
+      <form action="/LoginForm.jsx" method="post">
+        <text>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter your username:&nbsp;
+        </text>
         <input
-          type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
+          type="email"
+          required
+          name="email"
+          placeholder="Your email"
         ></input>
-      </span>
-      <span>
-        <p>Password:</p>{" "}
+        <text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+        <br></br>
+        <br></br>
+        <text>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter your password:&nbsp;
+        </text>
         <input
-          type="text"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          type="password"
+          required
+          name="password"
+          placeholder="Your password"
         ></input>
-      </span>
-      <input type="button" onClick={() => handleSignIn()}></input>
-      <p>{username}</p>
-      <p>{password}</p>
-                </p>
-                    <form action="/LoginForm.jsx" method="post">
-                        <text>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter your username:&nbsp;
-                        </text>
-                        <input type="email" required name="email" placeholder="Your email"></input>
-                        <text>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </text>
-                        <br></br>
-                        <br></br>
-                        <text>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter your password:&nbsp;
-                        </text>
-                        <input type="password" required name="password" placeholder="Your password"></input>
-                        <text>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </text>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <button className={styles.button}>
-                            <buttonText>Submit</buttonText>
-                        </button>
-                        <button>
-                            <buttonText>test</buttonText>
-                        </button>
-                        <br></br>
-                        <br></br>
-                    </form>
-                <p>
-            </p>
-        </div>
-        );
-    }
+        <text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <button className={styles.button}>
+          <buttonText>Submit</buttonText>
+        </button>
+        <button>
+          <buttonText>test</buttonText>
+        </button>
+        <br></br>
+        <br></br>
+      </form>
+      <p></p>
+    </div>
+  );
+}
 
 export default SignIn;
