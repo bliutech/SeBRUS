@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/index.css';
 import { createUser, getUser, changeUser, deleteUser} from "../api/user"
 
-function SignUp() {
-    document.title = "signin";
 
+function SignUp() {
+  document.title = "signin";
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
