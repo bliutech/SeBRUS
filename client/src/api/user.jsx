@@ -6,7 +6,7 @@ async function createUser(username, password, callback = () => {}) {
     usr: username,
     pwd: password,
   };
-  const response = await fetch(`https://localhost:3000/signup`, {
+  const response = await fetch(base+`/signup`, {
     method: "POST",
     body: JSON.stringify(object),
   })
@@ -20,7 +20,7 @@ async function createUser(username, password, callback = () => {}) {
 }
 
 async function getUser(username, callback = () => {}) {
-  const response = await fetch(`https://localhost:3000/signin`, {
+  const response = await fetch(base+`/signin`, {
     method: "POST",
     body: JSON.stringify({ usr: username }),
   });
