@@ -23,5 +23,6 @@ yarn-error.log*
 
 # Server
 venv/
+__pycache__/
 
 sqlite.db

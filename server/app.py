@@ -4,8 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 import config
 
+from os.path import exists
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = config.DABABASE_URI
+app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -23,4 +25,7 @@ def user(id):
     return jsonify(data)
 
 if __name__ == '__main__':
+    if not exists(config.DATABASE_URI[9:]):
+        import models
+        models.init()
     app.run(debug=True, host='0.0.0.0', port=5000)
