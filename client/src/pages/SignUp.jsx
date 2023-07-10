@@ -47,34 +47,6 @@ function SignUp() {
     }
   }
 
-  // createUser(username, password);
-
-  // async function postJSON(data) {
-  //     try {
-  //       const response = await fetch("http://localhost:5000/signup", {
-  //         method: "POST",
-  //         body: JSON.stringify({
-  //             username: "username",
-  //             password: "password"
-  //         }),
-  //       });
-
-  //       const result = await response.json();
-  //       console.log("Success:", result);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   }
-
-  //   const data = { username: "example" };
-  //   postJSON(data);
-
-  // async function getEndpoint() {
-  //     let res = await fetch("http://localhost:3000/signup")
-  //     let data = await res.json()
-  //     console.log(data);
-  // }
-
   return (
     <div>
       <b>Sign up!</b>
