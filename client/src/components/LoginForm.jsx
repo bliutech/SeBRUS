@@ -41,8 +41,8 @@ function Login() {
       <span>
         <p>Username:</p>{" "}
         <input
-          className={styles.entrybox}
-          type="text"
+          className={styles.Input}
+          placeholder="Your password"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         ></input>
@@ -50,8 +50,8 @@ function Login() {
       <span>
         <p>Password:</p>{" "}
         <input
-          className={styles.entrybox}
-          type="text"
+          className={styles.Input}
+          placeholder="Your password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         ></input>
