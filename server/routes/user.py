@@ -13,22 +13,46 @@ def router():
         return delete()
     return jsonify(), 500
 
+def get():  
+    
+    # getting user
 
-def get():
-    # TODO: implement getting user
-    return jsonify(), 200
+    users = User.query.all()
+    return jsonify([user.serialize() for user in users])
+
+def post(): 
+
+    # creating user
+
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    new_user = User(username=username, password=password)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify(new_user.serialize()), 201
+
+def put(user_id):
+
+    # updating user
+
+    user = User.query.get(user_id)
+    if user:
+        data = request.get_json()
+        user.username = data.get('username')
+        user.password = data.get('password')
+        db.session.commit()
+        return jsonify(user.serialize())
+    return jsonify({'message': 'User not found'}), 404
 
 
-def post():
-    # TODO: implement creating user
-    return jsonify(), 200
+def delete(user_id):
 
+    # deleting user
 
-def put():
-    # TODO: implement updating user
-    return jsonify(), 200
-
-
-def delete():
-    # TODO: implement deleting user
-    return jsonify(), 200
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'message': 'User deleted'})
+    return jsonify({'message': 'User not found'}), 404
