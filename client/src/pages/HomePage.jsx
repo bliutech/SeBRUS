@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 
 function HomePage() {
@@ -16,9 +15,9 @@ function HomePage() {
           src="https://media.istockphoto.com/id/953499010/photo/blockchain-technology-structure-defocused.jpg?s=1024x1024&w=is&k=20&c=5x3Mmp9kIsHraabTUGK9Lbm9fJZ0PkbqW0WE_oYTF64="
         />
       </div>
-      <a href="/signup">Sign up here!</a>
+      <a href="/registration">Registrate here</a>
       <p></p>
-      <a href="/signin">Login</a>
+      <a href="/login">Login here</a>
 
       <p>
         <a
