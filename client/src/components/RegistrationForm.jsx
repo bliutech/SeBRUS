@@ -1,54 +1,51 @@
-import { Link } from "react-router-dom";
-import * as ReactDOM from "react-dom/client";
-
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
+// import * as ReactDOM from "react-dom/client";
+import { useCookies } from "react-cookie";
+// import { useNavigate } from "react-router-dom";
 import "../styles/index.css";
 import styles from "../styles/components/RegistrationForm.module.css";
-import { createUser, getUser, changeUser, deleteUser } from "../api/user";
+import { createUser, getUser } from "../api/user";
+import { useState, createContext, useContext } from "react";
 
 function Registration() {
-  document.title = "registration";
+  document.title = "Registration";
 
+  const UserContext = createContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies("");
+  // const auth = useContext(UserContext);
 
   function handleEnter(key) {
-    if (key == "Enter") {
+    if (key === "Enter") {
       handleRegistration();
     }
   }
 
   async function handleRegistration() {
-    if (!username) {
+    if (!username || username.length < 6) {
       window.alert("Your username must be 6+ characters long");
       return;
     }
 
     const user = await getUser(username);
-    if (user.password !== null || user.password.length) {
-      window.alert("This username is taken." + "Please try a different one");
+    if (user.password !== null) {
+      window.alert("This username is taken. \n Please try a different one");
       return;
+    } else {
+      createUser(username, password);
+      setCookie("name", username);
     }
   }
 
   return (
-    <div
-      className={styles.rounded}
-      style={{
-        border: "1px solid white",
-        borderTopLeftRadius: "10px",
-        borderTopRightRadius: "10px",
-        borderBottomLeftRadius: "10px",
-        borderBottomRightRadius: "10px",
-      }}
-    >
-      <b>Registrate</b>
+    <div className={styles.rounded}>
+      <b>Register</b>
       <span>
         <p>Username:</p>{" "}
         <input
-          className={styles.entrybox}
-          type="text"
+          className={styles.Input}
+          placeholder="Enter a unique username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         ></input>
@@ -56,8 +53,8 @@ function Registration() {
       <span>
         <p>Password:</p>{" "}
         <input
-          className={styles.entrybox}
-          type="text"
+          className={styles.Input}
+          placeholder="Enter a password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         ></input>
@@ -69,8 +66,7 @@ function Registration() {
         value="Submit"
         onClick={() => handleEnter()}
       ></input>
-      {/* <p>{username}</p> */}
-      {/* <p>{password}</p> */}
+      <p></p>
     </div>
   );
 }

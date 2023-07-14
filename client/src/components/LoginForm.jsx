@@ -1,19 +1,19 @@
-import { Link } from "react-router-dom";
-import * as ReactDOM from "react-dom/client";
+// import * as ReactDOM from "react-dom/client";
 import "../styles/index.css";
 import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createUser, getUser, changeUser, deleteUser } from "../api/user";
+import { useCookies } from "react-cookie";
+import { getUser } from "../api/user";
 
 function Login() {
-  document.title = "login";
+  document.title = "Login";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies("");
 
   function handleEnter(key) {
-    if (key == "Enter") {
+    if (key === "Enter") {
       handleLogin();
     }
   }
@@ -21,6 +21,13 @@ function Login() {
   async function handleLogin() {
     if (!username) {
       return;
+    } else {
+      const user = await getUser(username);
+      if (user.password === password) {
+        setCookie("name", username);
+      } else {
+        window.alert("wrong password");
+      }
     }
   }
   return (
@@ -35,14 +42,13 @@ function Login() {
       }}
     >
       <br></br>
-      <header>Login</header>
-      <br></br>
+      <b>Login</b>
       <br></br>
       <span>
         <p>Username:</p>{" "}
         <input
           className={styles.Input}
-          placeholder="Your password"
+          placeholder="Your username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         ></input>
@@ -63,8 +69,6 @@ function Login() {
         value="Submit"
         onClick={() => handleEnter()}
       ></input>
-      {/* <p>{username}</p> */}
-      {/* <p>{password}</p> */}
     </div>
   );
 }
