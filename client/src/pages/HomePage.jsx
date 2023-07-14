@@ -19,6 +19,8 @@ function HomePage() {
       <a href="/signup">Sign up here!</a>
       <p></p>
       <a href="/signin">Login</a>
+      <p></p>
+      <a href="/contribute">Contribute</a>
 
       <p>
         <a
