@@ -4,7 +4,6 @@ import DropdownMenu from "../components/DropdownMenu";
 
 function ImageUploader() {
   const [image, setImage] = useState("");
-  const [base64, setbase64] = useState("");
   const [databases, setDatabases] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [selectedDatabaseName, setSelectedDatabaseName] = useState("");
@@ -16,7 +15,7 @@ function ImageUploader() {
     fileReader.readAsDataURL(file);
     fileReader.onload = () => {
       const base64String = fileReader.result.toString("base64");
-      setbase64(base64, base64String);
+      setImage(base64String);
     };
   };
 
@@ -38,8 +37,9 @@ function ImageUploader() {
       <DropdownMenu selected={selected} />
       <p></p>
       <input type="file" name="image" onChange={handleImageChange} />
-      {image === "" ? null : <img src={image} alt="Upload image" />}
       <button onClick={handleSubmit}>Submit</button>
+
+      {image === "" ? null : <img src={image} alt="Upload image" />}
     </div>
   );
 }
