@@ -1,0 +1,44 @@
+.button {
+  font-family: Verdana, sans-serif;
+  border-radius: 5px;
+  border-color: rgb(57, 106, 240);
+  width: 150px;
+  height: 40px;
+  background-color: rgb(57, 106, 240);
+}
+
+buttonText {
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+  font-size: 12pt;
+}
+
+text {
+  color: black;
+  font-family: Verdana, sans-serif;
+  font-size: 12pt;
+}
+
+p {
+  font-family: Arial, sans-serif;
+}
+
+input {
+  border-radius: 5px;
+  height: 15px;
+}
+
+header {
+  color: black;
+}
+
+.rounded {
+  border: "1px solid white";
+  border-radius: "10px";
+  background: rgb(239, 239, 239);
+}
+
+#widget {
+  background-color: white;
+}

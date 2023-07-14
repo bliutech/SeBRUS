@@ -7,6 +7,7 @@ import Registration from "./components/RegistrationForm";
 import ProfilePage from "./pages/ProfilePage";
 import DatasetPage from "./pages/DatasetPage";
 import DashboardPage from "./pages/DashboardPage";
+import Contribute from "./pages/ContributePage";
 import { useCookies } from "react-cookie";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/datasets" element={<DatasetPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/contribute" element={<Contribute />} />
           </Routes>
         </header>
       </BrowserRouter>
