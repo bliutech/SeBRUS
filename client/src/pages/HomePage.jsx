@@ -1,13 +1,13 @@
-// import { Link } from "react-router-dom";
-// import * as ReactDOM from "react-dom/client";
+import styles from "../styles/pages/HomePage.module.css";
 
 function HomePage() {
   document.title = "GSET23BSG";
 
   return (
     <div>
-      <p>Hello, this is our project on Blockchain for the Social Good</p>
-
+      <text className={styles.logo}>BlockData</text>
+      <br></br>
+      <br></br>
       <div className="home-image-container">
         <img
           alt="filler"
@@ -16,19 +16,6 @@ function HomePage() {
           src="https://media.istockphoto.com/id/953499010/photo/blockchain-technology-structure-defocused.jpg?s=1024x1024&w=is&k=20&c=5x3Mmp9kIsHraabTUGK9Lbm9fJZ0PkbqW0WE_oYTF64="
         />
       </div>
-      <a href="/registration">Register here</a>
-      <p></p>
-      <a href="/login">Login here</a>
-      <p></p>
-      <a href="/profile">Profile Page</a>
-      <p></p>
-      <a href="/dashboard">Dashboard</a>
-      <p></p>
-      <a href="/dataset">Dataset</a>
-      <p>
-        <p></p>
-        By Anusha, Beck, Chloe, Cy, and Trisha.
-      </p>
     </div>
   );
 }

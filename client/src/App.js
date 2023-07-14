@@ -1,5 +1,6 @@
 import "./styles/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import Login from "./components/LoginForm";
 import Registration from "./components/RegistrationForm";
@@ -13,6 +14,7 @@ function App() {
   const auth = cookies.name > 0;
   return (
     <div className="App">
+      <Navbar />
       <header className="App-header">
         <BrowserRouter>
           <Routes>

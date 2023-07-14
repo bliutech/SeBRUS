@@ -47,6 +47,7 @@ function Registration() {
           className={styles.Input}
           placeholder="Enter a unique username"
           value={username}
+          placeholder="Username"
           onChange={(event) => setUsername(event.target.value)}
         ></input>
       </span>
@@ -56,6 +57,7 @@ function Registration() {
           className={styles.Input}
           placeholder="Enter a password"
           value={password}
+          placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
         ></input>
       </span>
@@ -63,7 +65,7 @@ function Registration() {
       <input
         className={styles.but}
         type="button"
-        value="Submit"
+        value="Registrate"
         onClick={() => handleEnter()}
       ></input>
       <p></p>

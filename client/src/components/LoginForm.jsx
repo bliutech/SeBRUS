@@ -1,4 +1,3 @@
-// import * as ReactDOM from "react-dom/client";
 import "../styles/index.css";
 import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
@@ -20,6 +19,7 @@ function Login() {
 
   async function handleLogin() {
     if (!username) {
+      window.alert("This username is invalid");
       return;
     } else {
       const user = await getUser(username);
@@ -41,9 +41,6 @@ function Login() {
         borderBottomRightRadius: "10px",
       }}
     >
-      <br></br>
-      <b>Login</b>
-      <br></br>
       <span>
         <p>Username:</p>{" "}
         <input
@@ -66,7 +63,7 @@ function Login() {
       <input
         className={styles.but}
         type="button"
-        value="Submit"
+        value="Login"
         onClick={() => handleEnter()}
       ></input>
     </div>
