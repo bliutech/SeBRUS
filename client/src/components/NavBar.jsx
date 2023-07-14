@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React from "react";
 import styles from "../styles/components/NavBar.module.css";
 
@@ -7,29 +8,29 @@ function NavBar() {
       <div id={styles.bar}>
         <div className={styles.logo}>BlockData</div>
         <li>
-          <a id={styles.navLink} href="/">
+          <Link id={styles.navLink} to="/">
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a id={styles.navLink} href="/datasets">
+          <Link id={styles.navLink} to="/datasets">
             Datasets
-          </a>
+          </Link>
         </li>
         <li>
-          <a id={styles.navLink} href="/dashboard">
+          <Link id={styles.navLink} to="/dashboard">
             Dashboard
-          </a>
+          </Link>
         </li>
         <li>
-          <a id={styles.navLink} href="/profile">
+          <Link id={styles.navLink} to="/profile">
             Profile
-          </a>
+          </Link>
         </li>
         <li>
-          <a id={styles.navLink} href="/login">
+          <Link id={styles.navLink} to="/login">
             <text className={styles.regis}>Login/Register</text>
-          </a>
+          </Link>
         </li>
       </div>
     </div>

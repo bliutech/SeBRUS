@@ -26,8 +26,7 @@
 }
 
 .rounded {
-    border: '1px solid white';
-    border-radius: '10px';
+    border-radius: 10px;
     background: rgb(239, 239, 239);
     padding: 50px;
     width: 300px;
@@ -94,6 +93,13 @@ html {
     width: 300px;
     height: 50px;
     margin: 5px;
+    text-indent: 15px;
+    opacity:0.6;
+}
+
+.Input::placeholder {
+    padding: 0 0px;
+    font-size: 11pt;
 }
 
 .Input-text {
@@ -113,10 +119,6 @@ html {
 
 .Input-text::placeholder {
     color: #B0BEC5;
-}
-
-::placeholder {
-    padding: 0 5px;
 }
 
 .Input-text:focus {

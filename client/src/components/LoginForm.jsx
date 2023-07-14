@@ -10,6 +10,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies("");
+  const [showP, showPassword] = useState(false);
 
   function handleEnter(key) {
     if (key === "Enter") {
@@ -31,25 +32,12 @@ function Login() {
     }
   }
 
-  function showPassword() {
-    var x = document.getElementById("pass");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
-    }
-  }
+  const handleToggle = () => {
+    showPassword((current) => !current);
+  };
 
   return (
-    <div
-      className={styles.rounded}
-      style={{
-        borderTopLeftRadius: "10px",
-        borderTopRightRadius: "10px",
-        borderBottomLeftRadius: "10px",
-        borderBottomRightRadius: "10px",
-      }}
-    >
+    <div className={styles.rounded}>
       <span>
         <p className={styles.header}>Log in to your account:</p>{" "}
         <input
@@ -62,7 +50,8 @@ function Login() {
       <span>
         <input
           className={styles.Input}
-          type="password"
+          id={styles.form}
+          type={showP ? "text" : "password"}
           placeholder="Your password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
@@ -72,7 +61,7 @@ function Login() {
           type="checkbox"
           id={styles.check}
           placeholder="Show Password"
-          onClick={() => showPassword()}
+          onClick={() => handleToggle()}
         ></input>
         <text id={styles.regis}> Show password?</text>
       </span>

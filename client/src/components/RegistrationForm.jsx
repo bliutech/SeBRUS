@@ -14,6 +14,7 @@ function Registration() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies("");
+  const [showP, showPassword] = useState(false);
   // const auth = useContext(UserContext);
 
   function handleEnter(key) {
@@ -38,25 +39,12 @@ function Registration() {
     }
   }
 
-  function showPassword() {
-    var x = document.getElementById("pass");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
-    }
-  }
+  const handleToggle = () => {
+    showPassword((current) => !current);
+  };
 
   return (
-    <div
-      className={styles.rounded}
-      style={{
-        borderTopLeftRadius: "10px",
-        borderTopRightRadius: "10px",
-        borderBottomLeftRadius: "10px",
-        borderBottomRightRadius: "10px",
-      }}
-    >
+    <div className={styles.rounded}>
       <span>
         <p className={styles.header}>Register for an account:</p>{" "}
         <input
@@ -68,7 +56,7 @@ function Registration() {
       </span>
       <span>
         <input
-          type="password"
+          type={showP ? "text" : "password"}
           id="pass"
           className={styles.Input}
           placeholder="Enter a password"
@@ -80,7 +68,7 @@ function Registration() {
           type="checkbox"
           id={styles.check}
           placeholder="Show Password"
-          onClick={() => showPassword()}
+          onClick={() => handleToggle()}
         ></input>
         <text id={styles.regis}> Show password?</text>
       </span>

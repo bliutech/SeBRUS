@@ -5,9 +5,9 @@ function ProfilePage() {
   document.title = "Account";
   const [cookies, setCookie, removeCookie] = useCookies("");
   const [auth, setAuth] = useState(false);
-  if (true) {
-    setCookie("name", "cy");
-  }
+  // if (true) {
+  //     setCookie("name", "cy");
+  // }
 
   return <p></p>;
 }
