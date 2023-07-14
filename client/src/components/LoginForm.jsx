@@ -1,20 +1,18 @@
-import { Link } from "react-router-dom";
-import * as ReactDOM from "react-dom/client";
-
 import "../styles/index.css";
 import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createUser, getUser, changeUser, deleteUser } from "../api/user";
+import { useCookies } from "react-cookie";
+import { getUser } from "../api/user";
 
 function Login() {
-  document.title = "login";
+  document.title = "Login";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies("");
 
   function handleEnter(key) {
-    if (key == "Enter") {
+    if (key === "Enter") {
       handleLogin();
     }
   }
@@ -23,6 +21,13 @@ function Login() {
     if (!username) {
       window.alert("This username is invalid");
       return;
+    } else {
+      const user = await getUser(username);
+      if (user.password === password) {
+        setCookie("name", username);
+      } else {
+        window.alert("wrong password");
+      }
     }
   }
   return (
@@ -36,10 +41,6 @@ function Login() {
         borderBottomRightRadius: "10px",
       }}
     >
-      {/* <br></br>
-      <header>Login</header>
-      <br></br>
-      <br></br> */}
       <span>
         <p>Username:</p>{" "}
         <input
@@ -65,8 +66,6 @@ function Login() {
         value="Login"
         onClick={() => handleEnter()}
       ></input>
-      {/* <p>{username}</p> */}
-      {/* <p>{password}</p> */}
     </div>
   );
 }
