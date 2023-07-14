@@ -10,6 +10,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies("");
+  const [showP, showPassword] = useState(false);
 
   function handleEnter(key) {
     if (key === "Enter") {
@@ -30,19 +31,15 @@ function Login() {
       }
     }
   }
+
+  const handleToggle = () => {
+    showPassword((current) => !current);
+  };
+
   return (
-    <div
-      className={styles.rounded}
-      style={{
-        border: "1px solid white",
-        borderTopLeftRadius: "10px",
-        borderTopRightRadius: "10px",
-        borderBottomLeftRadius: "10px",
-        borderBottomRightRadius: "10px",
-      }}
-    >
+    <div className={styles.rounded}>
       <span>
-        <p>Username:</p>{" "}
+        <p className={styles.header}>Log in to your account:</p>{" "}
         <input
           className={styles.Input}
           placeholder="Your username"
@@ -51,13 +48,22 @@ function Login() {
         ></input>
       </span>
       <span>
-        <p>Password:</p>{" "}
         <input
           className={styles.Input}
+          id={styles.form}
+          type={showP ? "text" : "password"}
           placeholder="Your password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         ></input>
+        <br></br>
+        <input
+          type="checkbox"
+          id={styles.check}
+          placeholder="Show Password"
+          onClick={() => handleToggle()}
+        ></input>
+        <text id={styles.regis}> Show password?</text>
       </span>
       <p></p>
       <input
@@ -66,6 +72,12 @@ function Login() {
         value="Login"
         onClick={() => handleEnter()}
       ></input>
+
+      <p></p>
+      <text className={styles.regis1}>Don't have an account? </text>
+      <a className={styles.regis1} id={styles.regis2} href="/registration">
+        Register here.
+      </a>
     </div>
   );
 }

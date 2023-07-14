@@ -14,19 +14,19 @@ function App() {
   const auth = cookies.name > 0;
   return (
     <div className="App">
-      <Navbar />
-      <header className="App-header">
-        <BrowserRouter>
+      <BrowserRouter>
+        <Navbar />
+        <header className="App-header">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/dataset" element={<DatasetPage />} />
+            <Route path="/datasets" element={<DatasetPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
           </Routes>
-        </BrowserRouter>
-      </header>
+        </header>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import styles from "../styles/components/NavBar.module.css";
-import Login from "../components/LoginForm";
 
 function NavBar() {
   return (
@@ -9,19 +8,29 @@ function NavBar() {
       <div id={styles.bar}>
         <div className={styles.logo}>BlockData</div>
         <li>
-          <a id={styles.navLink} href="/">
+          <Link id={styles.navLink} to="/">
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a id={styles.navLink} href="/login">
-            Login
-          </a>
+          <Link id={styles.navLink} to="/datasets">
+            Datasets
+          </Link>
         </li>
         <li>
-          <a id={styles.navLink} href="/registration">
-            <text className={styles.regis}>Register</text>
-          </a>
+          <Link id={styles.navLink} to="/dashboard">
+            Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link id={styles.navLink} to="/profile">
+            Profile
+          </Link>
+        </li>
+        <li>
+          <Link id={styles.navLink} to="/login">
+            <text className={styles.regis}>Login/Register</text>
+          </Link>
         </li>
       </div>
     </div>
