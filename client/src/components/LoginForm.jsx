@@ -30,11 +30,20 @@ function Login() {
       }
     }
   }
+
+  function showPassword() {
+    var x = document.getElementById("pass");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+
   return (
     <div
       className={styles.rounded}
       style={{
-        border: "1px solid white",
         borderTopLeftRadius: "10px",
         borderTopRightRadius: "10px",
         borderBottomLeftRadius: "10px",
@@ -42,7 +51,7 @@ function Login() {
       }}
     >
       <span>
-        <p>Username:</p>{" "}
+        <p className={styles.header}>Log in to your account:</p>{" "}
         <input
           className={styles.Input}
           placeholder="Your username"
@@ -51,13 +60,21 @@ function Login() {
         ></input>
       </span>
       <span>
-        <p>Password:</p>{" "}
         <input
           className={styles.Input}
+          type="password"
           placeholder="Your password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         ></input>
+        <br></br>
+        <input
+          type="checkbox"
+          id={styles.check}
+          placeholder="Show Password"
+          onClick={() => showPassword()}
+        ></input>
+        <text id={styles.regis}> Show password?</text>
       </span>
       <p></p>
       <input
@@ -66,6 +83,12 @@ function Login() {
         value="Login"
         onClick={() => handleEnter()}
       ></input>
+
+      <p></p>
+      <text className={styles.regis1}>Don't have an account? </text>
+      <a className={styles.regis1} id={styles.regis2} href="/registration">
+        Register here.
+      </a>
     </div>
   );
 }

@@ -38,37 +38,59 @@ function Registration() {
     }
   }
 
+  function showPassword() {
+    var x = document.getElementById("pass");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+
   return (
-    <div className={styles.rounded}>
-      <b>Register</b>
+    <div
+      className={styles.rounded}
+      style={{
+        borderTopLeftRadius: "10px",
+        borderTopRightRadius: "10px",
+        borderBottomLeftRadius: "10px",
+        borderBottomRightRadius: "10px",
+      }}
+    >
       <span>
-        <p>Username:</p>{" "}
+        <p className={styles.header}>Register for an account:</p>{" "}
         <input
           className={styles.Input}
           placeholder="Enter a unique username"
           value={username}
-          placeholder="Username"
           onChange={(event) => setUsername(event.target.value)}
         ></input>
       </span>
       <span>
-        <p>Password:</p>{" "}
         <input
+          type="password"
+          id="pass"
           className={styles.Input}
           placeholder="Enter a password"
           value={password}
-          placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
         ></input>
+        <br></br>
+        <input
+          type="checkbox"
+          id={styles.check}
+          placeholder="Show Password"
+          onClick={() => showPassword()}
+        ></input>
+        <text id={styles.regis}> Show password?</text>
       </span>
       <p></p>
       <input
         className={styles.but}
         type="button"
-        value="Registrate"
+        value="Register"
         onClick={() => handleEnter()}
       ></input>
-      <p></p>
     </div>
   );
 }

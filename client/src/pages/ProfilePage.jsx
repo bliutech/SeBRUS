@@ -13,3 +13,5 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
+// **** PLEASE ADD A BUTTON TO SIGN UP ****

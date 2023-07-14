@@ -22,7 +22,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/dataset" element={<DatasetPage />} />
+            <Route path="/datasets" element={<DatasetPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
           </Routes>
         </BrowserRouter>

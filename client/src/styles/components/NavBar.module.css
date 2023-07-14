@@ -1,15 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Dosis');
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
+.format {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
 #navBar {
-    background-color: rgb(133, 189, 189);
+    background-color: rgb(133, 157, 189);
     width: 100vw;
-    height: 60px;
+    height: 75px;
     position: relative;
     z-index: 2;
 }
 
 #bar {
+    height: 75px;
     margin-left: 50px;
     margin-right: 100px;
     display: flex;
@@ -32,19 +39,25 @@
     font-weight: 550;
     position: relative;
     z-index: 1;
-    width: 0px;
-    margin-right: 100px;
+    padding-bottom: 3px;
 }
 
 #navLink {
     font-size: 20px;
     text-decoration: none;
+    cursor: pointer;
+}
+
+#navLink:hover {
+    color: rgb(236, 230, 230);
 }
 
 .regis {
-    background-color: white;
+    background-color: snow;
     border-radius: 20px;
-    padding: 0 20px;
+    padding: 0 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     margin: 10px;
     width: 30px;
 }
