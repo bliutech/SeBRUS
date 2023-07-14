@@ -25,8 +25,8 @@
     border: '1px solid white';
     border-radius: '10px';
     background:rgb(239, 239, 239);
-    padding: 20px;
-    width: 700px;
+    padding: 50px;
+    width: 300px;
     color:black;
 }
 
@@ -67,14 +67,14 @@
   --inputTransitionTF: var(--transitionTF);
 }
 
-
-
 html {
   font-size: 10px;
 }
 
 .Input {
   position: relative;
+  border-radius: 5px;
+  border-width: 1px;
 }
 
 .Input-text {

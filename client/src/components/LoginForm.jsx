@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import * as ReactDOM from "react-dom/client";
+
 import "../styles/index.css";
 import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
@@ -20,6 +21,7 @@ function Login() {
 
   async function handleLogin() {
     if (!username) {
+      window.alert("This username is invalid");
       return;
     }
   }
@@ -34,15 +36,15 @@ function Login() {
         borderBottomRightRadius: "10px",
       }}
     >
-      <br></br>
+      {/* <br></br>
       <header>Login</header>
       <br></br>
-      <br></br>
+      <br></br> */}
       <span>
         <p>Username:</p>{" "}
         <input
           className={styles.Input}
-          placeholder="Your password"
+          placeholder="Your username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         ></input>
@@ -60,7 +62,7 @@ function Login() {
       <input
         className={styles.but}
         type="button"
-        value="Submit"
+        value="Login"
         onClick={() => handleEnter()}
       ></input>
       {/* <p>{username}</p> */}
