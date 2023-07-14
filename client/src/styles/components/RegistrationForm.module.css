@@ -143,7 +143,7 @@ html {
 }
 
 /* :root {
-    /* generic */
+    generic
     --gutterSm: 0.4rem;
     --gutterMd: 0.8rem;
     --gutterLg: 1.6rem;
@@ -163,7 +163,7 @@ html {
     --transitionDuration: 300ms;
     --transitionTF: cubic-bezier(0.645, 0.045, 0.355, 1);
     
-    /* floated labels */
+    floated labels
     --inputPaddingV: var(--gutterMd);
     --inputPaddingH: var(--gutterLg);
     --inputFontSize: var(--fontSizeLg);
