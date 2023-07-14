@@ -1,57 +1,106 @@
-#!/usr/bin/env python3
 from flask import jsonify, request
 
+from models.user import User
 
-def router():
+
+# user router
+def router(id):
     if request.method == "GET":
-        return get()
+        return get(id)
     if request.method == "POST":
         return post()
     if request.method == "PUT":
-        return put()
+        return put(id)
     if request.method == "DELETE":
-        return delete()
-    return jsonify(), 500
+        return delete(id)
+
+    res = {"status": "Unsupported HTTP request method."}
+
+    return jsonify(res), 500
 
 
-def get():
-    # getting user
+# retrieve user from database by id
+def get(id):
+    if id is None:
+        res = {"status": "User ID required."}
+        return jsonify(res), 400
 
-    users = User.query.all()
-    return jsonify([user.serialize() for user in users])
+    res = {"status": ""}
+
+    from app import app, db
+
+    with app.app_context():
+        users = []
+
+        if id == "all":
+            users = db.session.query(User).all()
+        else:
+            users = db.session.query(User).filter_by(id=id).all()
+
+        if len(users) == 0:
+            res["status"] = "User not found."
+            return jsonify(res), 404
+
+        res["users"] = [user.json() for user in users]
+
+        return jsonify(res), 200
 
 
+# create user
 def post():
-    # creating user
-
-    data = request.get_json()
+    data = request.json
     username = data.get("username")
     password = data.get("password")
-    new_user = User(username=username, password=password)
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify(new_user.serialize()), 201
+
+    res = {"status": ""}
+
+    if username is None or password is None:
+        res["status"] = "Both `username` and `password` are required."
+        return jsonify(res), 400
+
+    from app import app, db
+
+    with app.app_context():
+        user = db.session.query(User).filter_by(username=username).first()
+
+        if user is not None:
+            res["status"] = "User already exists."
+            return jsonify(res), 409
+
+        new_user = User(username=username, password=password)
+        new_user.save_to_db()
+
+        res["status"] = "User created."
+        res["user"] = new_user.json()
+
+        return jsonify(res), 201
 
 
-def put(user_id):
-    # updating user
+# update user
+def put(id):
+    res = {"status": ""}
 
-    user = User.query.get(user_id)
-    if user:
-        data = request.get_json()
-        user.username = data.get("username")
-        user.password = data.get("password")
-        db.session.commit()
-        return jsonify(user.serialize())
-    return jsonify({"message": "User not found"}), 404
+    # user = User.query.get(user_id)
+    # if user:
+    #     data = request.get_json()
+    #     user.username = data.get("username")
+    #     user.password = data.get("password")
+    #     db.session.commit()
+    #     return jsonify(user.serialize())
+
+    res["status"] = "User not found."
+    return jsonify(res), 404
 
 
-def delete(user_id):
-    # deleting user
+# delete user
+def delete(id):
+    res = {"status": ""}
 
-    user = User.query.get(user_id)
-    if user:
-        db.session.delete(user)
-        db.session.commit()
-        return jsonify({"message": "User deleted"})
-    return jsonify({"message": "User not found"}), 404
+    # user = User.query.get(user_id)
+    # if user:
+    #     db.session.delete(user)
+    #     db.session.commit()
+    #     return jsonify({"message": "User deleted"})
+
+    res["status"] = "User not found."
+    return jsonify(res), 404
