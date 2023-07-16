@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
 import routes.user as user
@@ -16,6 +17,8 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
     basedir, config.DATABASE_NAME
 )
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 db = SQLAlchemy(app=app)
 
 
