@@ -1,8 +1,5 @@
 from flask import jsonify, request
 
-from models.user import User
-from models.session import Session
-
 import secrets
 import string
 
@@ -24,6 +21,8 @@ def get(id):
     res = {"status": ""}
 
     from app import app, db
+    from models.user import User
+    from models.session import Session
 
     with app.app_context():
         session = db.session.query(Session).filter_by(id=id).first()
@@ -57,6 +56,8 @@ def post():
         return jsonify(res), 400
 
     from app import app, db
+    from models.user import User
+    from models.session import Session
 
     with app.app_context():
         user = (
@@ -90,19 +91,14 @@ def post():
         return jsonify(res), 201
 
 
-def delete():
+def delete(id):
     res = {"status": ""}
 
-    token = request.cookies.get("session")
-
-    if token is None:
-        res["status"] = "Session token is required."
-        return jsonify(res), 400
-
     from app import app, db
+    from models.session import Session
 
     with app.app_context():
-        session = db.session.query(Session).filter_by(token=token).first()
+        session = db.session.query(Session).filter_by(id=id).first()
 
         if session is None:
             res["status"] = "Session token not found."

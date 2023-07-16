@@ -1,7 +1,5 @@
 from flask import jsonify, request
 
-from models.user import User
-
 
 # user router
 def router(id):
@@ -28,6 +26,7 @@ def get(id):
     res = {"status": ""}
 
     from app import app, db
+    from models.user import User
 
     with app.app_context():
         users = []
@@ -59,6 +58,7 @@ def post():
         return jsonify(res), 400
 
     from app import app, db
+    from models.user import User
 
     with app.app_context():
         user = db.session.query(User).filter_by(username=username).first()
@@ -89,6 +89,7 @@ def put(id):
         return jsonify(res), 400
 
     from app import app, db
+    from models.user import User
 
     with app.app_context():
         user = db.session.query(User).filter_by(id=id).first()
@@ -112,6 +113,7 @@ def delete(id):
     res = {"status": ""}
 
     from app import app, db
+    from models.user import User
 
     with app.app_context():
         user = db.session.query(User).filter_by(id=id).first()
