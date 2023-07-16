@@ -12,9 +12,15 @@ class Session(db.Model):
 
     def __init__(self, token, user_id):
         # account for existing sessions before class is first initialized
-        count = db.session.query(self.__class__).count()
+        sessions = db.session.query(self.__class__).all()
+        count = len(sessions)
+
         if count != 0:
-            Session._count = count
+            # account for existing users with some deleted
+            if sessions[-1].id >= Session._count:
+                Session._count = sessions[-1].id
+            else:
+                Session._count = count
 
         # initialze the session
         self.id = Session._count

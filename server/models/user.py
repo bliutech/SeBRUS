@@ -12,9 +12,15 @@ class User(db.Model):
 
     def __init__(self, username, password):
         # account for existing users before class is first initialized
-        count = db.session.query(self.__class__).count()
+        users = db.session.query(self.__class__).all()
+        count = len(users)
+
         if count != 0:
-            User._count = count
+            # account for existing users with some deleted
+            if users[-1].id >= User._count:
+                User._count = users[-1].id
+            else:
+                User._count = count
 
         # initialze the user
         self.id = User._count
