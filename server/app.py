@@ -1,35 +1,41 @@
-#!/usr/bin/env python3
+import os
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 import config
 
-from os.path import exists
+import routes.user as user
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = config.DATABASE_URI
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
+    basedir, config.DATABASE_NAME
+)
+db = SQLAlchemy(app=app)
 
-db = SQLAlchemy(app)
 
-
+# debugging endpoint
 @app.route("/api", methods=["GET", "POST", "PUT", "DELETE"])
-def api():
-    data = request.get_json()
+def api_handler():
+    data = request.json
     print(data)
     return jsonify(data)
 
 
-@app.route("/api/user/<id>", methods=["GET", "POST", "PUT", "DELETE"])
-def user(id):
-    data = request.get_json()
-    print(data)
-    return jsonify(data)
+# user endpoint
+@app.route("/api/user", defaults={"id": None}, methods=["POST"])
+@app.route("/api/user/<id>", methods=["GET", "PUT", "DELETE"])
+def user_handler(id):
+    return user.router(id)
 
 
 if __name__ == "__main__":
-    if not exists(config.DATABASE_URI[9:]):
-        import models
+    with app.app_context():
+        from models.user import User
 
-        models.init()
-    app.run(debug=True, host="0.0.0.0", port=5000)
+        db.metadata._add_table(User.__tablename__, None, User.__table__)
+        db.create_all()
+
+    app.run(host="0.0.0.0", port=5000, debug=True)

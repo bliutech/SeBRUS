@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Dosis');
+@import url("https://fonts.googleapis.com/css?family=Dosis");
 
 .header {
     font-size: 15pt;
@@ -16,13 +16,13 @@
 }
 
 .entrybox {
-    border-radius: 5px;
-    border-width: 0px;
-    border-color: rgb(89, 89, 89);
-    background-color: rgb(255, 255, 255);
-    height: 15px;
-    font-size: 12pt;
-    font-family: Verdana, sans-serif;
+  border-radius: 5px;
+  border-width: 0px;
+  border-color: rgb(89, 89, 89);
+  background-color: rgb(255, 255, 255);
+  height: 15px;
+  font-size: 12pt;
+  font-family: Verdana, sans-serif;
 }
 
 .rounded {
