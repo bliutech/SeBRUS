@@ -9,6 +9,7 @@ import routes.session as session
 
 import config
 
+
 from utils import is_authenticated
 
 basedir = os.path.abspath(os.path.dirname(__file__))

@@ -1,6 +1,5 @@
 from flask import jsonify, request
 
-
 # user router
 def router(id):
     if request.method == "GET":
@@ -11,7 +10,6 @@ def router(id):
         return put(id)
     if request.method == "DELETE":
         return delete(id)
-
     res = {"status": "Unsupported HTTP request method."}
 
     return jsonify(res), 500
