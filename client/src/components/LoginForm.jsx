@@ -1,70 +1,83 @@
-import { Link } from "react-router-dom";
-import * as ReactDOM from "react-dom/client";
 import "../styles/index.css";
 import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createUser, getUser, changeUser, deleteUser } from "../api/user";
+import { useCookies } from "react-cookie";
+import { getUser } from "../api/user";
 
 function Login() {
-  document.title = "login";
+  document.title = "Login";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies("");
+  const [showP, showPassword] = useState(false);
 
   function handleEnter(key) {
-    if (key == "Enter") {
+    if (key === "Enter") {
       handleLogin();
     }
   }
 
   async function handleLogin() {
     if (!username) {
+      window.alert("This username is invalid");
       return;
+    } else {
+      const user = await getUser(username);
+      if (user.password === password) {
+        setCookie("name", username);
+      } else {
+        window.alert("wrong password");
+      }
     }
   }
+
+  const handleToggle = () => {
+    showPassword((current) => !current);
+  };
+
   return (
-    <div
-      className={styles.rounded}
-      style={{
-        border: "1px solid white",
-        borderTopLeftRadius: "10px",
-        borderTopRightRadius: "10px",
-        borderBottomLeftRadius: "10px",
-        borderBottomRightRadius: "10px",
-      }}
-    >
-      <br></br>
-      <header>Login</header>
-      <br></br>
-      <br></br>
+    <div className={styles.rounded}>
       <span>
-        <p>Username:</p>{" "}
+        <p className={styles.header}>Log in to your account:</p>{" "}
         <input
           className={styles.Input}
-          placeholder="Your password"
+          placeholder="Your username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         ></input>
       </span>
       <span>
-        <p>Password:</p>{" "}
         <input
           className={styles.Input}
+          id={styles.form}
+          type={showP ? "text" : "password"}
           placeholder="Your password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         ></input>
+        <br></br>
+        <input
+          type="checkbox"
+          id={styles.check}
+          placeholder="Show Password"
+          onClick={() => handleToggle()}
+        ></input>
+        <text id={styles.regis}> Show password?</text>
       </span>
       <p></p>
       <input
         className={styles.but}
         type="button"
-        value="Submit"
+        value="Login"
         onClick={() => handleEnter()}
       ></input>
-      {/* <p>{username}</p> */}
-      {/* <p>{password}</p> */}
+
+      <p></p>
+      <text className={styles.regis1}>Don't have an account? </text>
+      <a className={styles.regis1} id={styles.regis2} href="/registration">
+        Register here.
+      </a>
     </div>
   );
 }

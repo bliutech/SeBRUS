@@ -1,29 +1,27 @@
 const base = "http://localhost:5000";
 const showError = true;
 
-async function createUser(username, password, callback = () => {}) {
+async function createUser(username, password) {
   let object = {
     usr: username,
     pwd: password,
   };
-  const response = await fetch(base + `/signup`, {
+  const response = await fetch(base + `/login`, {
     method: "POST",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(object),
-  })
-    .then(() => callback())
-    .catch((error) => {
-      if (showError) {
-        window.alert(error);
-      }
-      return;
-    });
+  }).catch((error) => {
+    if (showError) {
+      window.alert(error);
+    }
+    return;
+  });
 }
 
-async function getUser(username, callback = () => {}) {
+async function getUser(username) {
   const response = await fetch(base + `/signin`, {
     method: "PULL",
     credentials: "include",
@@ -43,12 +41,12 @@ async function getUser(username, callback = () => {}) {
   return object;
 }
 
-async function changeUser(username, password, callback = () => {}) {
+async function changeUser(username, password) {
   /* TODO: implement this thing! */
   return;
 }
 
-async function deleteUser(username, callback = () => {}) {
+async function deleteUser(username, password) {
   /* TODO: implement this thing! */
   return;
 }
