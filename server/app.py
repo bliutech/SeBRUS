@@ -3,10 +3,12 @@ import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-import config
-
 import routes.user as user
 import routes.session as session
+
+import config
+
+from utils import is_authenticated
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -19,6 +21,7 @@ db = SQLAlchemy(app=app)
 
 # debugging endpoint
 @app.route("/api", methods=["GET", "POST", "PUT", "DELETE"])
+@is_authenticated
 def api_handler():
     data = request.json
     print(data)

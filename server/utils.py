@@ -2,8 +2,6 @@ from flask import request, jsonify
 
 import functools
 
-from models.session import Session
-
 
 def is_authenticated(f):
     def not_authenticated():
@@ -14,7 +12,11 @@ def is_authenticated(f):
     def wrapper(*args, **kwargs):
         token = request.cookies.get("session")
 
+        if token is None:
+            return not_authenticated()
+
         from app import app, db
+        from models.session import Session
 
         with app.app_context():
             session = db.session.query(Session).filter_by(token=token).first()
