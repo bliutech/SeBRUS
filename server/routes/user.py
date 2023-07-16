@@ -78,29 +78,57 @@ def post():
 
 # update user
 def put(id):
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
+
     res = {"status": ""}
 
-    # user = User.query.get(user_id)
-    # if user:
-    #     data = request.get_json()
-    #     user.username = data.get("username")
-    #     user.password = data.get("password")
-    #     db.session.commit()
-    #     return jsonify(user.serialize())
+    if username is None or password is None:
+        res["status"] = "Both `username` and `password` are required."
+        return jsonify(res), 400
 
-    res["status"] = "User not found."
-    return jsonify(res), 404
+    from app import app, db
+
+    with app.app_context():
+        user = db.session.query(User).filter_by(username=username).first()
+
+        if user is None:
+            res["status"] = "User does not exist."
+            return jsonify(res), 404
+
+        user.username = username
+        user.password = password
+        user.save_to_db()
+
+        res["status"] = "User edited."
+        res["user"] = user.json()
+
+        return jsonify(res), 200
 
 
 # delete user
 def delete(id):
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
+
     res = {"status": ""}
 
-    # user = User.query.get(user_id)
-    # if user:
-    #     db.session.delete(user)
-    #     db.session.commit()
-    #     return jsonify({"message": "User deleted"})
+    if username is None or password is None:
+        res["status"] = "Both `username` and `password` are required."
+        return jsonify(res), 400
 
-    res["status"] = "User not found."
-    return jsonify(res), 404
+    from app import app, db
+
+    with app.app_context():
+        user = db.session.query(User).filter_by(username=username).first()
+
+        if user is None:
+            res["status"] = "User does not exist."
+            return jsonify(res), 404
+
+        user.remove_from_db()
+
+        res["status"] = "User deleted."
+        return jsonify(res), 200

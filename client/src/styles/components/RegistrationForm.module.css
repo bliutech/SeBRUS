@@ -1,28 +1,28 @@
 .but {
-    font-family: Verdana, sans-serif;
-    border-radius: 5px;
-    border-color: rgb(57, 106, 240);
-    width: 150px;
-    height: 40px;
-    font-size: 12pt;
-    color:white;
-    background-color: rgb(57, 106, 240);
+  font-family: Verdana, sans-serif;
+  border-radius: 5px;
+  border-color: rgb(57, 106, 240);
+  width: 150px;
+  height: 40px;
+  font-size: 12pt;
+  color: white;
+  background-color: rgb(57, 106, 240);
 }
 
 .entrybox {
-    border-radius: 5px;
-    height: 15px;
+  border-radius: 5px;
+  height: 15px;
 }
 
 .rounded {
-    border: '1px solid white';
-    border-radius: '10px';
-    background:rgb(239, 239, 239);
-    padding: 20px;
-    width: 700px;
-    color:black;
+  border: "1px solid white";
+  border-radius: "10px";
+  background: rgb(239, 239, 239);
+  padding: 20px;
+  width: 700px;
+  color: black;
 }
 
 #widget {
-    background-color: white;
+  background-color: white;
 }
