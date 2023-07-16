@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 import config
 
 import routes.user as user
+import routes.session as session
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -31,11 +32,20 @@ def user_handler(id):
     return user.router(id)
 
 
+# session endpoint
+@app.route("/api/session", defaults={"id": None}, methods=["POST"])
+@app.route("/api/session/<id>", methods=["GET", "DELETE"])
+def session_handler(id):
+    return session.router(id)
+
+
 if __name__ == "__main__":
     with app.app_context():
         from models.user import User
+        from models.session import Session
 
         db.metadata._add_table(User.__tablename__, None, User.__table__)
+        db.metadata._add_table(Session.__tablename__, None, Session.__table__)
         db.create_all()
 
     app.run(host="0.0.0.0", port=5000, debug=True)
