@@ -1,7 +1,5 @@
 from flask import jsonify, request
 
-from models.user import User
-
 # user router
 def router(id):
     if request.method == "GET":
@@ -16,10 +14,6 @@ def router(id):
 
     return jsonify(res), 500
 
-        if id == "all":
-            users = db.session.query(User).all()
-        else:
-            users = db.session.query(User).filter_by(id=id).all()
 
 # retrieve user from database by id
 def get(id):
