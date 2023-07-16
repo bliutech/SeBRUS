@@ -91,7 +91,7 @@ def put(id):
     from app import app, db
 
     with app.app_context():
-        user = db.session.query(User).filter_by(username=username).first()
+        user = db.session.query(User).filter_by(id=id).first()
 
         if user is None:
             res["status"] = "User does not exist."
@@ -109,26 +109,18 @@ def put(id):
 
 # delete user
 def delete(id):
-    data = request.json
-    username = data.get("username")
-    password = data.get("password")
-
     res = {"status": ""}
-
-    if username is None or password is None:
-        res["status"] = "Both `username` and `password` are required."
-        return jsonify(res), 400
 
     from app import app, db
 
     with app.app_context():
-        user = db.session.query(User).filter_by(username=username).first()
+        user = db.session.query(User).filter_by(id=id).first()
 
         if user is None:
             res["status"] = "User does not exist."
             return jsonify(res), 404
 
-        user.remove_from_db()
+        user.delete_from_db()
 
         res["status"] = "User deleted."
         return jsonify(res), 200
