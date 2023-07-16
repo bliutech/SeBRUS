@@ -3,6 +3,7 @@ import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { getUser } from "../api/user";
+import { useContext } from "react";
 
 function Login() {
   document.title = "Login";
@@ -63,7 +64,7 @@ function Login() {
           placeholder="Show Password"
           onClick={() => handleToggle()}
         ></input>
-        <text id={styles.regis}> Show password?</text>
+        <text id={styles.regis}> Show password</text>
       </span>
       <p></p>
       <input

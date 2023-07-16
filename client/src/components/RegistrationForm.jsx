@@ -5,12 +5,11 @@ import { useCookies } from "react-cookie";
 import "../styles/index.css";
 import styles from "../styles/components/RegistrationForm.module.css";
 import { createUser, getUser } from "../api/user";
-import { useState, createContext, useContext } from "react";
+import { useState } from "react";
 
 function Registration() {
   document.title = "Registration";
 
-  const UserContext = createContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies("");
@@ -70,7 +69,7 @@ function Registration() {
           placeholder="Show Password"
           onClick={() => handleToggle()}
         ></input>
-        <text id={styles.regis}> Show password?</text>
+        <text id={styles.regis}> Show password</text>
       </span>
       <p></p>
       <input
