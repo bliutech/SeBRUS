@@ -8,7 +8,7 @@ class Dataset(db.Model):
     datasetName = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(80), unique=True, nullable=False)
     address = db.Column(db.String(80), unique=True, nullable=False)
-    abi_id = db.Column(db.Integer, db.ForeignKey("abi.id"), nullable=False)  # from the ABI issue, is this correct?
+    abi_id = db.Column(db.Integer, db.ForeignKey("abi.id"), nullable=False)
 
     _count = 0
 

@@ -17,7 +17,7 @@ def router(id):
     return jsonify(res), 500
 
 
-def get(id):
+def get(id, name): #pretty sure this incorrect, but i wasn't super sure how to go about it.
     res = {"status": ""}
 
     from app import app, db
@@ -28,7 +28,17 @@ def get(id):
             return jsonify(res), 404
         else:
             res["status"] = "ABI found."
-            return jsonify(res), 200
+
+            import json
+            dictionary = {
+                "name": name,
+                "id": id,
+                "abi": abi
+            }
+            with open("abi/" + name + "/.json", "w") as outfile:
+                abi = json.dump(dictionary, outfile)
+
+            return jsonify(res, abi), 200
 
 
 def post():
@@ -46,10 +56,10 @@ def post():
         "abi": abi
     }
 
-    with open("output.json", "w") as outfile:
+    with open("abi/" + name + "/.json", "w") as outfile:
         json.dump(dictionary, outfile)
 
-    with app.app_context(): #did i do this part correctly?
+    with app.app_context():
         abi = ABI.query.filter_by(id=id).first()
         if abi is None:
             res["status"] = "ABI not found."
@@ -61,10 +71,10 @@ def post():
 
 def put(id):
     res = {"status": ""}
-    abi = request.json  # is this what it means when it says an abi field?
-    id = abi.get("id")
-    name = abi.get("name")
-    abi = abi.get("abi")
+    data = request.json
+    id = data.get("id")
+    name = data.get("name")
+    abi = data.get("abi")
 
     from app import app, db
     import json
@@ -74,11 +84,12 @@ def put(id):
         "abi": abi
     }
 
-    with open("output.json", "w") as outfile:
+    with open("abi/" + name + "/.json", "w") as outfile:
         json.dump(dictionary, outfile)
 
-    with app.app_context(): #not quite sure if this is correct
-        abi = ABI.query.filter_by(id=id).first()
+    with app.app_context():
+        abi = db.session.query(ABI).filter_by(id=id).first()
+
         if name is None or id is None:
             res["status"] = "ABI not found."
             return jsonify(res), 404
@@ -95,6 +106,7 @@ def put(id):
 
 
 def delete(id):
+    import os #not sure if this is correct (below)
     res = {"status": ""}
 
     from app import app, db
@@ -107,4 +119,6 @@ def delete(id):
         else:
             res["status"] = "ABI removed."
             abi.delete_from_db()
+            abi_file_path = abi.file_path
+            os.remove(abi_file_path) #^^
             return jsonify(res), 200

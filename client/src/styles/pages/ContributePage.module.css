@@ -1,31 +1,31 @@
 .contribute {
-    background-color: #282c34;
-    color: snow;
-    margin: 50px;
-    border-radius: 30px;
-    width: 40vw;
-    height: 100vh;
+  background-color: #282c34;
+  color: snow;
+  margin: 50px;
+  border-radius: 30px;
+  width: 40vw;
+  height: 100vh;
 }
 
 .header {
-    color: snow;
-    margin: 20px;
-    margin-top: 30px;
+  color: snow;
+  margin: 20px;
+  margin-top: 30px;
 }
 
 .file {
-    margin-left: 70px;
+  margin-left: 70px;
 }
 
 .uploader {
-    font-family: Verdana, sans-serif;
-    border-radius: 30px;
-    border-color: black;
-    width: 300px;
-    height: 40px;
-    font-size: 12pt;
-    color: 282c34;
-    margin: 0 px;
-    bottom: 0px;
-    background-color: snow;
+  font-family: Verdana, sans-serif;
+  border-radius: 30px;
+  border-color: black;
+  width: 300px;
+  height: 40px;
+  font-size: 12pt;
+  color: 282c34;
+  margin: 0 px;
+  bottom: 0px;
+  background-color: snow;
 }

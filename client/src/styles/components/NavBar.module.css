@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Dosis');
-@import url('https://fonts.googleapis.com/css?family=Lato');
-@import url('https://fonts.googleapis.com/css?family=Cairo');
+@import url("https://fonts.googleapis.com/css?family=Dosis");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url("https://fonts.googleapis.com/css?family=Cairo");
 
 .format {
   display: flex;
@@ -34,33 +34,33 @@
 }
 
 .logo {
-    color: #282c34;
-    font-size: 50px;
-    font-family: "Cairo";
-    font-weight: 550;
-    position: relative;
-    z-index: 1;
-    padding-bottom: 3px;
+  color: #282c34;
+  font-size: 50px;
+  font-family: "Cairo";
+  font-weight: 550;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 3px;
 }
 
 #navLink {
-    color: #282c34;
-    font-size: 20px;
-    text-decoration: none;
-    cursor: pointer;
+  color: #282c34;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 #navLink:hover {
-    color: snow;
+  color: snow;
 }
 
 .regis {
-    background-color: snow;
-    color: #282c34;
-    border-radius: 20px;
-    padding: 0 25px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: 10px;
-    width: 30px;
+  background-color: snow;
+  color: #282c34;
+  border-radius: 20px;
+  padding: 0 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 10px;
+  width: 30px;
 }
