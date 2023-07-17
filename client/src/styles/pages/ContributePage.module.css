@@ -4,13 +4,19 @@
     margin: 50px;
     border-radius: 30px;
     width: 40vw;
-    height: 100vh;
+    padding-bottom: 30px;
+    overflow-x: visible;
+    overflow-y:auto;
 }
 
 .header {
     color: snow;
-    margin: 20px;
     margin-top: 30px;
+}
+
+.image {
+    width:90%;
+    object-fit: contain;
 }
 
 .file {
