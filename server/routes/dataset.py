@@ -3,7 +3,7 @@ from models.dataset import Dataset
 from app import app, db
 
 with app.app_context():
-      datasets = db.session.query(Dataset).all()
+    datasets = db.session.query(Dataset).all()
 
 
 # user router
@@ -20,6 +20,7 @@ def router(id):
     res = {"status": "Unsupported HTTP request method."}
 
     return jsonify(res), 500
+
 
 def get(id):
     res = {"status": ""}
@@ -41,11 +42,7 @@ def post():
     description = data.get("description")
     address = data.get("address")
 
-    if (
-        datasetName is None
-        or description is None
-        or address is None
-    ):
+    if datasetName is None or description is None or address is None:
         res = {"status": "no datasets"}
         return jsonify(res), 400
     elif Dataset.query.filter_by(datasetName=datasetName).first():
@@ -56,7 +53,7 @@ def post():
             datasetName=datasetName,
             description=description,
             address=address,
-        ) 
+        )
         res = {"status": "new dataset"}
         new_dataset.save_to_db()
         return jsonify(new_dataset.json(), res), 200
@@ -71,18 +68,10 @@ def put(id):
     description = data.get("description")
     address = data.get("address")
 
-    if (
-        datasetName is None
-        or description is None
-        or address is None
-    ):
+    if datasetName is None or description is None or address is None:
         res = {"status": "dataset does not exist"}
         return jsonify(res), 400
-    elif (
-        datasetName not in data
-        or description not in data
-        or address not in data
-    ):
+    elif datasetName not in data or description not in data or address not in data:
         res = {"status": "not in dataset"}
         return jsonify({}, res), 404
     else:

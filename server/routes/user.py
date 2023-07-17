@@ -1,5 +1,6 @@
 from flask import jsonify, request
 
+
 # user router
 def router(id):
     if request.method == "GET":
