@@ -7,7 +7,6 @@ class ABI(db.Model):
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
 
-    # TODO: add constructor
     def __init__(self, id, name):
         abi = db.session.query(self.__class__).all()
         count = len(abi)
