@@ -10,10 +10,10 @@ function HomePage() {
       <br></br>
       <div className="home-image-container">
         <img
-          alt="filler"
+          alt="SeBRUHS logo"
           width="300"
           height="200"
-          src="https://media.istockphoto.com/id/953499010/photo/blockchain-technology-structure-defocused.jpg?s=1024x1024&w=is&k=20&c=5x3Mmp9kIsHraabTUGK9Lbm9fJZ0PkbqW0WE_oYTF64="
+          src="../../public/logov1.png"
         />
       </div>
     </div>

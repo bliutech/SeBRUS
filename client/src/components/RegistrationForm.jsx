@@ -1,41 +1,38 @@
 // import { Link } from "react-router-dom";
 // import * as ReactDOM from "react-dom/client";
 import { useCookies } from "react-cookie";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/index.css";
 import styles from "../styles/components/RegistrationForm.module.css";
 import { createUser, getUser } from "../api/user";
 import { useState } from "react";
+import { useContext, UserContext } from "react";
 
 function Registration() {
   document.title = "Registration";
 
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies("");
   const [showP, showPassword] = useState(false);
-  // const auth = useContext(UserContext);
-
-  function handleEnter(key) {
-    if (key === "Enter") {
-      handleRegistration();
-    }
-  }
+  const auth = useContext(UserContext);
 
   async function handleRegistration() {
+    // const user = await getUser(username);
     if (!username || username.length < 6) {
       window.alert("Your username must be 6+ characters long");
       return;
     }
-
-    const user = await getUser(username);
-    if (user.password !== null) {
-      window.alert("This username is taken. \n Please try a different one");
-      return;
-    } else {
-      createUser(username, password);
-      setCookie("name", username);
-    }
+    // if (user.password !== null) {
+    //   window.alert("This username is taken. \n Please try a different one");
+    //   return;
+    // } else {
+    createUser(username, password);
+    window.alert("Your account has been made! You may login now");
+    navigate("/login");
+    return;
+    // }
   }
 
   const handleToggle = () => {
@@ -76,7 +73,7 @@ function Registration() {
         className={styles.but}
         type="button"
         value="Register"
-        onClick={() => handleEnter()}
+        onClick={() => handleRegistration()}
       ></input>
     </div>
   );

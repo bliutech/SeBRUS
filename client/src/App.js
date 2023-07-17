@@ -9,10 +9,16 @@ import DatasetPage from "./pages/DatasetPage";
 import DashboardPage from "./pages/DashboardPage";
 import Contribute from "./pages/ContributePage";
 import { useCookies } from "react-cookie";
+import { useState, useEffect } from "react";
+import { useContext, UserContext, createContext } from "react";
+import { getUser } from "./api/user";
+import { DataContext } from "./components/DataProvider";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies("");
-  const auth = cookies.name > 0;
+  const DataContext = createContext();
+  const auth = useContext(DataContext);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -32,5 +38,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

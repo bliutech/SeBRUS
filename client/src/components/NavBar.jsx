@@ -2,10 +2,27 @@ import { Link } from "react-router-dom";
 import React from "react";
 import styles from "../styles/components/NavBar.module.css";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
+import { useContext } from "react";
+import { useState } from "react";
+import App from "../App";
 
 function NavBar() {
+  const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies("");
-  const auth = cookies.name > 0;
+  // const auth = useContext(UserContext);
+  const [auth, setAuth] = useContext();
+
+  async function handleLogin() {
+    navigate("/login");
+  }
+
+  async function handleSignout() {
+    window.alert("You are now logged out");
+    removeCookie("session");
+    auth = false;
+  }
 
   return (
     <div id={styles.navBar}>
@@ -32,17 +49,19 @@ function NavBar() {
           </Link>
         </li>
         {auth ? (
-          <li>
-            <Link id={styles.navLink} to="/login">
-              <text> Sign out</text>
-            </Link>
-          </li>
+          <input
+            id={styles.but}
+            type="button"
+            value="Signout"
+            onClick={() => handleSignout()}
+          ></input>
         ) : (
-          <li>
-            <Link id={styles.navLink} to="/login">
-              <text className={styles.regis}>Login/Register</text>
-            </Link>
-          </li>
+          <input
+            id={styles.but}
+            type="button"
+            value="Login"
+            onClick={() => handleLogin()}
+          ></input>
         )}
       </div>
     </div>

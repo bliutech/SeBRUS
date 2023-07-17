@@ -3,21 +3,17 @@ import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { getUser } from "../api/user";
-import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext, UserContext } from "react";
 
 function Login() {
   document.title = "Login";
-
+  const navigate = useNavigate();
+  const auth = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies("");
   const [showP, showPassword] = useState(false);
-
-  function handleEnter(key) {
-    if (key === "Enter") {
-      handleLogin();
-    }
-  }
 
   async function handleLogin() {
     if (!username) {
@@ -26,7 +22,9 @@ function Login() {
     } else {
       const user = await getUser(username);
       if (user.password === password) {
-        setCookie("name", username);
+        window.alert("You are logged in!");
+        setCookie("session", username);
+        navigate("/profile");
       } else {
         window.alert("wrong password");
       }
@@ -71,7 +69,7 @@ function Login() {
         className={styles.but}
         type="button"
         value="Login"
-        onClick={() => handleEnter()}
+        onClick={() => handleLogin()}
       ></input>
 
       <p></p>
