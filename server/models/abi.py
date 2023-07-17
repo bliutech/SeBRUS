@@ -4,21 +4,32 @@ from app import db
 class ABI(db.Model):
     __tablename__ = "abis"
 
-    # TODO: add columns
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
-    fileName = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String(80), nullable=False)
 
     # TODO: add constructor
-    def __init__(self):
-        pass
+    def __init__(self, id, name):
+        abi = db.session.query(self.__class__).all()
+        count = len(abi)
 
-    # TODO: add __repr__
+        if count != 0:
+            if abi[-1].id >= ABI._count:
+                ABI._count = abi[-1].id
+            else:
+                ABI._count = count
+
+        self.id = id
+        self.name = name
+
+        ABI._count += 1
+
+
     def __repr__(self):
-        pass
+        return "<ABI %r>" % self.name
 
-    # TODO: add json
+
     def json(self):
-        return {}
+        return {"id": self.id, "name": self.name}
 
     def save_to_db(self):
         db.session.add(self)
