@@ -1,9 +1,5 @@
 from flask import request, jsonify
 
-# with app.app_context():
-#     datasets = db.session.query(Dataset).all()
-
-
 def router(id):
     if request.method == "GET":
         return get(id)
@@ -122,6 +118,6 @@ def delete(id):
             return jsonify(res), 404
 
         dataset.delete_from_db()
-        
+
         res["status"] = "Dataset deleted."
         return jsonify(res), 200
