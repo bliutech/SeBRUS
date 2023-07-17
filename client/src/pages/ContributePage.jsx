@@ -13,6 +13,7 @@ function ImageUploader() {
     let file = event.target.files[0];
     if (file === undefined) {
       alert("Please upload a file");
+      setImage();
       return;
     }
     console.log(file);
@@ -39,7 +40,6 @@ function ImageUploader() {
   return (
     <div className={styles.contribute}>
       <p className={styles.header}>Upload Images</p>
-      <br></br>
       <div>
         <DropdownMenu selected={selected} />
       </div>
@@ -51,13 +51,14 @@ function ImageUploader() {
         onChange={handleImageChange}
       ></input>
       <p></p>
+      {image === "" ? null : <img className={styles.image} src={image} />}
+      <p></p>
       <input
         type="button"
         value="Upload"
         className={styles.uploader}
         onClick={() => handleSubmit()}
       ></input>
-      {image === "" ? null : <img src={image} alt="Upload image" />}
     </div>
   );
 }
