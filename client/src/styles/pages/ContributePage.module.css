@@ -1,16 +1,22 @@
 .contribute {
-  background-color: #282c34;
-  color: snow;
-  margin: 50px;
-  border-radius: 30px;
-  width: 40vw;
-  height: 100vh;
+    background-color: #282c34;
+    color: snow;
+    margin: 50px;
+    border-radius: 30px;
+    width: 40vw;
+    padding-bottom: 30px;
+    overflow-x: visible;
+    overflow-y:auto;
 }
 
 .header {
-  color: snow;
-  margin: 20px;
-  margin-top: 30px;
+    color: snow;
+    margin-top: 30px;
+}
+
+.image {
+    width:90%;
+    object-fit: contain;
 }
 
 .file {
