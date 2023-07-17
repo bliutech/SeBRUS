@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DropdownMenu from "../components/DropdownMenu";
+import styles from "../styles/pages/ContributePage.module.css";
 
 function ImageUploader() {
   const [image, setImage] = useState("");
@@ -10,6 +11,10 @@ function ImageUploader() {
 
   const handleImageChange = (event) => {
     let file = event.target.files[0];
+    if (file === undefined) {
+      alert("Please upload a file");
+      return;
+    }
     console.log(file);
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
@@ -32,13 +37,26 @@ function ImageUploader() {
   const [selected, setSelected] = useState("");
 
   return (
-    <div>
-      <h2>Image Uploader</h2>
-      <DropdownMenu selected={selected} />
+    <div className={styles.contribute}>
+      <p className={styles.header}>Upload Images</p>
+      <br></br>
+      <div>
+        <DropdownMenu selected={selected} />
+      </div>
       <p></p>
-      <input type="file" name="image" onChange={handleImageChange} />
-      <button onClick={handleSubmit}>Submit</button>
-
+      <input
+        type="file"
+        name="image"
+        className={styles.file}
+        onChange={handleImageChange}
+      ></input>
+      <p></p>
+      <input
+        type="button"
+        value="Upload"
+        className={styles.uploader}
+        onClick={() => handleSubmit()}
+      ></input>
       {image === "" ? null : <img src={image} alt="Upload image" />}
     </div>
   );

@@ -10,7 +10,7 @@ function NavBar() {
   return (
     <div id={styles.navBar}>
       <div id={styles.bar}>
-        <div className={styles.logo}>BlockData</div>
+        <div className={styles.logo}>SeBRUS</div>
         <li>
           <Link id={styles.navLink} to="/">
             Home
@@ -24,6 +24,11 @@ function NavBar() {
         <li>
           <Link id={styles.navLink} to="/dashboard">
             Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link id={styles.navLink} to="/contribute">
+            Contribute
           </Link>
         </li>
         <li>
