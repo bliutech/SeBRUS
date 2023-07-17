@@ -1,63 +1,63 @@
-@import url('https://fonts.googleapis.com/css?family=Dosis');
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url("https://fonts.googleapis.com/css?family=Dosis");
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
 .format {
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
 }
 
 #navBar {
-    background-color: rgb(133, 157, 189);
-    width: 100vw;
-    height: 75px;
-    position: relative;
-    z-index: 2;
+  background-color: rgb(133, 157, 189);
+  width: 100vw;
+  height: 75px;
+  position: relative;
+  z-index: 2;
 }
 
 #bar {
-    height: 75px;
-    margin-left: 50px;
-    margin-right: 100px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    list-style-type: none;
-    position: relative;
-    top: 0;
-    left: 0;
-    font-family: "Lato";
-    font-size: 100 px;
-    z-index: 1;
-    align-items: center;
+  height: 75px;
+  margin-left: 50px;
+  margin-right: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style-type: none;
+  position: relative;
+  top: 0;
+  left: 0;
+  font-family: "Lato";
+  font-size: 100 px;
+  z-index: 1;
+  align-items: center;
 }
 
 .logo {
-    color: #282c34;
-    font-size: 50px;
-    font-family: "Play";
-    font-weight: 550;
-    position: relative;
-    z-index: 1;
-    padding-bottom: 3px;
+  color: #282c34;
+  font-size: 50px;
+  font-family: "Play";
+  font-weight: 550;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 3px;
 }
 
 #navLink {
-    font-size: 20px;
-    text-decoration: none;
-    cursor: pointer;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 #navLink:hover {
-    color: rgb(236, 230, 230);
+  color: rgb(236, 230, 230);
 }
 
 .regis {
-    background-color: snow;
-    border-radius: 20px;
-    padding: 0 25px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: 10px;
-    width: 30px;
+  background-color: snow;
+  border-radius: 20px;
+  padding: 0 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 10px;
+  width: 30px;
 }

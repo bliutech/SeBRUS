@@ -8,6 +8,8 @@ class Dataset(db.Model):
     datasetName = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(80), unique=True, nullable=False)
     address = db.Column(db.String(80), unique=True, nullable=False)
+    abiId = db.Column(db.Integer)  # from the ABI issue, is this correct?
+
     _count = 0
 
     def __init__(self, id, datasetName, description, address):

@@ -6,6 +6,7 @@ class ABI(db.Model):
 
     # TODO: add columns
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+    fileName = db.Column(db.String(80), nullable=False)
 
     # TODO: add constructor
     def __init__(self):
