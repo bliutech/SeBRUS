@@ -38,6 +38,16 @@ def api_handler():
 def user_handler(id):
     return user.router(id)
 
+@app.route("/api/dataset", defaults={"id": None}, methods=["POST"])
+@app.route("/api/dataset/<id>", methods=["GET", "PUT", "DELETE"])
+def dataset(id):
+     return dataset.router(id)
+
+@app.route("/api/abi/<id>", defaults={"id": None}, methods=["POST"])
+@app.route("/api/abi/<id>", methods=["GET", "PUT", "DELETE"])
+def abi(id):
+    return abi.router(id)
+
 
 # session endpoint
 @app.route("/api/session", defaults={"id": None}, methods=["POST"])
