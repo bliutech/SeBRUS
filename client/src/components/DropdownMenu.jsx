@@ -1,3 +1,5 @@
+import styles from "../styles/components/DropdownMenu.module.css";
+
 import { useEffect, useState } from "react";
 function DropdownMenu() {
   const [selected, setSelected] = useState("");
@@ -21,7 +23,7 @@ function DropdownMenu() {
 
   return (
     <select id="myDropdown" onChange={handleChange}>
-      <option value="">Select an option</option>
+      <option value="">Select a dataset</option>
       {dropDownOptions.map((option) => (
         <option key={option.value} value={option.value}>
           {option.text}
