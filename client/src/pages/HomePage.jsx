@@ -5,7 +5,7 @@ function HomePage() {
 
   return (
     <div>
-      <text className={styles.logo}>BlockData</text>
+      <text className={styles.logo}>SeBRUS</text>
       <br></br>
       <br></br>
       <div className="home-image-container">
