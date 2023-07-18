@@ -30,15 +30,13 @@ def get(id, name): #pretty sure this incorrect, but i wasn't super sure how to g
             res["status"] = "ABI found."
 
             import json
-            dictionary = {
-                "name": name,
-                "id": id,
-                "abi": abi
-            }
-            with open("abi/" + name + "/.json", "w") as outfile:
-                abi = json.dump(dictionary, outfile)
-
-            return jsonify(res, abi), 200
+            with open('abi/' + name + '/.json', 'r') as openfile:
+                abi = json.load(openfile) #changed write to read, i think i was writing the wrong code for this earlier LOL
+                print(abi)
+                print(type(abi))
+                res['abi'] = abi
+            #not sure if this is what you meant?
+            return jsonify(res), 200
 
 
 def post():
@@ -55,9 +53,10 @@ def post():
         "id": id,
         "abi": abi
     }
+    abi = json.dumps(dictionary, indent=4)
 
     with open("abi/" + name + "/.json", "w") as outfile:
-        json.dump(dictionary, outfile)
+        outfile.write(abi)
 
     with app.app_context():
         abi = ABI.query.filter_by(id=id).first()
@@ -84,8 +83,10 @@ def put(id):
         "abi": abi
     }
 
+    abi = json.dumps(dictionary, indent=4)
+
     with open("abi/" + name + "/.json", "w") as outfile:
-        json.dump(dictionary, outfile)
+        outfile.write(abi)
 
     with app.app_context():
         abi = db.session.query(ABI).filter_by(id=id).first()
@@ -94,20 +95,22 @@ def put(id):
             res["status"] = "ABI not found."
             return jsonify(res), 404
         elif name not in abi or id not in abi:
-            res["status"] = "not in ABI."
+            res["status"] = "Not in ABI."
             return jsonify(res), 400
         else:
             new_ABI = abi(
                 name=name, id=id, abi=abi
             )
-            res["status"] = "new ABI."
+            res["status"] = "New ABI."
             new_ABI.save_to_db()
             return jsonify(res), 200
 
 
 def delete(id):
-    import os #not sure if this is correct (below)
+    import os
     res = {"status": ""}
+    data = request.json
+    name = data.get("name")
 
     from app import app, db
 
@@ -119,6 +122,6 @@ def delete(id):
         else:
             res["status"] = "ABI removed."
             abi.delete_from_db()
-            abi_file_path = abi.file_path
-            os.remove(abi_file_path) #^^
+            file_path = 'abi/' + name + '.json'
+            os.remove(file_path) #good?
             return jsonify(res), 200

@@ -27,11 +27,11 @@ def get(id):
         if dataset is None:
             res["status"] = "Dataset not found."
             return jsonify(res), 404
-                
-        else: #is this correct??
-            user = db.session.query(User).filter_by(id=id).first()
+        elif id == all: #is this right?🫡
+            return dataset.json()
+        else:
             res["status"] = "Success."
-            res["user"] = user.json()
+            res["user"] = dataset.json()
             return jsonify(res), 200
 
 
@@ -54,7 +54,7 @@ def post():
     with app.app_context():
         dataset = (
             db.session.query(Dataset)
-            .filter_by(datasetName=datasetName, description=description, address=address)
+            .filter_by(datasetName=datasetName)
             .first()
         )
 
@@ -66,7 +66,7 @@ def post():
         new_dataset.save_to_db()
 
         res["status"] = "New dataset created."
-        res["new_dataset"] = new_dataset.json
+        res["new_dataset"] = new_dataset.json()
 
         return jsonify(res), 201
 
@@ -91,8 +91,8 @@ def put(id):
     with app.app_context():
         dataset = db.session.query(Dataset).filter_by(id=id).first()
 
-        if dataset is None: #is this good?
-            res["status"] = "Data not in dataset."
+        if dataset is None: 
+            res["status"] = "Dataset not found."
             return jsonify(res), 404
         
         dataset.datasetName=datasetName,
