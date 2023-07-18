@@ -5,7 +5,6 @@ const getSession = async (id) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(object),
   });
 
   if (res.status >= 400) {
@@ -47,3 +46,5 @@ const deleteSession = async (id) => {
 
   return session;
 };
+
+export { getSession, deleteSession };

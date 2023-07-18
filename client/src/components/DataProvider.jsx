@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import useCookie from "react-cookie";
+import { useCookies } from "react-cookie";
 import { getSession, deleteSession } from "../api/session";
 
 const DataContext = React.createContext();
 
 const DataProvider = ({ children }) => {
-  const [token, setToken, deteToken] = useCookie(["session"]);
+  const [token, setToken, deteToken] = useCookies(["session"]);
   const [auth, setAuth] = useState(false);
 
   const isLoggedIn = async () => {
@@ -15,7 +15,7 @@ const DataProvider = ({ children }) => {
       deleteSession();
       return false;
     }
-    setSession(tokenString);
+    setToken(tokenString);
     return true;
   };
 
