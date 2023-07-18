@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import DropdownMenu from "../components/DropdownMenu";
 import styles from "../styles/pages/ContributePage.module.css";
 
 function ImageUploader() {
   const [image, setImage] = useState("");
-  const [databases, setDatabases] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState("");
-  const [selectedDatabaseName, setSelectedDatabaseName] = useState("");
+  // const [databases, setDatabases] = useState([]);
+  // const [selectedAddress, setSelectedAddress] = useState("");
+  // const [selectedDatabaseName, setSelectedDatabaseName] = useState("");
 
   const handleImageChange = (event) => {
     let file = event.target.files[0];

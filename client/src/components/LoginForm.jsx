@@ -1,36 +1,29 @@
 import "../styles/index.css";
 import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { getUser } from "../api/user";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import { DataContext } from "./DataProvider";
+import { createSession } from "../api/session";
 
 function Login() {
   document.title = "Login";
-
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies("");
   const [showP, showPassword] = useState(false);
-
-  function handleEnter(key) {
-    if (key === "Enter") {
-      handleLogin();
-    }
-  }
+  const { updateData, setToken } = useContext(DataContext);
 
   async function handleLogin() {
-    if (!username) {
-      window.alert("This username is invalid");
+    if (username === "" || password === "") {
+      alert("you have not entered one of the fields");
       return;
-    } else {
-      const user = await getUser(username);
-      if (user.password === password) {
-        setCookie("name", username);
-      } else {
-        window.alert("wrong password");
-      }
     }
+    let session = await createSession(username, password);
+    setToken(session);
+    alert("logged in");
+    navigate("/dashboard");
   }
 
   const handleToggle = () => {
@@ -71,7 +64,7 @@ function Login() {
         className={styles.but}
         type="button"
         value="Login"
-        onClick={() => handleEnter()}
+        onClick={() => handleLogin()}
       ></input>
 
       <p></p>

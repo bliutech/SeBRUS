@@ -1,11 +1,29 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import styles from "../styles/components/NavBar.module.css";
-import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useState } from "react";
+import App from "../App";
+import { deleteUser } from "../api/user";
+import { DataContext } from "./DataProvider";
 
 function NavBar() {
-  const [cookies, setCookie, removeCookie] = useCookies("");
-  const auth = cookies.name > 0;
+  const navigate = useNavigate();
+  // const auth = useContext(UserContext);
+  const auth = true;
+
+  const { updateData } = useContext(DataContext);
+
+  async function handleLogin() {
+    navigate("/login");
+  }
+
+  async function handleSignout() {
+    window.alert("You are now logged out");
+    deleteUser();
+    updateData();
+  }
 
   return (
     <div id={styles.navBar}>
@@ -16,11 +34,13 @@ function NavBar() {
             Home
           </Link>
         </li>
-        <li>
-          <Link id={styles.navLink} to="/datasets">
-            Datasets
-          </Link>
-        </li>
+        {auth ? (
+          <li>
+            <Link id={styles.navLink} to="/datasets">
+              Datasets
+            </Link>
+          </li>
+        ) : null}
         <li>
           <Link id={styles.navLink} to="/dashboard">
             Dashboard
@@ -31,23 +51,27 @@ function NavBar() {
             Contribute
           </Link>
         </li>
-        <li>
-          <Link id={styles.navLink} to="/profile">
-            Profile
-          </Link>
-        </li>
         {auth ? (
           <li>
-            <Link id={styles.navLink} to="/login">
-              <text> Sign out</text>
+            <Link id={styles.navLink} to="/profile">
+              Profile
             </Link>
           </li>
+        ) : null}
+        {auth ? ( // FIX THIS!!! replace true with auth
+          <input
+            id={styles.but}
+            type="button"
+            value="Signout"
+            onClick={() => handleSignout()}
+          ></input>
         ) : (
-          <li>
-            <Link id={styles.navLink} to="/login">
-              <text className={styles.regis}>Login/Register</text>
-            </Link>
-          </li>
+          <input
+            id={styles.but}
+            type="button"
+            value="Login"
+            onClick={() => handleLogin()}
+          ></input>
         )}
       </div>
     </div>
