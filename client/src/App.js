@@ -8,16 +8,11 @@ import ProfilePage from "./pages/ProfilePage";
 import DatasetPage from "./pages/DatasetPage";
 import DashboardPage from "./pages/DashboardPage";
 import Contribute from "./pages/ContributePage";
-import { useCookies } from "react-cookie";
-import { useState, useEffect } from "react";
-import { useContext, UserContext, createContext } from "react";
-import { getUser } from "./api/user";
 import { DataContext } from "./components/DataProvider";
 
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies("");
-  const DataContext = createContext();
-  const auth = useContext(DataContext);
+  // const { auth } = useContext(DataContext);
+  const auth = true;
 
   return (
     <div className="App">
@@ -26,9 +21,9 @@ function App() {
         <header className="App-header">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/registration" element={<Registration />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            {auth ? null : <Route path="/login" element={<Login />} />}
+            {auth ? null : <Route path="/registration" element={<Registration />} />}
+            {auth ? <Route path="/profile" element={<ProfilePage />} /> : null}
             <Route path="/datasets" element={<DatasetPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/contribute" element={<Contribute />} />

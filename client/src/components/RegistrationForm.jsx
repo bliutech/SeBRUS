@@ -1,6 +1,3 @@
-// import { Link } from "react-router-dom";
-// import * as ReactDOM from "react-dom/client";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import "../styles/index.css";
 import styles from "../styles/components/RegistrationForm.module.css";
@@ -14,7 +11,6 @@ function Registration() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies("");
   const [showP, showPassword] = useState(false);
   const auth = useContext(UserContext);
 
@@ -28,7 +24,8 @@ function Registration() {
     //   window.alert("This username is taken. \n Please try a different one");
     //   return;
     // } else {
-    createUser(username, password);
+    let user = await createUser(username, password);
+    console.log(user);
     window.alert("Your account has been made! You may login now");
     navigate("/login");
     return;

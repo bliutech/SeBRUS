@@ -1,19 +1,30 @@
-import React from "react";
-import { useEffect, createContext, useState } from "react";
+import React, { useEffect, useState } from "react";
+import useCookie from "react-cookie";
 import { getUser } from "../api/user";
 
-const DataContext = createContext();
+const DataContext = React.createContext();
 
 const DataProvider = ({ children }) => {
+  const [session, setSession, deleteSession] = useCookie(["session"]);
   const [auth, setAuth] = useState(false);
 
+  const isLoggedIn = async () => {
+    // if session valid
+    // /api/session/me
+    // if you are logged in, then it will give you a session cookie. Set auth = true; Set cookie.
+    // if you are not logged in, then it will error. alert(1)
+  };
+
   useEffect(async () => {
-    setAuth(await getUser().username);
+    let auth = await isLoggedIn();
+    setAuth(auth);
   }, []);
 
   const updateData = async () => {
-    setAuth(await getUser().username);
+    let auth = await isLoggedIn();
+    setAuth(auth);
   };
+
   return (
     <DataContext.Provider
       value={{
@@ -27,4 +38,5 @@ const DataProvider = ({ children }) => {
   );
 };
 
-export { DataProvider, DataContext };
+export default DataProvider;
+export { DataContext };

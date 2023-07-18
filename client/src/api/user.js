@@ -3,28 +3,33 @@ const showError = true;
 
 async function createUser(username, password) {
   let object = {
-    usr: username,
-    pwd: password,
+    username: username,
+    password: password,
   };
-  const response = await fetch(base + `/login`, {
+
+  let res = await fetch(base + `/api/user`, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(object),
-  }).catch((error) => {
-    if (showError) {
-      window.alert(error);
-    }
-    return;
   });
+
+  if (res.status >= 400) {
+    alert(res);
+  }
+
+  let data = await res.json();
+
+  console.log(data["status"]);
+
+  let user = await data["user"];
+
+  return user;
 }
 
 async function getUser(username) {
   const response = await fetch(base + `/signin`, {
-    method: "PULL",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },

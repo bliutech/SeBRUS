@@ -10,9 +10,7 @@ import App from "../App";
 
 function NavBar() {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies("");
-  // const auth = useContext(UserContext);
-  const [auth, setAuth] = useContext();
+  const { auth } = useContext(UserContext);
 
   async function handleLogin() {
     navigate("/login");

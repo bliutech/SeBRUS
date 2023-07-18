@@ -9,10 +9,9 @@ import { useContext, UserContext } from "react";
 function Login() {
   document.title = "Login";
   const navigate = useNavigate();
-  const auth = useContext(UserContext);
+  const { setAuth } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies("");
   const [showP, showPassword] = useState(false);
 
   async function handleLogin() {
