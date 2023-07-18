@@ -27,8 +27,8 @@ async function createUser(username, password) {
   return user;
 }
 
-async function getUser(username) {
-  const response = await fetch(base + `/api/user`, {
+async function getUser(id) {
+  const response = await fetch(base + `/api/user/` + id, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -41,7 +41,8 @@ async function getUser(username) {
   }
 
   const object = await response.json();
-  return object;
+  const user = object.user;
+  return user;
 }
 
 async function changeUser(username, password) {

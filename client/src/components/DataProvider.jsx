@@ -30,7 +30,7 @@ const DataProvider = ({ children }) => {
         console.log(err);
       });
     }
-  }, []);
+  }, [token]);
 
   const updateData = async () => {
     let authenticated = await isLoggedIn();
@@ -49,6 +49,7 @@ const DataProvider = ({ children }) => {
         auth,
         updateData,
         deleteData,
+        setToken,
       }}
     >
       {children}

@@ -5,6 +5,7 @@ import { getUser } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { DataContext } from "./DataProvider";
+import { createSession } from "../api/session";
 
 function Login() {
   document.title = "Login";
@@ -12,22 +13,17 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showP, showPassword] = useState(false);
-  const { updateData } = useContext(DataContext);
+  const { updateData, setToken } = useContext(DataContext);
 
   async function handleLogin() {
-    if (!username) {
-      window.alert("This username is invalid");
+    if (username === "" || password === "") {
+      alert("you have not entered one of the fields");
       return;
-    } else {
-      const user = await getUser(username);
-      if (user.password === password) {
-        window.alert("You are logged in!");
-        updateData();
-        navigate("/profile");
-      } else {
-        window.alert("wrong password");
-      }
     }
+    let session = await createSession(username, password);
+    setToken(session);
+    alert("logged in");
+    navigate("/dashboard");
   }
 
   const handleToggle = () => {
