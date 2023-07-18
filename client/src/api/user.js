@@ -1,5 +1,4 @@
-const base = "http://localhost:5000";
-// const showError = true;
+import { base, showError } from "./util.js";
 
 async function createUser(username, password) {
   let object = {
@@ -16,12 +15,12 @@ async function createUser(username, password) {
   });
 
   if (res.status >= 400) {
-    alert(res);
+    if (showError) {
+      console.log(res);
+    }
   }
 
   let data = await res.json();
-
-  console.log(data["status"]);
 
   let user = await data["user"];
 
