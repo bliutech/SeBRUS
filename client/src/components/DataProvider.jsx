@@ -5,7 +5,7 @@ import { getSession, deleteSession } from "../api/session";
 const DataContext = React.createContext();
 
 const DataProvider = ({ children }) => {
-  const [token, setToken, deteToken] = useCookies(["session"]);
+  const [token, setToken, deleteToken] = useCookies(["session"]);
   const [auth, setAuth] = useState(false);
 
   const isLoggedIn = async () => {
@@ -19,9 +19,17 @@ const DataProvider = ({ children }) => {
     return true;
   };
 
-  useEffect(async () => {
-    let auth = await isLoggedIn();
-    setAuth(auth);
+  useEffect(() => {
+    const fetchData = async () => {
+      let authenticated = await isLoggedIn();
+      setAuth(authenticated);
+    };
+
+    if (token.session === null) {
+      fetchData().catch((err) => {
+        console.log(err);
+      });
+    }
   }, []);
 
   const updateData = async () => {
@@ -30,9 +38,9 @@ const DataProvider = ({ children }) => {
   };
 
   const deleteData = async () => {
-    let { id } = await getSession("me");
+    let { id } = getSession("me");
     await deleteSession(id);
-    deleteSession();
+    deleteToken();
   };
 
   return (
@@ -48,4 +56,4 @@ const DataProvider = ({ children }) => {
   );
 };
 
-export { DataProvider, DataContext };
+export { DataContext, DataProvider };
