@@ -12,8 +12,8 @@ class ABI(db.Model):
         count = len(abi)
 
         if count != 0:
-            if abi[-1].id >= ABI._count:
-                ABI._count = abi[-1].id
+            if abi[-1].id > ABI._count:
+                ABI._count = abi[-1].id + 1
             else:
                 ABI._count = count
 
@@ -22,10 +22,8 @@ class ABI(db.Model):
 
         ABI._count += 1
 
-
     def __repr__(self):
         return "<ABI %r>" % self.name
-
 
     def json(self):
         return {"id": self.id, "name": self.name}

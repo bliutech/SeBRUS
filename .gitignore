@@ -26,3 +26,6 @@ venv/
 __pycache__/
 
 sqlite.db
+abi/
+
+data/

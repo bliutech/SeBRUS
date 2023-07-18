@@ -1,5 +1,7 @@
-var TodoList = artifacts.require("./State.sol");
+let DatasetManager = artifacts.require("./DatasetManager.sol");
+let Dataset = artifacts.require("./Dataset.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(TodoList);
+  deployer.deploy(DatasetManager);
+  deployer.deploy(Dataset);
 };

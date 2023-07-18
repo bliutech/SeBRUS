@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useContext, UserContext } from "react";
 
 function Registration() {
-  document.title = "Registration";
+  document.title = "Register | SeBRUS";
 
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -69,6 +69,11 @@ function Registration() {
         value="Register"
         onClick={() => handleRegistration()}
       ></input>
+      <p></p>
+      <span className={styles.regis1}>Already have an account? </span>
+      <a className={styles.regis1} id={styles.regis2} href="/login">
+        Login here.
+      </a>
     </div>
   );
 }

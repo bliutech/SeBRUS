@@ -19,7 +19,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
     basedir, config.DATABASE_NAME
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, supports_credentials=True)
 db = SQLAlchemy(app=app)
 
 
@@ -38,10 +38,12 @@ def api_handler():
 def user_handler(id):
     return user.router(id)
 
+
 @app.route("/api/dataset", defaults={"id": None}, methods=["POST"])
 @app.route("/api/dataset/<id>", methods=["GET", "PUT", "DELETE"])
 def dataset(id):
-     return dataset.router(id)
+    return dataset.router(id)
+
 
 @app.route("/api/abi/<id>", defaults={"id": None}, methods=["POST"])
 @app.route("/api/abi/<id>", methods=["GET", "PUT", "DELETE"])
@@ -58,10 +60,14 @@ def session_handler(id):
 
 if __name__ == "__main__":
     with app.app_context():
+        from models.abi import ABI
         from models.user import User
+        from models.dataset import Dataset
         from models.session import Session
 
+        db.metadata._add_table(ABI.__tablename__, None, ABI.__table__)
         db.metadata._add_table(User.__tablename__, None, User.__table__)
+        db.metadata._add_table(Dataset.__tablename__, None, Dataset.__table__)
         db.metadata._add_table(Session.__tablename__, None, Session.__table__)
         db.create_all()
 

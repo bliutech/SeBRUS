@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 function ProfilePage() {
+  document.title = "Profile | SeBRUS";
+
   const navigate = useNavigate();
-  document.title = "Account";
   const [cookies, setCookie, removeCookie] = useCookies("");
 
   function handleSignout() {

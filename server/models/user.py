@@ -17,8 +17,8 @@ class User(db.Model):
 
         if count != 0:
             # account for existing users with some deleted
-            if users[-1].id >= User._count:
-                User._count = users[-1].id
+            if users[-1].id > User._count:
+                User._count = users[-1].id + 1
             else:
                 User._count = count
 

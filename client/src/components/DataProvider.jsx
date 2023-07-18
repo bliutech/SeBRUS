@@ -1,46 +1,78 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { getSession, deleteSession } from "../api/session";
+import web3 from "web3";
 
 const DataContext = React.createContext();
 
 const DataProvider = ({ children }) => {
-  const [token, setToken, deleteToken] = useCookies(["session"]);
+  const [cookie, setCookie, deleteCookie] = useCookies(["session"]);
   const [auth, setAuth] = useState(false);
+  const [accounts, setAccounts] = useState([]);
 
   const isLoggedIn = async () => {
-    let { tokenString } = await getSession("me");
-    if (tokenString === null) {
-      alert("User is not logged in!");
-      deleteSession();
+    let sessionObj = await getSession("me");
+
+    if (sessionObj === undefined) {
+      alert("User is not logged in! tokenString");
+      deleteCookie("session");
       return false;
     }
-    setToken(tokenString);
+    setCookie("session", sessionObj.token);
     return true;
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      let authenticated = await isLoggedIn();
-      setAuth(authenticated);
-    };
-
-    if (token.session === null) {
-      fetchData().catch((err) => {
-        console.log(err);
-      });
-    }
-  }, [token]);
 
   const updateData = async () => {
     let authenticated = await isLoggedIn();
     setAuth(authenticated);
   };
 
+  async function connectWallet() {
+    if (window.ethereum) {
+      try {
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        window.web3 = new web3(window.ethereum);
+        const accounts = await window.web3.eth.getAccounts();
+        setAccounts(accounts);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      window.alert("Please install Metamask");
+    }
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let authenticated = await isLoggedIn();
+      setAuth(authenticated);
+    };
+    if (cookie.session !== undefined) {
+      fetchData().catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [updateData]);
+
+  useEffect(() => {
+    const fetchWallet = async () => {
+      const currentAccounts = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+      setAccounts(currentAccounts);
+    };
+    if (window.ethereum) {
+      fetchWallet().catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [connectWallet]);
+
   const deleteData = async () => {
-    let { id } = getSession("me");
-    await deleteSession(id);
-    deleteToken();
+    let sessionObj = await getSession("me");
+    await deleteSession(sessionObj.id);
+    deleteCookie("session");
+    setAuth(false);
   };
 
   return (
@@ -49,7 +81,9 @@ const DataProvider = ({ children }) => {
         auth,
         updateData,
         deleteData,
-        setToken,
+        setCookie,
+        accounts,
+        connectWallet,
       }}
     >
       {children}

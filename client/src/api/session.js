@@ -1,10 +1,9 @@
 import { base, showError } from "./util.js";
 
 const getSession = async (id) => {
-  let res = await fetch(base + `/api/user/` + id, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+  let res = await fetch(base + `/api/session/` + id, {
+    method: "GET",
+    credentials: "include",
   });
 
   if (res.status >= 400) {
@@ -39,6 +38,7 @@ const createSession = async (username, password) => {
     if (showError) {
       console.log(res);
     }
+    return null;
   }
 
   let data = await res.json();
@@ -48,12 +48,11 @@ const createSession = async (username, password) => {
   return session.token;
 };
 
-const updateSession = () => {};
-
 const deleteSession = async (id) => {
-  let res = await fetch(base + `/api/user/` + id, {
+  let res = await fetch(base + `/api/session/` + id, {
+    method: "DELETE",
+    credentials: "include",
     headers: {
-      Method: "DELETE",
       "Content-Type": "application/json",
     },
   });

@@ -1,7 +1,7 @@
 import styles from "../styles/pages/HomePage.module.css";
 
 function HomePage() {
-  document.title = "GSET23BSG";
+  document.title = "Home | SeBRUS";
 
   return (
     <div className={styles.home}>

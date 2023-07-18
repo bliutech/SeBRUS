@@ -17,46 +17,42 @@ def router(id):
     return jsonify(res), 500
 
 
-def get(id, name): #pretty sure this incorrect, but i wasn't super sure how to go about it.
+def get(id):
     res = {"status": ""}
 
     from app import app, db
+
     with app.app_context():
-        abi = ABI.query.filter_by(id=id).first()
+        abi = db.session.query(ABI).filter_by(id=id).first()
+
         if abi is None:
             res["status"] = "ABI not found."
             return jsonify(res), 404
-        else:
-            res["status"] = "ABI found."
 
-            import json
-            with open('abi/' + name + '/.json', 'r') as openfile:
-                abi = json.load(openfile) #changed write to read, i think i was writing the wrong code for this earlier LOL
-                print(abi)
-                print(type(abi))
-                res['abi'] = abi
-            #not sure if this is what you meant?
-            return jsonify(res), 200
+        res["status"] = "ABI found."
+
+        import json
+
+        with open("abi/" + abi.name + ".json", "r") as f:
+            abi = json.load(f)
+
+        res["abi"] = abi
+        return jsonify(res), 200
 
 
 def post():
     res = {"status": ""}
-    data = request.json 
-    id = data.get("id")
+
+    data = request.json
+
     name = data.get("name")
     abi = abi.get("abi")
 
     from app import app, db
     import json
-    dictionary = {
-        "name": name,
-        "id": id,
-        "abi": abi
-    }
-    abi = json.dumps(dictionary, indent=4)
 
-    with open("abi/" + name + "/.json", "w") as outfile:
-        outfile.write(abi)
+    with open("abi/" + name + ".json", "w") as outfile:
+        outfile.write(json.dumps(abi, indent=4))
 
     with app.app_context():
         abi = ABI.query.filter_by(id=id).first()
@@ -70,18 +66,16 @@ def post():
 
 def put(id):
     res = {"status": ""}
+
     data = request.json
-    id = data.get("id")
+
     name = data.get("name")
     abi = data.get("abi")
 
     from app import app, db
     import json
-    dictionary = {
-        "name": name,
-        "id": id,
-        "abi": abi
-    }
+
+    dictionary = {"name": name, "id": id, "abi": abi}
 
     abi = json.dumps(dictionary, indent=4)
 
@@ -98,9 +92,7 @@ def put(id):
             res["status"] = "Not in ABI."
             return jsonify(res), 400
         else:
-            new_ABI = abi(
-                name=name, id=id, abi=abi
-            )
+            new_ABI = abi(name=name, id=id, abi=abi)
             res["status"] = "New ABI."
             new_ABI.save_to_db()
             return jsonify(res), 200
@@ -108,6 +100,7 @@ def put(id):
 
 def delete(id):
     import os
+
     res = {"status": ""}
     data = request.json
     name = data.get("name")
@@ -122,6 +115,6 @@ def delete(id):
         else:
             res["status"] = "ABI removed."
             abi.delete_from_db()
-            file_path = 'abi/' + name + '.json'
-            os.remove(file_path) #good?
+            file_path = "abi/" + name + ".json"
+            os.remove(file_path)  # good?
             return jsonify(res), 200

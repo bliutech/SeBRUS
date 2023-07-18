@@ -1,19 +1,18 @@
 import "../styles/index.css";
 import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
-import { getUser } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { DataContext } from "./DataProvider";
 import { createSession } from "../api/session";
 
 function Login() {
-  document.title = "Login";
+  document.title = "Login | SeBRUS";
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showP, showPassword] = useState(false);
-  const { updateData, setToken } = useContext(DataContext);
+  const { updateData, setCookie } = useContext(DataContext);
 
   async function handleLogin() {
     if (username === "" || password === "") {
@@ -21,7 +20,12 @@ function Login() {
       return;
     }
     let session = await createSession(username, password);
-    setToken(session);
+    if (session === null) {
+      alert("incorrect username or password");
+      return;
+    }
+    setCookie("session", session);
+    updateData();
     alert("logged in");
     navigate("/dashboard");
   }
@@ -57,7 +61,7 @@ function Login() {
           placeholder="Show Password"
           onClick={() => handleToggle()}
         ></input>
-        <text id={styles.regis}> Show password</text>
+        <span id={styles.regis}> Show password</span>
       </span>
       <p></p>
       <input
@@ -68,7 +72,7 @@ function Login() {
       ></input>
 
       <p></p>
-      <text className={styles.regis1}>Don't have an account? </text>
+      <span className={styles.regis1}>Don't have an account? </span>
       <a className={styles.regis1} id={styles.regis2} href="/registration">
         Register here.
       </a>

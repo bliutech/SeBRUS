@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import styles from "../styles/pages/DatasetPage.module.css";
 
 function DatasetPage() {
-  document.title = "Datasets";
+  document.title = "Dataset | SeBRUS";
   const [images, setImage] = useState([
     { text: "../assets/dog1.png" },
     { text: "../assets/dog2.png" },

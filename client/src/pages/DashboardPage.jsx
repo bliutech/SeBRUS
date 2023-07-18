@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 import styles from "../styles/pages/DashboardPage.module.css";
 
 function DashboardPage() {
-  document.title = "Dashboard";
+  document.title = "Dashboard | SeBRUS";
   const [cookies, setCookie, removeCookie] = useCookies("");
   const [auth, setAuth] = useState(false);
 
