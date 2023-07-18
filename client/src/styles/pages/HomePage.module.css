@@ -1,22 +1,22 @@
-@import url('https://fonts.googleapis.com/css?family=Play');
-@import url('https://fonts.googleapis.com/css?family=Cairo');
+@import url("https://fonts.googleapis.com/css?family=Play");
+@import url("https://fonts.googleapis.com/css?family=Cairo");
 
 a:link,
 a:visited {
-    color: black;
-    cursor: auto;
+  color: black;
+  cursor: auto;
 }
 
 a:link:active,
 a:visited:active {
-    color: black;
+  color: black;
 }
 
 .logo {
-    color: #282c34;
-    font-size: 50px;
-    font-family: "Cairo";
-    font-weight: 550;
+  color: #282c34;
+  font-size: 50px;
+  font-family: "Cairo";
+  font-weight: 550;
 }
 
 .home {
