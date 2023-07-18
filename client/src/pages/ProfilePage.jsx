@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-import styles from "../styles/components/LoginForm.module.css";
+import styles from "../styles/pages/ProfilePage.module.css";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
@@ -16,16 +16,14 @@ function ProfilePage() {
   }
 
   return (
-    <div>
-      <p>{cookies.name}'s account</p>
-      <li>
-        <input
-          type="button"
-          id={styles.button}
-          placeholder="Signout"
-          onClick={() => handleSignout()}
-        ></input>
-      </li>
+    <div className={styles.profPage}>
+      <p class={styles.acctText}>{cookies.name}'s Account</p>
+      <input
+        type="button"
+        class={styles.but}
+        value="Signout"
+        onClick={() => handleSignout()}
+      ></input>
     </div>
   );
 }

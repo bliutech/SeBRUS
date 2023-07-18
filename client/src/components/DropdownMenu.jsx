@@ -20,8 +20,8 @@ function DropdownMenu() {
   };
 
   return (
-    <select id="myDropdown" onChange={handleChange}>
-      <option value="">Select an option</option>
+    <select onChange={handleChange}>
+      <option value="">Select a dataset</option>
       {dropDownOptions.map((option) => (
         <option key={option.value} value={option.value}>
           {option.text}

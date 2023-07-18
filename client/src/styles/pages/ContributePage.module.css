@@ -1,0 +1,37 @@
+.contribute {
+    background-color: #282c34;
+    color: snow;
+    margin: 50px;
+    border-radius: 30px;
+    width: 40vw;
+    padding-bottom: 30px;
+    overflow-x: visible;
+    overflow-y:auto;
+}
+
+.header {
+    color: snow;
+    margin-top: 30px;
+}
+
+.image {
+    width:90%;
+    object-fit: contain;
+}
+
+.file {
+  margin-left: 70px;
+}
+
+.uploader {
+  font-family: Verdana, sans-serif;
+  border-radius: 30px;
+  border-color: black;
+  width: 300px;
+  height: 40px;
+  font-size: 12pt;
+  color: 282c34;
+  margin: 0 px;
+  bottom: 0px;
+  background-color: snow;
+}

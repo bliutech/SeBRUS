@@ -1,6 +1,8 @@
 import { useState } from "react";
 // import { Grid } from "react-visual-grid";
 import { Image } from "../components/Image";
+import { useCookies } from "react-cookie";
+import styles from "../styles/pages/DatasetPage.module.css";
 
 function DatasetPage() {
   document.title = "Datasets";
@@ -17,31 +19,8 @@ function DatasetPage() {
     setImage([images, newImage]);
   };
 
-  // const getData=()=>{
-  // fetch('/api/abi/<id>', { // fix ID
-  //   headers : {
-  //     'Content-Type': 'application/json',
-  //     'Accept': 'application/json'
-  //    }
-  // })
-  //   .then(function(response){
-  //     console.log(response);
-  //     return response.json();
-  //   })
-  //   .then(function(myJson) {
-  //     console.log(myJson);
-  //     setData(myJson);
-  //   });
-
-  // }
-  // useEffect(()=>{
-
-  //   getData()
-
-  // },[])
-
   return (
-    <div>
+    <div className={styles.data}>
       <ul>
         {images.map((images, index) => (
           <li key={index}>{images.text}</li>
