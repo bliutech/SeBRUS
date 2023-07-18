@@ -3,15 +3,17 @@ import React from "react";
 import styles from "../styles/components/NavBar.module.css";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../App";
 import { useContext } from "react";
 import { useState } from "react";
 import App from "../App";
 
 function NavBar() {
   const navigate = useNavigate();
-  const { auth } = useContext(UserContext);
+  const [cookies, setCookie, removeCookie] = useCookies("");
+  // const auth = useContext(UserContext);
+  const auth = true;
 
+  
   async function handleLogin() {
     navigate("/login");
   }
@@ -19,7 +21,7 @@ function NavBar() {
   async function handleSignout() {
     window.alert("You are now logged out");
     removeCookie("session");
-    auth = false;
+    // auth = false;
   }
 
   return (
@@ -46,7 +48,7 @@ function NavBar() {
             Profile
           </Link>
         </li>
-        {auth ? (
+        {auth ? ( // FIX THIS!!! replace true with auth
           <input
             id={styles.but}
             type="button"

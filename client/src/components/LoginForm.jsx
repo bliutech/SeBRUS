@@ -4,12 +4,12 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { getUser } from "../api/user";
 import { useNavigate } from "react-router-dom";
-import { useContext, UserContext } from "react";
+// import { useContext, UserContext } from "react";
 
 function Login() {
   document.title = "Login";
   const navigate = useNavigate();
-  const { setAuth } = useContext(UserContext);
+  // const auth = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showP, showPassword] = useState(false);

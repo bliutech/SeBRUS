@@ -12,7 +12,7 @@ function Registration() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showP, showPassword] = useState(false);
-  const auth = useContext(UserContext);
+  // const auth = useContext(UserContext);
 
   async function handleRegistration() {
     // const user = await getUser(username);

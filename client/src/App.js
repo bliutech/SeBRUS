@@ -11,7 +11,9 @@ import Contribute from "./pages/ContributePage";
 import { DataContext } from "./components/DataProvider";
 
 function App() {
-  // const { auth } = useContext(DataContext);
+  const [cookies, setCookie, removeCookie] = useCookies("");
+  // const DataContext = createContext();
+  // const auth = useContext(DataContext);
   const auth = true;
 
   return (
@@ -26,7 +28,7 @@ function App() {
             {auth ? <Route path="/profile" element={<ProfilePage />} /> : null}
             <Route path="/datasets" element={<DatasetPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/contribute" element={<Contribute />} />
+            {auth ? <Route path="/contribute" element={<Contribute />} /> : null}
           </Routes>
         </header>
       </BrowserRouter>

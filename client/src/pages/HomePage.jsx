@@ -13,7 +13,7 @@ function HomePage() {
           alt="SeBRUHS logo"
           width="300"
           height="200"
-          src="../../public/logov1.png"
+          src={require("../assets/logov1.png")}
         />
       </div>
     </div>

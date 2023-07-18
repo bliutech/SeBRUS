@@ -8,24 +8,16 @@ const DataProvider = ({ children }) => {
   const [session, setSession, deleteSession] = useCookie(["session"]);
   const [auth, setAuth] = useState(false);
 
-  const isLoggedIn = async () => {
-    // if session valid
-    // /api/session/me
-    // if you are logged in, then it will give you a session cookie. Set auth = true; Set cookie.
-    // if you are not logged in, then it will error. alert(1)
-  };
-
-  useEffect(async () => {
-    let auth = await isLoggedIn();
-    setAuth(auth);
-  }, []);
+  // useEffect(async () => {
+  //   setAuth(await getUser());
+  // }, []);
 
   const updateData = async () => {
-    let auth = await isLoggedIn();
-    setAuth(auth);
+    setAuth(await getUser());
   };
 
   return (
+    <div>
     <DataContext.Provider
       value={{
         auth,
@@ -35,6 +27,7 @@ const DataProvider = ({ children }) => {
     >
       {children}
     </DataContext.Provider>
+    </div>
   );
 };
 
