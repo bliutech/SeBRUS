@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import DropdownMenu from "../components/DropdownMenu";
 import styles from "../styles/pages/ContributePage.module.css";
 import { DataContext } from "../components/DataProvider";
-import web3, { TruffleContract } from "web3";
+import web3 from "web3";
 
 function ImageUploader() {
   document.title = "Contribute | SeBRUS";
@@ -41,23 +41,92 @@ function ImageUploader() {
     // temporary values for testing
     let abi = [
       {
+        inputs: [
+          {
+            internalType: "string",
+            name: "_name",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "_description",
+            type: "string",
+          },
+        ],
+        stateMutability: "nonpayable",
+        type: "constructor",
+      },
+      {
         anonymous: false,
         inputs: [
           {
             indexed: false,
-            internalType: "string",
-            name: "name",
-            type: "string",
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
           },
           {
             indexed: false,
             internalType: "string",
-            name: "description",
+            name: "value",
+            type: "string",
+          },
+          {
+            indexed: false,
+            internalType: "bool",
+            name: "approved",
+            type: "bool",
+          },
+        ],
+        name: "DataCreated",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
+          },
+          {
+            indexed: false,
+            internalType: "bool",
+            name: "approved",
+            type: "bool",
+          },
+        ],
+        name: "DataVerified",
+        type: "event",
+      },
+      {
+        inputs: [],
+        name: "description",
+        outputs: [
+          {
+            internalType: "string",
+            name: "",
             type: "string",
           },
         ],
-        name: "DatasetCreated",
-        type: "event",
+        stateMutability: "view",
+        type: "function",
+        constant: true,
+      },
+      {
+        inputs: [],
+        name: "imageCount",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+        constant: true,
       },
       {
         inputs: [
@@ -67,12 +136,36 @@ function ImageUploader() {
             type: "uint256",
           },
         ],
-        name: "datasets",
+        name: "images",
         outputs: [
           {
-            internalType: "contract Dataset",
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "value",
+            type: "string",
+          },
+          {
+            internalType: "bool",
+            name: "approved",
+            type: "bool",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+        constant: true,
+      },
+      {
+        inputs: [],
+        name: "name",
+        outputs: [
+          {
+            internalType: "string",
             name: "",
-            type: "address",
+            type: "string",
           },
         ],
         stateMutability: "view",
@@ -83,28 +176,36 @@ function ImageUploader() {
         inputs: [
           {
             internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "description",
+            name: "_content",
             type: "string",
           },
         ],
-        name: "create",
+        name: "createData",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "uint256",
+            name: "_id",
+            type: "uint256",
+          },
+        ],
+        name: "approveData",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
       },
     ];
-    let address = "0x68e9a7519f508F78CB5D885a23F62694B447eC8E";
+    let address = "0x5eE69A9EB760313D955E72BE8f33c32cB4204Ad8";
     window.web3 = new web3(window.ethereum);
     let DatasetContract = new window.web3.eth.Contract(abi, address);
-    console.log(DatasetContract);
+    DatasetContract.setProvider(window.ethereum);
 
     DatasetContract.methods
-      .create("test", "test")
+      .createData("test")
       .send({ from: accounts[0] })
       .on("receipt", function (receipt) {
         console.log(receipt);
@@ -116,6 +217,18 @@ function ImageUploader() {
         console.log(confirmationNumber);
         console.log(receipt);
       });
+
+    DatasetContract.methods.imageCount
+      .call()
+      .call()
+      .then((res) => {
+        console.log("imageCount:", res);
+      });
+    async function getImage() {
+      const images = await DatasetContract.methods.images(0).call();
+      console.log("images:", images);
+    }
+    getImage();
   };
 
   useEffect(() => {

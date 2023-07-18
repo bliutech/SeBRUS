@@ -2,7 +2,6 @@ import { base, showError } from "./util.js";
 
 const getSession = async (id) => {
   let res = await fetch(base + `/api/session/` + id, {
-    method: "GET",
     credentials: "include",
   });
 

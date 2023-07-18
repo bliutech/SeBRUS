@@ -30,9 +30,7 @@ contract Dataset {
     }
 
     function approveData(uint _id) public {
-        Image memory _image = images[_id];
-        _image.approved = !_image.approved;
-        images[_id] = _image;
-        emit DataVerified(_id, _image.approved);
+        images[_id].approved = !images[_id].approved;
+        emit DataVerified(_id, images[_id].approved);
     }
 }
