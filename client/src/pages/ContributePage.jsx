@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import DropdownMenu from "../components/DropdownMenu";
 
 function ImageUploader() {
   const [image, setImage] = useState("");
-  const [databases, setDatabases] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState("");
-  const [selectedDatabaseName, setSelectedDatabaseName] = useState("");
+  // const [databases, setDatabases] = useState([]);
+  // const [selectedAddress, setSelectedAddress] = useState("");
+  // const [selectedDatabaseName, setSelectedDatabaseName] = useState("");
 
   const handleImageChange = (event) => {
     let file = event.target.files[0];
@@ -36,10 +36,10 @@ function ImageUploader() {
       <h2>Image Uploader</h2>
       <DropdownMenu selected={selected} />
       <p></p>
-      <input type="file" name="image" onChange={handleImageChange} />
+      <input type="file" name="img" onChange={handleImageChange} />
       <button onClick={handleSubmit}>Submit</button>
 
-      {image === "" ? null : <img src={image} alt="Upload image" />}
+      {image === "" ? null : <img src={image} alt="img not shown" />}
     </div>
   );
 }

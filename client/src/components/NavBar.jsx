@@ -1,27 +1,28 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import styles from "../styles/components/NavBar.module.css";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { useState } from "react";
 import App from "../App";
+import { deleteUser } from "../api/user";
+import { DataContext } from "./DataProvider";
 
 function NavBar() {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies("");
   // const auth = useContext(UserContext);
   const auth = true;
 
-  
+  const { updateData } = useContext(DataContext);
+
   async function handleLogin() {
     navigate("/login");
   }
 
   async function handleSignout() {
     window.alert("You are now logged out");
-    removeCookie("session");
-    // auth = false;
+    deleteUser();
+    updateData();
   }
 
   return (
@@ -33,21 +34,25 @@ function NavBar() {
             Home
           </Link>
         </li>
-        <li>
-          <Link id={styles.navLink} to="/datasets">
-            Datasets
-          </Link>
-        </li>
+        {auth ? (
+          <li>
+            <Link id={styles.navLink} to="/datasets">
+              Datasets
+            </Link>
+          </li>
+        ) : null}
         <li>
           <Link id={styles.navLink} to="/dashboard">
             Dashboard
           </Link>
         </li>
-        <li>
-          <Link id={styles.navLink} to="/profile">
-            Profile
-          </Link>
-        </li>
+        {auth ? (
+          <li>
+            <Link id={styles.navLink} to="/profile">
+              Profile
+            </Link>
+          </li>
+        ) : null}
         {auth ? ( // FIX THIS!!! replace true with auth
           <input
             id={styles.but}

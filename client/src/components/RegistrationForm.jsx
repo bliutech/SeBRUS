@@ -12,24 +12,23 @@ function Registration() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showP, showPassword] = useState(false);
-  // const auth = useContext(UserContext);
 
   async function handleRegistration() {
-    // const user = await getUser(username);
+    const user = await getUser(username);
     if (!username || username.length < 6) {
       window.alert("Your username must be 6+ characters long");
       return;
     }
-    // if (user.password !== null) {
-    //   window.alert("This username is taken. \n Please try a different one");
-    //   return;
-    // } else {
-    let user = await createUser(username, password);
-    console.log(user);
-    window.alert("Your account has been made! You may login now");
-    navigate("/login");
-    return;
-    // }
+    if (user.password !== null) {
+      window.alert("This username is taken. \n Please try a different one");
+      return;
+    } else {
+      user = await createUser(username, password);
+      console.log(user);
+      window.alert("Your account has been made! You may login now");
+      navigate("/login");
+      return;
+    }
   }
 
   const handleToggle = () => {

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useCookies } from "react-cookie";
-import { useEffect } from "react";
 import { Grid } from "react-visual-grid";
 import { Image } from "../components/Image";
 
@@ -11,29 +9,29 @@ function DatasetPage() {
     { text: "../assets/dog2.png" },
     { text: "../assets/dog3.png" },
   ]);
-//code the img retrieval
-// add key
+  //code the img retrieval
+  // add key
 
-const addList = () => {
+  const addList = () => {
     const newImage = { id: Math.random(), text: "New todo" };
     setImage([images, newImage]);
   };
 
   // const getData=()=>{
-    // fetch('/api/abi/<id>', { // fix ID
-    //   headers : { 
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json'
-    //    }
-    // })
-    //   .then(function(response){
-    //     console.log(response);
-    //     return response.json();
-    //   })
-    //   .then(function(myJson) {
-    //     console.log(myJson);
-    //     setData(myJson);
-    //   });
+  // fetch('/api/abi/<id>', { // fix ID
+  //   headers : {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json'
+  //    }
+  // })
+  //   .then(function(response){
+  //     console.log(response);
+  //     return response.json();
+  //   })
+  //   .then(function(myJson) {
+  //     console.log(myJson);
+  //     setData(myJson);
+  //   });
 
   // }
   // useEffect(()=>{
@@ -41,15 +39,12 @@ const addList = () => {
   //   getData()
 
   // },[])
-  
 
   return (
     <div>
       <ul>
         {images.map((images, index) => (
-          <li key={index}>
-            {images.text}
-            </li>
+          <li key={index}>{images.text}</li>
         ))}
       </ul>
       {/* <Grid
@@ -65,13 +60,13 @@ const addList = () => {
           thumbnailBgColor: "#202020",
         }}
       />; */}
-      <img 
+      <img
         height={300}
         width={300}
         src={require("../assets/dog1.png")}
-        alt={"test img"}/>
-      <Image>
-      </Image>
+        alt={"test img"}
+      />
+      <Image></Image>
       {/* {data && data.length>0 && data.map((item)=><p>{item.about}</p>)} */}
     </div>
   );

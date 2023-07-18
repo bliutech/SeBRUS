@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import useCookie from "react-cookie";
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { getUser } from "../api/user";
 
 const DataContext = React.createContext();
 
 const DataProvider = ({ children }) => {
-  const [session, setSession, deleteSession] = useCookie(["session"]);
+  const [session, setSession, deleteSession] = useCookies(["session"]);
   const [auth, setAuth] = useState(false);
 
   // useEffect(async () => {
@@ -18,18 +18,17 @@ const DataProvider = ({ children }) => {
 
   return (
     <div>
-    <DataContext.Provider
-      value={{
-        auth,
-        setAuth,
-        updateData,
-      }}
-    >
-      {children}
-    </DataContext.Provider>
+      <DataContext.Provider
+        value={{
+          auth,
+          setAuth,
+          updateData,
+        }}
+      >
+        {children}
+      </DataContext.Provider>
     </div>
   );
 };
 
-export default DataProvider;
-export { DataContext };
+export { DataProvider, DataContext };

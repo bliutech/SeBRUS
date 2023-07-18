@@ -1,18 +1,18 @@
 import "../styles/index.css";
 import styles from "../styles/components/LoginForm.module.css";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { getUser } from "../api/user";
 import { useNavigate } from "react-router-dom";
-// import { useContext, UserContext } from "react";
+import { useContext } from "react";
+import { DataContext } from "./DataProvider";
 
 function Login() {
   document.title = "Login";
   const navigate = useNavigate();
-  // const auth = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showP, showPassword] = useState(false);
+  const { updateData } = useContext(DataContext);
 
   async function handleLogin() {
     if (!username) {
@@ -22,7 +22,7 @@ function Login() {
       const user = await getUser(username);
       if (user.password === password) {
         window.alert("You are logged in!");
-        setCookie("session", username);
+        updateData();
         navigate("/profile");
       } else {
         window.alert("wrong password");

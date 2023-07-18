@@ -8,13 +8,11 @@ import ProfilePage from "./pages/ProfilePage";
 import DatasetPage from "./pages/DatasetPage";
 import DashboardPage from "./pages/DashboardPage";
 import Contribute from "./pages/ContributePage";
-import { DataContext } from "./components/DataProvider";
+// import { DataContext } from "./components/DataProvider";
 
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies("");
-  // const DataContext = createContext();
   // const auth = useContext(DataContext);
-  const auth = true;
+  const auth = false;
 
   return (
     <div className="App">

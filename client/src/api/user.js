@@ -1,5 +1,5 @@
 const base = "http://localhost:5000";
-const showError = true;
+// const showError = true;
 
 async function createUser(username, password) {
   let object = {
@@ -29,11 +29,10 @@ async function createUser(username, password) {
 }
 
 async function getUser(username) {
-  const response = await fetch(base + `/signin`, {
+  const response = await fetch(base + `/api/user`, {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ usr: username }),
   });
 
   if (!response.ok) {
