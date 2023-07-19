@@ -45,6 +45,7 @@ function ImageUploader() {
       </div>
       <p></p>
       <input
+        accept="image/x-png,image/gif,image/jpeg"
         type="file"
         name="image"
         className={styles.file}
