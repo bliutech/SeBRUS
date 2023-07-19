@@ -1,34 +1,37 @@
-const base = "http://localhost:5000";
-const showError = true;
+import { base, showError } from "./util.js";
 
 async function createUser(username, password) {
   let object = {
-    usr: username,
-    pwd: password,
+    username: username,
+    password: password,
   };
-  const response = await fetch(base + `/login`, {
+
+  let res = await fetch(base + `/api/user`, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(object),
-  }).catch((error) => {
-    if (showError) {
-      window.alert(error);
-    }
-    return;
   });
+
+  if (res.status >= 400) {
+    if (showError) {
+      console.log(res);
+    }
+  }
+
+  let data = await res.json();
+
+  let user = await data["user"];
+
+  return user;
 }
 
-async function getUser(username) {
-  const response = await fetch(base + `/signin`, {
-    method: "PULL",
-    credentials: "include",
+async function getUser(id) {
+  const response = await fetch(base + `/api/user/` + id, {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ usr: username }),
   });
 
   if (!response.ok) {
@@ -38,7 +41,8 @@ async function getUser(username) {
   }
 
   const object = await response.json();
-  return object;
+  const user = object.user;
+  return user;
 }
 
 async function changeUser(username, password) {

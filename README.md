@@ -45,6 +45,7 @@ Run the follow commands to deploy the smart contracts to the local blockchain.
 cd blockchain
 truffle compile
 truffle migrate
+python register.py
 ```
 
 ## Linting

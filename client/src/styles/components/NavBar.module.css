@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Dosis');
-@import url('https://fonts.googleapis.com/css?family=Lato');
-@import url('https://fonts.googleapis.com/css?family=Cairo');
+@import url("https://fonts.googleapis.com/css?family=Dosis");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url("https://fonts.googleapis.com/css?family=Cairo");
 
 .format {
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
 }
 
 #navBar {
@@ -17,20 +17,20 @@
 }
 
 #bar {
-    height: 75px;
-    margin-left: 50px;
-    margin-right: 100px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    list-style-type: none;
-    position: relative;
-    top: 0;
-    left: 0;
-    font-family: "Lato";
-    font-size: 100 px;
-    z-index: 1;
-    align-items: center;
+  height: 75px;
+  margin-left: 50px;
+  margin-right: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style-type: none;
+  position: relative;
+  top: 0;
+  left: 0;
+  font-family: "Lato";
+  font-size: 100 px;
+  z-index: 1;
+  align-items: center;
 }
 
 .logo {
@@ -56,12 +56,12 @@
 }
 
 .regis {
-    background-color: snow;
-    color: #282c34;
-    border-radius: 20px;
-    padding: 0 25px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: 10px;
-    width: 30px;
+  background-color: snow;
+  color: #282c34;
+  border-radius: 20px;
+  padding: 0 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 10px;
+  width: 30px;
 }

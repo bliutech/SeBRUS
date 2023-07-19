@@ -1,23 +1,23 @@
 .but {
-    font-family: Verdana, sans-serif;
-    border-radius: 30px;
-    border-color: snow;
-    width: 200px;
-    height: 40px;
-    font-size: 12pt;
-    color: 282c34;
-    position: absolute;
-    bottom: 0px;
-    background-color: snow;
+  font-family: Verdana, sans-serif;
+  border-radius: 30px;
+  border-color: snow;
+  width: 200px;
+  height: 40px;
+  font-size: 12pt;
+  color: 282c34;
+  position: absolute;
+  bottom: 0px;
+  background-color: snow;
 }
 
 .profPage {
-    background-color: #282c34;
-    color: snow;
-    margin: 50px;
-    border-radius: 30px;
-    width: 40vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
+  background-color: #282c34;
+  color: snow;
+  margin: 50px;
+  border-radius: 30px;
+  width: 40vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }

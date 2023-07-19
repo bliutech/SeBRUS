@@ -25,7 +25,14 @@ def get(id):
     from models.session import Session
 
     with app.app_context():
-        session = db.session.query(Session).filter_by(id=id).first()
+        session = None
+
+        token = request.cookies.get("session")
+
+        if id == "me":
+            session = db.session.query(Session).filter_by(token=token).first()
+        else:
+            session = db.session.query(Session).filter_by(id=id).first()
 
         if session is None:
             res["status"] = "Session not found."
@@ -39,6 +46,7 @@ def get(id):
 
         res["status"] = "Success."
         res["user"] = user.json()
+        res["session"] = session.json()
 
         return jsonify(res), 200
 

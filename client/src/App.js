@@ -1,5 +1,6 @@
 import "./styles/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useContext } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import Login from "./components/LoginForm";
@@ -8,11 +9,11 @@ import ProfilePage from "./pages/ProfilePage";
 import DatasetPage from "./pages/DatasetPage";
 import DashboardPage from "./pages/DashboardPage";
 import Contribute from "./pages/ContributePage";
-import { useCookies } from "react-cookie";
+import { DataContext } from "./components/DataProvider";
 
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies("");
-  const auth = cookies.name > 0;
+  const {auth} = useContext(DataContext);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,17 +21,17 @@ function App() {
         <header className="App-header">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/registration" element={<Registration />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            {auth ? null : <Route path="/login" element={<Login />} />}
+            {auth ? null : <Route path="/registration" element={<Registration />} />}
+            {auth ? <Route path="/profile" element={<ProfilePage />} /> : null}
             <Route path="/datasets" element={<DatasetPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/contribute" element={<Contribute />} />
+            {auth ? <Route path="/dashboard" element={<DashboardPage />} /> : null}
+            {auth ? <Route path="/contribute" element={<Contribute />} /> : null}
+            {auth ? <Route path="*" element={<Navigate to="/dashboard" />} /> : <Route path="*" element={<Navigate to="/login" />} />}
           </Routes>
         </header>
       </BrowserRouter>
     </div>
   );
 }
-
 export default App;

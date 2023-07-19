@@ -1,9 +1,4 @@
 from flask import request, jsonify
-from models.dataset import Dataset
-from app import app, db
-
-with app.app_context():
-    datasets = db.session.query(Dataset).all()
 
 
 # user router
@@ -24,75 +19,106 @@ def router(id):
 
 def get(id):
     res = {"status": ""}
+    from app import app, db
+    from models.user import User
+    from models.dataset import Dataset
 
-    dataset = Dataset.query.filter_by(id=id).first()
-    if dataset is None:
-        res = {"status": "failure"}
-        return jsonify({"error": "Dataset not found"}, res), 404
-    else:
-        res = {"status": "success"}
-        return jsonify(dataset.json(), res), 200
+    with app.app_context():
+        dataset = None
+        if id == "all":
+            dataset = db.session.query(Dataset).all()
+        else:
+            dataset = [db.session.query(Dataset).filter_by(id=id).first()]
+
+        if dataset is None:
+            res["status"] = "Dataset not found."
+            return jsonify(res), 404
+
+        res["status"] = "Dataset found."
+        res["dataset"] = [dataset.json() for dataset in dataset]
+        return jsonify(res), 200
 
 
 def post():
+    data = request.json
+
     res = {"status": ""}
 
-    data = request.json
-    datasetName = data.get("datasetName")
+    name = data.get("name")
     description = data.get("description")
     address = data.get("address")
 
-    if datasetName is None or description is None or address is None:
-        res = {"status": "no datasets"}
+    if name is None or description is None or address is None:
+        res["status"] = "`name`, `description`, or `address` required."
         return jsonify(res), 400
-    elif Dataset.query.filter_by(datasetName=datasetName).first():
-        res = {"status": "existing dataset"}
-        return jsonify({}, res), 409
-    else:
+
+    from app import app, db
+    from models.dataset import Dataset
+
+    with app.app_context():
+        dataset = db.session.query(Dataset).filter_by(name=name).first()
+
+        if dataset is not None:
+            res["status"] = "Dataset already exists."
+            return jsonify(res), 409
+
         new_dataset = Dataset(
-            datasetName=datasetName,
-            description=description,
-            address=address,
+            datasetName=name, description=description, address=address
         )
-        res = {"status": "new dataset"}
         new_dataset.save_to_db()
-        return jsonify(new_dataset.json(), res), 200
+
+        res["status"] = "New dataset created."
+        res["dataset"] = new_dataset.json()
+
+        return jsonify(res), 201
 
 
-# check this!
 def put(id):
-    res = {"status": ""}
-
     data = request.json
-    datasetName = data.get("datasetName")
+
+    name = data.get("name")
     description = data.get("description")
     address = data.get("address")
 
-    if datasetName is None or description is None or address is None:
-        res = {"status": "dataset does not exist"}
+    res = {"status": ""}
+
+    if name is None or description is None or address is None:
+        res["status"] = "`name`, `description`, or `address` required."
         return jsonify(res), 400
-    elif datasetName not in data or description not in data or address not in data:
-        res = {"status": "not in dataset"}
-        return jsonify({}, res), 404
-    else:
-        new_dataset = Dataset(
-            datasetName=datasetName,
-            description=description,
-            address=address,
-        )  # is this correct?
-        res = {"status": "new dataset"}
-        new_dataset.save_to_db()
-        return jsonify(new_dataset.json(), res), 200
+
+    from app import app, db
+    from models.dataset import Dataset
+
+    with app.app_context():
+        dataset = db.session.query(Dataset).filter_by(id=id).first()
+
+        if dataset is None:
+            res["status"] = "Dataset not found."
+            return jsonify(res), 404
+
+        dataset.datasetName = name
+        dataset.description = description
+        dataset.address = address
+        dataset.save_to_db()
+
+        res["status"] = "Dataset edited."
+        res["dataset"] = dataset.json()
+        return jsonify(res), 200
 
 
 def delete(id):
     res = {"status": ""}
 
-    dataset = Dataset.query.get(id)
-    if dataset is None:
-        res = {"status": "no dataset"}
-        return jsonify({}, res), 404
-    else:
-        res = {"status": "dataset removed"}
-        dataset.remove_from_db()
+    from app import app, db
+    from models.dataset import Dataset
+
+    with app.app_context():
+        dataset = db.session.query(Dataset).filter_by(id=id).first()
+        if dataset is None:
+            res["status"] = "Dataset does not exist."
+            return jsonify(res), 404
+
+        dataset.delete_from_db()
+
+        res["status"] = "Dataset deleted."
         return jsonify(res), 200

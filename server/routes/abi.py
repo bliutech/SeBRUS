@@ -1,6 +1,5 @@
 from flask import request, jsonify
-
-# from models.abi import Abi
+from models.abi import ABI
 
 
 def router(id):
@@ -18,45 +17,104 @@ def router(id):
     return jsonify(res), 500
 
 
-# TODO: implement GET handler
 def get(id):
     res = {"status": ""}
 
     from app import app, db
 
-    res["status"] = "ABI not found."
+    with app.app_context():
+        abi = db.session.query(ABI).filter_by(id=id).first()
 
-    return jsonify(res), 404
+        if abi is None:
+            res["status"] = "ABI not found."
+            return jsonify(res), 404
+
+        res["status"] = "ABI found."
+
+        import json
+
+        with open("abi/" + abi.name + ".json", "r") as f:
+            abi = json.load(f)
+
+        res["abi"] = abi
+        return jsonify(res), 200
 
 
-# TODO: implement POST handler
-def post(id):
+def post():
     res = {"status": ""}
 
+    data = request.json
+
+    name = data.get("name")
+    abi = abi.get("abi")
+
     from app import app, db
+    import json
 
-    res["status"] = "ABI not found."
+    with open("abi/" + name + ".json", "w") as outfile:
+        outfile.write(json.dumps(abi, indent=4))
 
-    return jsonify(res), 404
+    with app.app_context():
+        abi = ABI.query.filter_by(id=id).first()
+        if abi is None:
+            res["status"] = "ABI not found."
+            return jsonify(res), 404
+        else:
+            res["status"] = "ABI found."
+            return jsonify(res), 200
 
 
-# TODO: implement PUT handler
 def put(id):
     res = {"status": ""}
 
+    data = request.json
+
+    name = data.get("name")
+    abi = data.get("abi")
+
     from app import app, db
+    import json
 
-    res["status"] = "ABI not found."
+    dictionary = {"name": name, "id": id, "abi": abi}
 
-    return jsonify(res), 404
+    abi = json.dumps(dictionary, indent=4)
+
+    with open("abi/" + name + "/.json", "w") as outfile:
+        outfile.write(abi)
+
+    with app.app_context():
+        abi = db.session.query(ABI).filter_by(id=id).first()
+
+        if name is None or id is None:
+            res["status"] = "ABI not found."
+            return jsonify(res), 404
+        elif name not in abi or id not in abi:
+            res["status"] = "Not in ABI."
+            return jsonify(res), 400
+        else:
+            new_ABI = abi(name=name, id=id, abi=abi)
+            res["status"] = "New ABI."
+            new_ABI.save_to_db()
+            return jsonify(res), 200
 
 
-# TODO: implement DELETE handler
 def delete(id):
+    import os
+
     res = {"status": ""}
+    data = request.json
+    name = data.get("name")
 
     from app import app, db
 
-    res["status"] = "ABI not found."
-
-    return jsonify(res), 404
+    with app.app_context():
+        abi = ABI.query.get(id)
+        if abi is None:
+            res["status"] = "ABI not found."
+            return jsonify(res), 404
+        else:
+            res["status"] = "ABI removed."
+            abi.delete_from_db()
+            file_path = "abi/" + name + ".json"
+            os.remove(file_path)  # good?
+            return jsonify(res), 200

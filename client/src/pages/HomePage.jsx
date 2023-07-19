@@ -5,7 +5,7 @@ import background from "../assets/SeBERUS.png"
 
 
 function HomePage() {
-  document.title = "SeBRUS";
+  document.title = "Home | SeBRUS";
 
     return (
       <div className={styles.home}>
