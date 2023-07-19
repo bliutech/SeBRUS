@@ -1,23 +1,33 @@
 import styles from "../styles/pages/HomePage.module.css";
+import background from "../assets/SeBERUS.png"
+
+
+
 
 function HomePage() {
   document.title = "Home | SeBRUS";
 
-  return (
-    <div className={styles.home}>
-      {/* <text className={styles.logo}>SeBRUS</text>
-            <br></br>
-            <br></br>
-            <div className="home-image-container">
-                <img
-                    alt="filler"
-                    width="300"
-                    height="200"
-                    src="https://media.istockphoto.com/id/953499010/photo/blockchain-technology-structure-defocused.jpg?s=1024x1024&w=is&k=20&c=5x3Mmp9kIsHraabTUGK9Lbm9fJZ0PkbqW0WE_oYTF64="
-                />
-            </div> */}
+    return (
+      <div className={styles.home}>
+      <p style={{ textAlign: 'center'}}>
+          This is the future of crowdsourced AI datasets.
+          <br />
+          This is SeBRUS: <br />
+          Secure Blockchain Regularization Upload System
+      </p>
+      <div className="home-image-container">
+        <img
+          alt="filler"
+          width="400"
+          height="400"
+          style={{imageAlign: "right", border: '50%'}}
+          src={background}
+        />
+        
+      </div>
     </div>
   );
 }
+
 
 export default HomePage;

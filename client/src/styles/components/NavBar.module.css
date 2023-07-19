@@ -9,11 +9,11 @@
 }
 
 #navBar {
-  background-color: rgb(133, 157, 189);
-  width: 100vw;
-  height: 75px;
-  position: relative;
-  z-index: 2;
+    background-color: rgb(0, 27, 62);
+    width: 100vw;
+    height: 75px;
+    position: relative;
+    z-index: 2;
 }
 
 #bar {
@@ -34,24 +34,25 @@
 }
 
 .logo {
-  color: #282c34;
-  font-size: 50px;
-  font-family: "Cairo";
-  font-weight: 550;
-  position: relative;
-  z-index: 1;
-  padding-bottom: 3px;
+    color: #f3f7ff;
+    font-size: 50px;
+    font-family: "Cairo";
+    font-weight: 550;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 3px;
+    cursor: pointer;
 }
 
 #navLink {
-  color: #282c34;
-  font-size: 20px;
-  text-decoration: none;
-  cursor: pointer;
+    color: #c9d8f6;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 #navLink:hover {
-  color: snow;
+    color: rgb(245, 182, 233);
 }
 
 .regis {

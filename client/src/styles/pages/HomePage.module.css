@@ -13,17 +13,16 @@ a:visited:active {
 }
 
 .logo {
-  color: #282c34;
-  font-size: 50px;
-  font-family: "Cairo";
-  font-weight: 550;
+    font-size: 150%;
+    font-family: "Cairo";
+    font-weight: 550;
 }
 
 .home {
     width: 100vw;
     height: 100vh;
-    background-image: url(../../assets/sebrus2.png);
-    /* background-repeat: no-repeat; */
     background-size:100vw 100vh;
-    opacity: 0.7;
+    opacity: 1.0;
+    font-family: "Cairo";
+    font-size: 140%;
 }

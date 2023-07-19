@@ -23,6 +23,11 @@ function NavBar() {
     <div id={styles.navBar}>
       <div id={styles.bar}>
         <li>
+        <Link id = {styles.logo} to ="/">
+        <div className={styles.logo}>SeBRUS</div>
+        </Link>
+        </li>
+      <li>
           <Link id={styles.navLink} to="/">
             <div className={styles.logo}>SeBRUS</div>
           </Link>

@@ -247,6 +247,7 @@ function ImageUploader() {
       </div>
       <p></p>
       <input
+        accept="image/x-png,image/gif,image/jpeg"
         type="file"
         accept="image/png, image/jpeg"
         name="image"
