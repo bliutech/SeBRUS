@@ -1,9 +1,10 @@
 import { base, showError } from "./util.js";
 
-async function createDataset(username, password) {
+async function createDataset(name, description, address) {
   let object = {
-    username: username,
-    password: password,
+    name: name,
+    description: description,
+    address: address,
   };
 
   let res = await fetch(base + `/api/dataset`, {
@@ -22,37 +23,66 @@ async function createDataset(username, password) {
 
   let data = await res.json();
 
-  let user = await data["user"];
+  let dataset = await data["dataset"];
 
-  return user;
-}
-
-async function getDataset(id) {
-  const response = await fetch(base + `/api/dataset/` + id, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    const message = `An error has occurred`;
-    window.alert(message);
-    return;
-  }
-
-  const object = await response.json();
-  const dataset = object.address; // correct?
   return dataset;
 }
 
-async function changeDataset(username, password) {
-  /* TODO: implement this thing! */
-  return;
+async function getDataset(id) {
+  let res = await fetch(base + `/api/dataset/` + id);
+
+  if (res.status >= 400) {
+    if (showError) {
+      console.log(res);
+    }
+    return null;
+  }
+
+  let object = await res.json();
+  let dataset = await object["dataset"];
+  return dataset;
 }
 
-async function deleteDataset(username, password) {
-  /* TODO: implement this thing! */
-  return;
+async function changeDataset(id, name, description, address) {
+  let obj = {
+    name: name,
+    description: description,
+    address: address,
+  };
+
+  let res = await fetch(base + `/api/dataset/` + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(obj),
+  });
+
+  if (res.status == 400) {
+    alert("You must change your name or description or address!");
+    return null;
+  }
+
+  let data = await res.json();
+
+  let dataset = await data["dataset"];
+
+  return dataset;
+}
+
+async function deleteDataset(id) {
+  let res = await fetch(base + `/api/dataset/` + id, {
+    method: "DELETE",
+  });
+
+  if (res.status >= 400) {
+    if (showError) {
+      console.log(res);
+    }
+    return false;
+  }
+
+  return true;
 }
 
 export { createDataset, getDataset, changeDataset, deleteDataset };

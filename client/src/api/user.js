@@ -28,31 +28,65 @@ async function createUser(username, password) {
 }
 
 async function getUser(id) {
-  const response = await fetch(base + `/api/user/` + id, {
+  let res = await fetch(base + `/api/user/` + id);
+
+  if (res.status >= 400) {
+    if (showError) {
+      console.log(res);
+    }
+    return null;
+  }
+
+  let object = await res.json();
+  let users = await object["users"];
+  return users[0];
+}
+
+async function updateUser(id, username, password) {
+  let obj = {
+    username: username,
+    password: password,
+  };
+
+  let res = await fetch(base + `/api/user/` + id, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(obj),
   });
 
-  if (!response.ok) {
-    const message = `An error has occurred`;
-    window.alert(message);
-    return;
+  if (res.status == 400) {
+    alert("You must change your username or password!");
   }
 
-  const object = await response.json();
-  const user = object.user;
+  if (res.status >= 400) {
+    if (showError) {
+      console.log(res);
+    }
+    return null;
+  }
+
+  let object = await res.json();
+
+  let user = await object["user"];
+
   return user;
 }
 
-async function changeUser(username, password) {
-  /* TODO: implement this thing! */
-  return;
+async function deleteUser(id) {
+  let res = await fetch(base + `/api/user/` + id, {
+    method: "DELETE",
+  });
+
+  if (res.status >= 400) {
+    if (showError) {
+      console.log(res);
+    }
+    return false;
+  }
+
+  return true;
 }
 
-async function deleteUser(username, password) {
-  /* TODO: implement this thing! */
-  return;
-}
-
-export { createUser, getUser, changeUser, deleteUser };
+export { createUser, getUser, updateUser, deleteUser };

@@ -17,7 +17,7 @@ class Dataset(db.Model):
         count = len(count)
 
         if count != 0:
-            if count[-1].id > Dataset._count:
+            if count[-1].id >= Dataset._count:
                 Dataset._count = count[-1].id + 1
             else:
                 Dataset._count = count
