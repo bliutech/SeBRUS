@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import DropdownMenu from "../components/DropdownMenu";
-import styles from "../styles/pages/ContributePage.module.css";
-import { DataContext } from "../components/DataProvider";
 import web3 from "web3";
+
+import DropdownMenu from "../components/DropdownMenu";
+import { DataContext } from "../components/DataProvider";
+
+import styles from "../styles/pages/ContributePage.module.css";
 
 function ImageUploader() {
   document.title = "Contribute | SeBRUS";
@@ -240,29 +242,30 @@ function ImageUploader() {
   const [selected, setSelected] = useState("");
 
   return (
-    <div className={styles.contribute}>
-      <p className={styles.header}>Upload Images</p>
-      <div>
-        <DropdownMenu selected={selected} />
+    <div className="page">
+      <div className={styles.contribute}>
+        <p className={styles.header}>Upload Images</p>
+        <div>
+          <DropdownMenu selected={selected} />
+        </div>
+        <p></p>
+        <input
+          type="file"
+          accept="image/png,image/jpeg"
+          name="image"
+          className={styles.file}
+          onChange={handleImageChange}
+        ></input>
+        <p></p>
+        {image === "" ? null : <img className={styles.image} src={image} />}
+        <p></p>
+        <input
+          type="button"
+          value="Upload"
+          className={styles.uploader}
+          onClick={() => handleSubmit()}
+        ></input>
       </div>
-      <p></p>
-      <input
-        accept="image/x-png,image/gif,image/jpeg"
-        type="file"
-        accept="image/png, image/jpeg"
-        name="image"
-        className={styles.file}
-        onChange={handleImageChange}
-      ></input>
-      <p></p>
-      {image === "" ? null : <img className={styles.image} src={image} />}
-      <p></p>
-      <input
-        type="button"
-        value="Upload"
-        className={styles.uploader}
-        onClick={() => handleSubmit()}
-      ></input>
     </div>
   );
 }

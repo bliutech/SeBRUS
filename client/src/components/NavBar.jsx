@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import React from "react";
-import styles from "../styles/components/NavBar.module.css";
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import { DataContext } from "./DataProvider";
+
+import styles from "../styles/components/NavBar.module.css";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function NavBar() {
     navigate("/login");
   }
 
-  async function handleSignout() {
+  async function handleLogout() {
     window.alert("You are now logged out");
     await deleteData();
     navigate("/");
@@ -57,25 +57,29 @@ function NavBar() {
         ) : null}
         {auth ? (
           <li>
-            <button onClick={() => connectWallet()}>
+            <button
+              className={styles.authButton}
+              onClick={() => connectWallet()}
+            >
               {accounts.length !== 0 ? "Connected" : "Connect to Metamask"}
             </button>
           </li>
         ) : null}
         {auth ? (
-          <input
-            id={styles.but}
-            type="button"
-            value="Signout"
-            onClick={() => handleSignout()}
-          ></input>
+          <li>
+            <button
+              className={styles.authButton}
+              onClick={() => handleLogout()}
+            >
+              Logout
+            </button>
+          </li>
         ) : (
-          <input
-            id={styles.but}
-            type="button"
-            value="Login"
-            onClick={() => handleLogin()}
-          ></input>
+          <li>
+            <button className={styles.authButton} onClick={() => handleLogin()}>
+              Login
+            </button>
+          </li>
         )}
       </div>
     </div>
