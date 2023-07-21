@@ -199,7 +199,7 @@ function ImageUploader() {
         type: "function",
       },
     ];
-    let address = "0x5eE69A9EB760313D955E72BE8f33c32cB4204Ad8";
+    let address = "0x3530A5ceFbA62dcE03f065Ae9d1F40eD52aED1d5";
     window.web3 = new web3(window.ethereum);
     let DatasetContract = new window.web3.eth.Contract(abi, address);
     DatasetContract.setProvider(window.ethereum);
@@ -227,6 +227,10 @@ function ImageUploader() {
     async function getImage() {
       const images = await DatasetContract.methods.images(0).call();
       console.log("images:", images);
+      // add for loop
+      // add imageCount
+      // grab images and append to a list on my end
+      // do this for dashboard, datasets, and dataset page
     }
     getImage();
   };
@@ -247,9 +251,8 @@ function ImageUploader() {
       </div>
       <p></p>
       <input
-        accept="image/x-png,image/gif,image/jpeg"
         type="file"
-        accept="image/png, image/jpeg"
+        accept="image/png, image/gif, image/jpeg"
         name="image"
         className={styles.file}
         onChange={handleImageChange}
