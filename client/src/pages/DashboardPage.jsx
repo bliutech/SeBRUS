@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import web3 from "web3";
 
 import { getABI } from "../api/abi";
@@ -91,6 +92,9 @@ function DashboardPage() {
                       <p>{image.value}</p>
                       <p>{image.class}</p>
                       <p>{image.approved ? "Approved" : "Not Approved"}</p>
+                      <p>
+                        <Link to="/dataset?id=1">Link</Link>
+                      </p>
                     </li>
                   );
                 })}

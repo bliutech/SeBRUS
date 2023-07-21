@@ -1,30 +1,35 @@
 import { useEffect, useState } from "react";
-function DropdownMenu() {
-  const [selected, setSelected] = useState("");
-  const getOptions = (event) => {
-    const options = []; //creating an array to hold options in
-    for (let i = 1; i <= 5; i++) {
-      //i used the number 5 here but this can be made dynamic depending on chloe's code
-      options.push({
-        value: `Option ${i}`,
-        text: `Option ${i}`,
-      });
-    }
-    return options;
-  };
+import web3 from "web3";
 
-  const dropDownOptions = getOptions();
+import { getDataset } from "../api/dataset";
+
+function DropdownMenu({ selected, setSelected }) {
+  const [dropDownOptions, setDropDownOptions] = useState([]);
 
   const handleChange = (event) => {
+    console.log(event.target.value);
     setSelected(event.target.value);
   };
+
+  useEffect(() => {
+    const load = async () => {
+      let datasets = await getDataset("all");
+      if (datasets === null) {
+        alert("Error loading datasets.");
+        return;
+      }
+      console.log(datasets);
+      setDropDownOptions(datasets);
+    };
+    load();
+  }, []);
 
   return (
     <select onChange={handleChange}>
       <option value="">Select a dataset</option>
       {dropDownOptions.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.text}
+        <option key={option.name} value={option.address}>
+          {option.name}
         </option>
       ))}
     </select>

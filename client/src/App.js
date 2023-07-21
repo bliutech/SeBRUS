@@ -25,7 +25,7 @@ function App() {
             {auth ? null : <Route path="/login" element={<LoginPage />} />}
             {auth ? null : <Route path="/registration" element={<RegistrationPage />} />}
             {auth ? <Route path="/profile" element={<ProfilePage />} /> : null}
-            {auth ? <Route path="/dataset/:id" element={<DatasetPage />} /> : null}
+            {auth ? <Route path="/dataset" element={<DatasetPage />} /> : null}
             {auth ? <Route path="/datasets" element={<CreateDatasetPage />} /> : null}
             {auth ? <Route path="/dashboard" element={<DashboardPage />} /> : null}
             {auth ? <Route path="/contribute" element={<Contribute />} /> : null}

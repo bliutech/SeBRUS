@@ -26,6 +26,9 @@ def get(id):
         dataset = None
         if id == "all":
             dataset = db.session.query(Dataset).all()
+            dataset = dataset[
+                1::
+            ]  # skip the first entry which is always the DatasetManager contract
         else:
             dataset = [db.session.query(Dataset).filter_by(id=id).first()]
 

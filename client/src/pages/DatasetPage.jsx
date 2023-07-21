@@ -1,7 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { Grid } from "react-visual-grid";
-
-import { useParams } from "react-router-dom";
 
 import { Image } from "../components/Image";
 
@@ -12,7 +10,7 @@ import dog from "../assets/dog1.png";
 function DatasetPage() {
   document.title = "Dataset | SeBRUS";
 
-  const { id } = useParams();
+  const [id, setId] = useState(null);
 
   const [images, setImage] = useState([
     { text: "../assets/dog1.png" },
@@ -29,8 +27,18 @@ function DatasetPage() {
 
   console.log(id);
 
-  if (!id) {
-    return <div>Dataset not found</div>;
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    let id = urlParams.get("id");
+    setId(id);
+  }, []);
+
+  if (id === null) {
+    return (
+      <div className="page">
+        <h1>Dataset Not found</h1>
+      </div>
+    );
   }
 
   return (

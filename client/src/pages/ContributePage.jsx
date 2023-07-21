@@ -5,32 +5,47 @@ import web3 from "web3";
 import DropdownMenu from "../components/DropdownMenu";
 import { DataContext } from "../components/DataProvider";
 
+import { getABI } from "../api/abi";
+
 import styles from "../styles/pages/ContributePage.module.css";
 
 function ImageUploader() {
   document.title = "Contribute | SeBRUS";
 
-  const [image, setImage] = useState("");
-  // const [databases, setDatabases] = useState([]);
   const { accounts } = useContext(DataContext);
+
+  const [image, setImage] = useState("");
+
+  const [selected, setSelected] = useState("");
+
+  const [label, setLabel] = useState("");
+
+  const fileReader = new FileReader();
+
+  fileReader.onload = () => {
+    const base64String = fileReader.result.toString("base64");
+    setImage(base64String);
+  };
 
   const handleImageChange = (event) => {
     let file = event.target.files[0];
     if (file === undefined) {
       alert("Please upload a file");
-      setImage();
       return;
     }
-    console.log(file);
-    const fileReader = new FileReader();
+    if (file.size > 10000000) {
+      alert("File size must be less than 10MB");
+      return;
+    }
+    if (file.type !== "image/png" && file.type !== "image/jpeg") {
+      alert("File must be a PNG or JPEG image");
+      return;
+    }
+
     fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      const base64String = fileReader.result.toString("base64");
-      setImage(base64String);
-    };
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (image === "") {
       alert("Please upload an image");
       return;
@@ -40,174 +55,28 @@ function ImageUploader() {
       return;
     }
 
-    // temporary values for testing
-    let abi = [
-      {
-        inputs: [
-          {
-            internalType: "string",
-            name: "_name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "_description",
-            type: "string",
-          },
-        ],
-        stateMutability: "nonpayable",
-        type: "constructor",
-      },
-      {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: false,
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            indexed: false,
-            internalType: "string",
-            name: "value",
-            type: "string",
-          },
-          {
-            indexed: false,
-            internalType: "bool",
-            name: "approved",
-            type: "bool",
-          },
-        ],
-        name: "DataCreated",
-        type: "event",
-      },
-      {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: false,
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            indexed: false,
-            internalType: "bool",
-            name: "approved",
-            type: "bool",
-          },
-        ],
-        name: "DataVerified",
-        type: "event",
-      },
-      {
-        inputs: [],
-        name: "description",
-        outputs: [
-          {
-            internalType: "string",
-            name: "",
-            type: "string",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-        constant: true,
-      },
-      {
-        inputs: [],
-        name: "imageCount",
-        outputs: [
-          {
-            internalType: "uint256",
-            name: "",
-            type: "uint256",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-        constant: true,
-      },
-      {
-        inputs: [
-          {
-            internalType: "uint256",
-            name: "",
-            type: "uint256",
-          },
-        ],
-        name: "images",
-        outputs: [
-          {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "value",
-            type: "string",
-          },
-          {
-            internalType: "bool",
-            name: "approved",
-            type: "bool",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-        constant: true,
-      },
-      {
-        inputs: [],
-        name: "name",
-        outputs: [
-          {
-            internalType: "string",
-            name: "",
-            type: "string",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-        constant: true,
-      },
-      {
-        inputs: [
-          {
-            internalType: "string",
-            name: "_content",
-            type: "string",
-          },
-        ],
-        name: "createData",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [
-          {
-            internalType: "uint256",
-            name: "_id",
-            type: "uint256",
-          },
-        ],
-        name: "approveData",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-    ];
-    let address = "0x3530A5ceFbA62dcE03f065Ae9d1F40eD52aED1d5";
+    if (selected === "") {
+      alert("Please select a dataset");
+      return;
+    }
+
+    if (label === "") {
+      alert("Please enter a label");
+      return;
+    }
+
+    let abi = await getABI("1");
+    if (abi === null) {
+      alert("Error loading dataset ABI.");
+      return;
+    }
+
     window.web3 = new web3(window.ethereum);
-    let DatasetContract = new window.web3.eth.Contract(abi, address);
+    let DatasetContract = new window.web3.eth.Contract(abi, selected);
     DatasetContract.setProvider(window.ethereum);
 
     DatasetContract.methods
-      .createData("test")
+      .createData(image, label)
       .send({ from: accounts[0] })
       .on("receipt", function (receipt) {
         console.log(receipt);
@@ -220,57 +89,38 @@ function ImageUploader() {
         console.log(receipt);
       });
 
-    DatasetContract.methods.imageCount
-      .call()
-      .call()
-      .then((res) => {
-        console.log("imageCount:", res);
-      });
-    async function getImage() {
-      const images = await DatasetContract.methods.images(0).call();
-      console.log("images:", images);
-      // add for loop
-      // add imageCount
-      // grab images and append to a list on my end
-      // do this for dashboard, datasets, and dataset page
-    }
-    getImage();
+    alert("Image uploaded successfully!");
   };
-
-  useEffect(() => {
-    //fetch databases from /api/database (chloe's endpoint)
-    //then, take the value of that and use set databases to save it
-  }, []);
-
-  //for dropdown menu
-  const [selected, setSelected] = useState("");
 
   return (
     <div className="page">
       <div className={styles.contribute}>
         <p className={styles.header}>Upload Images</p>
         <div>
-          <DropdownMenu selected={selected} />
+          <DropdownMenu selected={selected} setSelected={setSelected} />
         </div>
-        <p></p>
         <input
           type="file"
           accept="image/png,image/jpeg"
           name="image"
           className={styles.file}
           onChange={handleImageChange}
-        ></input>
-        <p></p>
+        />
+
+        <input
+          type="text"
+          placeholder="Label"
+          className={styles.label}
+          onChange={(event) => setLabel(event.target.value)}
+        />
+
         {image === "" ? null : (
           <img className={styles.image} src={image} alt="submitted data" />
         )}
-        <p></p>
-        <input
-          type="button"
-          value="Upload"
-          className={styles.uploader}
-          onClick={() => handleSubmit()}
-        ></input>
+
+        <button className={styles.uploader} onClick={() => handleSubmit()}>
+          Upload
+        </button>
       </div>
     </div>
   );
