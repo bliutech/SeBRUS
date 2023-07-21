@@ -4,10 +4,12 @@ from app import db
 class ABI(db.Model):
     __tablename__ = "abis"
 
+    _count = 0
+
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
 
-    def __init__(self, id, name):
+    def __init__(self, name):
         abi = db.session.query(self.__class__).all()
         count = len(abi)
 
@@ -17,7 +19,7 @@ class ABI(db.Model):
             else:
                 ABI._count = count
 
-        self.id = id
+        self.id = ABI._count
         self.name = name
 
         ABI._count += 1

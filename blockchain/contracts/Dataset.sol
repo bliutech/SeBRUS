@@ -3,18 +3,20 @@ pragma solidity ^0.8.0;
 
 contract Dataset {
     uint public imageCount = 0;
+
     string public name;
     string public description;
 
     struct Image {
         uint id;
         string value;
+        string class;
         bool approved;
     }
 
     Image[] public images;
 
-    event DataCreated(uint id, string value, bool approved);
+    event DataCreated(uint id, string value, string class, bool approved);
 
     event DataVerified(uint id, bool approved);
 
@@ -23,10 +25,10 @@ contract Dataset {
         description = _description;
     }
 
-    function createData(string memory _content) public {
+    function createData(string memory _content, string memory _class) public {
         imageCount++;
-        images.push(Image(imageCount, _content, false));
-        emit DataCreated(imageCount, _content, false);
+        images.push(Image(imageCount, _content, _class, false));
+        emit DataCreated(imageCount, _content, _class, false);
     }
 
     function approveData(uint _id) public {

@@ -13,15 +13,16 @@ class Dataset(db.Model):
     _count = 0
 
     def __init__(self, name, description, address, abi_id):
-        count = db.session.query(self.__class__).all()
-        count = len(count)
+        datasets = db.session.query(self.__class__).all()
+        count = len(datasets)
 
         if count != 0:
-            if count[-1].id >= Dataset._count:
-                Dataset._count = count[-1].id + 1
+            if datasets[-1].id >= Dataset._count:
+                Dataset._count = datasets[-1].id + 1
             else:
                 Dataset._count = count
 
+        self.id = Dataset._count
         self.name = name
         self.description = description
         self.address = address

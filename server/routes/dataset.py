@@ -20,7 +20,6 @@ def router(id):
 def get(id):
     res = {"status": ""}
     from app import app, db
-    from models.user import User
     from models.dataset import Dataset
 
     with app.app_context():
@@ -47,9 +46,10 @@ def post():
     name = data.get("name")
     description = data.get("description")
     address = data.get("address")
+    abi_id = data.get("abi_id")
 
-    if name is None or description is None or address is None:
-        res["status"] = "`name`, `description`, or `address` required."
+    if name is None or description is None or address is None or abi_id is None:
+        res["status"] = "`name`, `description`, `address` or `abi_id` required."
         return jsonify(res), 400
 
     from app import app, db
@@ -63,7 +63,7 @@ def post():
             return jsonify(res), 409
 
         new_dataset = Dataset(
-            datasetName=name, description=description, address=address
+            name=name, description=description, address=address, abi_id=abi_id
         )
         new_dataset.save_to_db()
 
@@ -79,11 +79,12 @@ def put(id):
     name = data.get("name")
     description = data.get("description")
     address = data.get("address")
+    abi_id = data.get("abi_id")
 
     res = {"status": ""}
 
-    if name is None or description is None or address is None:
-        res["status"] = "`name`, `description`, or `address` required."
+    if name is None or description is None or address is None or abi_id is None:
+        res["status"] = "`name`, `description`, `address` or `abi_id` required."
         return jsonify(res), 400
 
     from app import app, db
@@ -99,6 +100,7 @@ def put(id):
         dataset.datasetName = name
         dataset.description = description
         dataset.address = address
+        dataset.abi_id = abi_id
         dataset.save_to_db()
 
         res["status"] = "Dataset edited."

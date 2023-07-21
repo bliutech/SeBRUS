@@ -6,7 +6,6 @@ import { getSession } from "../api/session";
 import { getUser, updateUser, deleteUser } from "../api/user";
 
 import styles from "../styles/pages/ProfilePage.module.css";
-import profile from "../assets/profile.jpg";
 import altProfile from "../assets/AltProf.png";
 
 function ProfilePage() {
@@ -75,7 +74,7 @@ function ProfilePage() {
       <div className={styles.profPage}>
         <img
           src={altProfile}
-          alt="profile image"
+          alt="User's profile."
           className={styles.profileImage}
         />
         <span>

@@ -261,7 +261,9 @@ function ImageUploader() {
           onChange={handleImageChange}
         ></input>
         <p></p>
-        {image === "" ? null : <img className={styles.image} src={image} />}
+        {image === "" ? null : (
+          <img className={styles.image} src={image} alt="submitted data" />
+        )}
         <p></p>
         <input
           type="button"

@@ -22,9 +22,9 @@ async function createABI(name, abi) {
 
   let data = await res.json();
 
-  let abi = await data["abi"];
+  let abi_res = await data["abi"];
 
-  return abi;
+  return abi_res;
 }
 
 async function getABI(id) {
@@ -38,8 +38,8 @@ async function getABI(id) {
   }
 
   let object = await res.json();
-  let abis = await object["abis"];
-  return abis[0];
+  let abis = await object["abi"];
+  return abis;
 }
 
 async function updateABI(id, name, abi) {
@@ -56,7 +56,7 @@ async function updateABI(id, name, abi) {
     body: JSON.stringify(obj),
   });
 
-  if (res.status == 400) {
+  if (res.status === 400) {
     alert("You must change your name or abi!");
   }
 
@@ -70,7 +70,7 @@ async function deleteABI(id) {
     method: "DELETE",
   });
 
-  if (res.status == 400) {
+  if (res.status === 400) {
     alert("You must change your name or abi!");
     return false;
   }

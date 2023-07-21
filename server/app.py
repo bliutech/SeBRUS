@@ -6,6 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 import routes.user as user
 import routes.session as session
+import routes.dataset as dataset
+import routes.abi as abi
 
 import config
 
@@ -41,13 +43,13 @@ def user_handler(id):
 
 @app.route("/api/dataset", defaults={"id": None}, methods=["POST"])
 @app.route("/api/dataset/<id>", methods=["GET", "PUT", "DELETE"])
-def dataset(id):
+def dataset_handler(id):
     return dataset.router(id)
 
 
-@app.route("/api/abi/<id>", defaults={"id": None}, methods=["POST"])
+@app.route("/api/abi", defaults={"id": None}, methods=["POST"])
 @app.route("/api/abi/<id>", methods=["GET", "PUT", "DELETE"])
-def abi(id):
+def abi_handler(id):
     return abi.router(id)
 
 
@@ -59,6 +61,11 @@ def session_handler(id):
 
 
 if __name__ == "__main__":
+    import os
+
+    if not os.path.exists(config.ABI_FOLDER):
+        os.makedirs(config.ABI_FOLDER)
+
     with app.app_context():
         from models.abi import ABI
         from models.user import User

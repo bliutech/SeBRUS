@@ -29,13 +29,6 @@ function NavBar() {
         </li>
         {auth ? (
           <li>
-            <Link id={styles.navLink} to="/">
-              Home
-            </Link>
-          </li>
-        ) : null}
-        {auth ? (
-          <li>
             <Link id={styles.navLink} to="/dashboard">
               Dashboard
             </Link>

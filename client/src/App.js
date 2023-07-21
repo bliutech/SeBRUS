@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage";
 import DatasetPage from "./pages/DatasetPage";
 import DashboardPage from "./pages/DashboardPage";
 import Contribute from "./pages/ContributePage";
+import CreateDatasetPage from "./pages/CreateDatasetPage";
 import { DataContext } from "./components/DataProvider";
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
             {auth ? null : <Route path="/login" element={<LoginPage />} />}
             {auth ? null : <Route path="/registration" element={<RegistrationPage />} />}
             {auth ? <Route path="/profile" element={<ProfilePage />} /> : null}
-            {auth ?<Route path="/datasets" element={<DatasetPage />} /> : null}
+            {auth ? <Route path="/dataset/:id" element={<DatasetPage />} /> : null}
+            {auth ? <Route path="/datasets" element={<CreateDatasetPage />} /> : null}
             {auth ? <Route path="/dashboard" element={<DashboardPage />} /> : null}
             {auth ? <Route path="/contribute" element={<Contribute />} /> : null}
             {auth ? <Route path="*" element={<Navigate to="/dashboard" />} /> : <Route path="*" element={<Navigate to="/login" />} />}

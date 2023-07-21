@@ -15,31 +15,40 @@ Dependencies:
 import os
 import json
 import requests
+import secrets
+import string
+import time
 
 BASE_URL = "http://localhost:5000"
+username = "".join(
+    secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(24)
+)
+password = "".join(
+    secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(24)
+)
 
 # register an account
 def register_account():
     url = BASE_URL + "/api/user"
 
-    data = {"username": "abi_register_script", "password": "abi_register_script"}
+    data = {"username": username, "password": password}
 
     response = requests.post(url, json=data)
 
-    assert response.status_code == 200
+    assert response.status_code == 201
 
 
 # login to an account and return the session token
 def login():
     url = BASE_URL + "/api/session"
 
-    data = {"username": "abi_register_script", "password": "abi_register_script"}
+    data = {"username": username, "password": password}
 
     response = requests.post(url, json=data)
 
-    assert response.status_code == 200
+    assert response.status_code == 201
 
-    return response.cookies
+    return {"session": response.json()["session"]["token"]}
 
 
 # register an ABI
@@ -53,32 +62,57 @@ def register_abi(name, abi_path, cookies):
 
     response = requests.post(url, json=data, cookies=cookies)
 
-    assert response.status_code == 200
+    assert response.status_code == 201
 
     print("Registered ABI: " + name)
+
+    if name != "DatasetManager":
+        return
+
+    url = BASE_URL + "/api/dataset"
+
+    data = {
+        "name": name,
+        "description": "DatasetManager Contract",
+        "abi_id": response.json()["abi"]["id"],
+        "address": abi.get("networks").get("5777").get("address"),
+    }
+
+    response = requests.post(url, json=data, cookies=cookies)
+
+    assert response.status_code == 201
+
+    print("Registered Dataset: " + name)
 
 
 # register all ABIs in the build/ folder
 def register_all_abis(cookies):
-    for file in os.listdir("build/"):
+    for file in os.listdir("build/contracts/"):
         if file.endswith(".json") and not file.startswith("Migrations"):
             name = file.split(".")[0]
-            abi_path = "build/" + file
+            abi_path = "build/contracts/" + file
             register_abi(name, abi_path, cookies)
 
 
-# delete user account
-def delete_account(cookies):
-    url = BASE_URL + "/api/user"
+# logout and delete user account
+def logout_delete_account(cookies):
+    url = BASE_URL + "/api/session/me"
+
+    response0 = requests.get(url, cookies=cookies)
+
+    assert response0.status_code == 200
+
+    id = response0.json()["user"]["id"]
+
+    url = BASE_URL + "/api/user/" + str(id)
 
     response = requests.delete(url, cookies=cookies)
 
     assert response.status_code == 200
 
+    id = response0.json()["session"]["id"]
 
-# logout of account
-def logout(cookies):
-    url = BASE_URL + "/api/session"
+    url = BASE_URL + "/api/session/" + str(id)
 
     response = requests.delete(url, cookies=cookies)
 
@@ -89,6 +123,6 @@ if __name__ == "__main__":
     print("Registering ABIs...")
     register_account()
     cookies = login()
+    time.sleep(1)
     register_all_abis(cookies)
-    delete_account(cookies)
-    logout(cookies)
+    logout_delete_account(cookies)

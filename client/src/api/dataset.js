@@ -1,10 +1,11 @@
 import { base, showError } from "./util.js";
 
-async function createDataset(name, description, address) {
+async function createDataset(name, description, address, abi_id) {
   let object = {
     name: name,
     description: description,
     address: address,
+    abi_id: abi_id,
   };
 
   let res = await fetch(base + `/api/dataset`, {
@@ -19,6 +20,7 @@ async function createDataset(name, description, address) {
     if (showError) {
       console.log(res);
     }
+    return null;
   }
 
   let data = await res.json();
@@ -58,7 +60,7 @@ async function changeDataset(id, name, description, address) {
     body: JSON.stringify(obj),
   });
 
-  if (res.status == 400) {
+  if (res.status === 400) {
     alert("You must change your name or description or address!");
     return null;
   }

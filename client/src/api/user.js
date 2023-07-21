@@ -56,7 +56,7 @@ async function updateUser(id, username, password) {
     body: JSON.stringify(obj),
   });
 
-  if (res.status == 400) {
+  if (res.status === 400) {
     alert("You must change your username or password!");
   }
 
