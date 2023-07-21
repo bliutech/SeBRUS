@@ -23,10 +23,17 @@ function NavBar() {
     <div id={styles.navBar}>
       <div id={styles.bar}>
         <li>
-          <Link id={styles.navLink} to="/">
+          <Link id={styles.logo} to="/">
             <div className={styles.logo}>SeBRUS</div>
           </Link>
         </li>
+        {auth ? (
+          <li>
+            <Link id={styles.navLink} to="/">
+              Home
+            </Link>
+          </li>
+        ) : null}
         {auth ? (
           <li>
             <Link id={styles.navLink} to="/dashboard">

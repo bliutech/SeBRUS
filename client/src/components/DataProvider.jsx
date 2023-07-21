@@ -66,7 +66,7 @@ const DataProvider = ({ children }) => {
         console.log(err);
       });
     }
-  }, [connectWallet]);
+  }, []);
 
   const deleteData = async () => {
     let sessionObj = await getSession("me");
