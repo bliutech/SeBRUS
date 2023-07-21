@@ -17,7 +17,7 @@ class User(db.Model):
 
         if count != 0:
             # account for existing users with some deleted
-            if users[-1].id > User._count:
+            if users[-1].id >= User._count:
                 User._count = users[-1].id + 1
             else:
                 User._count = count
@@ -34,7 +34,7 @@ class User(db.Model):
         return "<User %r>" % self.username
 
     def json(self):
-        return {"id": self.id, "username": self.username}
+        return {"id": self.id, "username": self.username, "password": self.password}
 
     def save_to_db(self):
         db.session.add(self)

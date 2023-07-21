@@ -1,13 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import "../styles/index.css";
-import styles from "../styles/components/RegistrationForm.module.css";
-import { createUser, getUser } from "../api/user";
 import { useState } from "react";
-import { useContext, UserContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Registration() {
-  document.title = "Register | SeBRUS";
+import { createUser } from "../api/user";
 
+import styles from "../styles/components/RegistrationForm.module.css";
+
+function RegistrationForm() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +51,6 @@ function Registration() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         ></input>
-        <br></br>
         <input
           type="checkbox"
           id={styles.check}
@@ -62,14 +59,12 @@ function Registration() {
         ></input>
         <text id={styles.regis}> Show password</text>
       </span>
-      <p></p>
       <input
         className={styles.but}
         type="button"
         value="Register"
         onClick={() => handleRegistration()}
       ></input>
-      <p></p>
       <span className={styles.regis1}>Already have an account? </span>
       <a className={styles.regis1} id={styles.regis2} href="/login">
         Login here.
@@ -78,4 +73,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default RegistrationForm;

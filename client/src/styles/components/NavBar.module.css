@@ -65,3 +65,12 @@
   margin: 10px;
   width: 30px;
 }
+
+.authButton {
+  background-color: #282c34;
+  color: snow;
+  border-radius: 20px;
+  padding: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

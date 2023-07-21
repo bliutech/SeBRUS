@@ -29,3 +29,5 @@ sqlite.db
 abi/
 
 data/
+
+.vscode/

@@ -1,13 +1,12 @@
-import "../styles/index.css";
-import styles from "../styles/components/LoginForm.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+
 import { DataContext } from "./DataProvider";
 import { createSession } from "../api/session";
 
-function Login() {
-  document.title = "Login | SeBRUS";
+import styles from "../styles/components/LoginForm.module.css";
+
+function LoginForm() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -54,7 +53,7 @@ function Login() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         ></input>
-        <br></br>
+
         <input
           type="checkbox"
           id={styles.check}
@@ -63,7 +62,7 @@ function Login() {
         ></input>
         <span id={styles.regis}> Show password</span>
       </span>
-      <p></p>
+
       <input
         className={styles.but}
         type="button"
@@ -71,7 +70,6 @@ function Login() {
         onClick={() => handleLogin()}
       ></input>
 
-      <p></p>
       <span className={styles.regis1}>Don't have an account? </span>
       <a className={styles.regis1} id={styles.regis2} href="/registration">
         Register here.
@@ -80,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginForm;

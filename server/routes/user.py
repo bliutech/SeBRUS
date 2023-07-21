@@ -97,6 +97,10 @@ def put(id):
             res["status"] = "User does not exist."
             return jsonify(res), 404
 
+        if user.username == username and user.password == password:
+            res["status"] = "No changes made."
+            return jsonify(res), 400
+
         user.username = username
         user.password = password
         user.save_to_db()

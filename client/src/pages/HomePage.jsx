@@ -5,7 +5,7 @@ function HomePage() {
   document.title = "Home | SeBRUS";
 
   return (
-    <div className={styles.home}>
+    <div className="page">
       <p style={{ textAlign: "center" }}>
         This is the future of crowdsourced AI datasets.
         <br />
@@ -15,8 +15,8 @@ function HomePage() {
       <div className="home-image-container">
         <img
           alt="filler"
-          width="400"
-          height="400"
+          width="350"
+          height="350"
           style={{ imageAlign: "right", border: "50%" }}
           src={background}
         />

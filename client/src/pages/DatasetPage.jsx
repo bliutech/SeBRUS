@@ -1,8 +1,11 @@
 import { useState } from "react";
 // import { Grid } from "react-visual-grid";
+
 import { Image } from "../components/Image";
-import { useCookies } from "react-cookie";
+
 import styles from "../styles/pages/DatasetPage.module.css";
+
+import dog from "../assets/dog1.png";
 
 function DatasetPage() {
   document.title = "Dataset | SeBRUS";
@@ -20,13 +23,14 @@ function DatasetPage() {
   };
 
   return (
-    <div className={styles.data}>
-      <ul>
-        {images.map((images, index) => (
-          <li key={index}>{images.text}</li>
-        ))}
-      </ul>
-      {/* <Grid
+    <div className="page">
+      <div className={styles.data}>
+        <ul>
+          {images.map((images, index) => (
+            <li key={index}>{images.text}</li>
+          ))}
+        </ul>
+        {/* <Grid
         images={images}
         width={900}
         height={1200}
@@ -39,14 +43,10 @@ function DatasetPage() {
           thumbnailBgColor: "#202020",
         }}
       />; */}
-      <img
-        height={300}
-        width={300}
-        src={require("../assets/dog1.png")}
-        alt={"test img"}
-      />
-      <Image></Image>
-      {/* {data && data.length>0 && data.map((item)=><p>{item.about}</p>)} */}
+        <img height={300} width={300} src={dog} alt={"test img"} />
+        <Image></Image>
+        {/* {data && data.length>0 && data.map((item)=><p>{item.about}</p>)} */}
+      </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ class ABI(db.Model):
         count = len(abi)
 
         if count != 0:
-            if abi[-1].id > ABI._count:
+            if abi[-1].id >= ABI._count:
                 ABI._count = abi[-1].id + 1
             else:
                 ABI._count = count

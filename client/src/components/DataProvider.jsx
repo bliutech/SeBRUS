@@ -52,7 +52,7 @@ const DataProvider = ({ children }) => {
         console.log(err);
       });
     }
-  }, [updateData]);
+  }, []);
 
   useEffect(() => {
     const fetchWallet = async () => {

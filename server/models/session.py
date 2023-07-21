@@ -17,7 +17,7 @@ class Session(db.Model):
 
         if count != 0:
             # account for existing users with some deleted
-            if sessions[-1].id > Session._count:
+            if sessions[-1].id >= Session._count:
                 Session._count = sessions[-1].id + 1
             else:
                 Session._count = count
