@@ -8,6 +8,7 @@ import { getUser, updateUser, deleteUser } from "../api/user";
 import styles from "../styles/pages/ProfilePage.module.css";
 import profile from "../assets/profile.jpg";
 import altProfile from "../assets/AltProf.png";
+import bestProfile from "../assets/bestProfile.png";
 
 function ProfilePage() {
   document.title = "Profile | SeBRUS";
@@ -74,7 +75,7 @@ function ProfilePage() {
     <div className="page">
       <div className={styles.profPage}>
         <img
-          src={altProfile}
+          src={bestProfile}
           alt="profile image"
           className={styles.profileImage}
         />
