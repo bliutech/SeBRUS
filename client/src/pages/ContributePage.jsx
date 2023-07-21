@@ -270,23 +270,6 @@ function ImageUploader() {
           onClick={() => handleSubmit()}
         ></input>
       </div>
-      <p></p>
-      <input
-        type="file"
-        accept="image/png, image/gif, image/jpeg"
-        name="image"
-        className={styles.file}
-        onChange={handleImageChange}
-      ></input>
-      <p></p>
-      {image === "" ? null : <img className={styles.image} src={image} />}
-      <p></p>
-      <input
-        type="button"
-        value="Upload"
-        className={styles.uploader}
-        onClick={() => handleSubmit()}
-      ></input>
     </div>
   );
 }
