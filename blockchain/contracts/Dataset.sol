@@ -1,38 +1,52 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
+import "./DataImage.sol";
 
 contract Dataset {
-    uint public imageCount = 0;
+    uint imageCount = 0;
 
-    string public name;
-    string public description;
+    string name;
+    string description;
 
-    struct Image {
-        uint id;
-        string value;
-        string class;
-        bool approved;
-    }
+    DataImage[] images;
 
-    Image[] public images;
+    event DataCreated(
+        string value,
+        string class,
+        bool approved
+    );
 
-    event DataCreated(uint id, string value, string class, bool approved);
-
-    event DataVerified(uint id, bool approved);
+    event DataVerified(
+        bool approved
+    );
 
     constructor(string memory _name, string memory _description) {
         name = _name;
         description = _description;
     }
 
-    function createData(string memory _content, string memory _class) public {
-        imageCount++;
-        images.push(Image(imageCount, _content, _class, false));
-        emit DataCreated(imageCount, _content, _class, false);
+    function getName() public view returns (string memory) {
+        return name;
     }
 
-    function approveData(uint _id) public {
-        images[_id].approved = !images[_id].approved;
-        emit DataVerified(_id, images[_id].approved);
+    function getDescription() public view returns (string memory) {
+        return description;
+    }
+
+    function getImageCount() public view returns (uint) {
+        return imageCount;
+    }
+
+    function getImage(uint index) public view returns (DataImage) {
+        return images[index];
+    }
+
+    function createData(string memory _content, string memory _class) public {
+        imageCount++;
+
+        DataImage image = new DataImage(_content, _class);
+        images.push(image);
+        
+        emit DataCreated(_content, _class, false);
     }
 }

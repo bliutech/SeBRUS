@@ -3,10 +3,22 @@ pragma solidity ^0.8.0;
 import "./Dataset.sol";
 
 contract DatasetManager {
-    uint public datasetCount = 0;
-    Dataset[] public datasets;
+    uint datasetCount = 0;
 
-    event DatasetCreated(string name, string description);
+    Dataset[] datasets;
+
+    event DatasetCreated(
+        string name,
+        string description
+    );
+
+    function getDatasetCount() public view returns (uint) {
+        return datasetCount;
+    }
+
+    function getDataset(uint index) public view returns (Dataset) {
+        return datasets[index];
+    }
 
     function createDataset(string memory name, string memory description) public {
         datasetCount++;

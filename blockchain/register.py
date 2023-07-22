@@ -71,11 +71,13 @@ def register_abi(name, abi_path, cookies):
 
     url = BASE_URL + "/api/dataset"
 
+    networks = abi.get("networks")
+
     data = {
         "name": name,
         "description": "DatasetManager Contract",
         "abi_id": response.json()["abi"]["id"],
-        "address": abi.get("networks").get("5777").get("address"),
+        "address": networks.get(list(networks.keys())[-1]).get("address"),
     }
 
     response = requests.post(url, json=data, cookies=cookies)
@@ -87,7 +89,9 @@ def register_abi(name, abi_path, cookies):
 
 # register all ABIs in the build/ folder
 def register_all_abis(cookies):
-    for file in os.listdir("build/contracts/"):
+    files = os.listdir("build/contracts/")
+    files.sort(reverse=True)
+    for file in files:
         if file.endswith(".json") and not file.startswith("Migrations"):
             name = file.split(".")[0]
             abi_path = "build/contracts/" + file

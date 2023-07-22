@@ -65,6 +65,7 @@ function DatasetPage() {
         <img height={300} width={300} src={dog} alt={"test img"} />
         <Image></Image>
         {/* {data && data.length>0 && data.map((item)=><p>{item.about}</p>)} */}
+        {"ID:" + id}
       </div>
     </div>
   );

@@ -19,24 +19,32 @@ function DashboardPage() {
   useEffect(() => {
     const load = async () => {
       let abi = await getABI("0");
-
+      console.log("ABI:", abi);
       let datasetManager = await getDataset("0");
-      console.log(datasetManager);
+      console.log("DatasetManager:", datasetManager);
       let address = datasetManager[0].address;
-      console.log(address);
+      console.log("Address:", address);
 
       let datasetABI = await getABI("1");
 
-      if (abi === null || datasetManager === null || datasetABI === null) {
+      let imageABI = await getABI("2");
+
+      if (
+        abi === null ||
+        datasetManager === null ||
+        datasetABI === null ||
+        imageABI === null
+      ) {
         alert("Error loading dataset manager or dataset ABI.");
         return;
       }
 
       window.web3 = new web3(window.ethereum);
       let DatasetManagerContract = new window.web3.eth.Contract(abi, address);
+      DatasetManagerContract.setProvider(window.ethereum);
 
       let datasetCount = await DatasetManagerContract.methods
-        .datasetCount()
+        .getDatasetCount()
         .call();
 
       console.log(datasetCount);
@@ -44,7 +52,7 @@ function DashboardPage() {
       let datasetsTemp = [];
 
       for (let i = 0; i < datasetCount; i++) {
-        let dataset = await DatasetManagerContract.methods.datasets(i).call();
+        let dataset = await DatasetManagerContract.methods.getDataset(i).call();
 
         console.log(dataset);
 
@@ -52,19 +60,28 @@ function DashboardPage() {
 
         let DatasetContract = new window.web3.eth.Contract(datasetABI, dataset);
 
-        // await DatasetContract.methods.createData("test", "test").send({from: window.ethereum.selectedAddress, gas: 1000000});
-
-        let imageCount = await DatasetContract.methods.imageCount().call();
+        let imageCount = await DatasetContract.methods.getImageCount().call();
 
         for (let j = 0; j < imageCount; j++) {
-          let image = await DatasetContract.methods.images(j).call();
+          let imageAddress = await DatasetContract.methods.getImages(j).call();
+
+          let ImageContract = await new window.web3.eth.Contract(
+            imageABI,
+            imageAddress,
+          );
+
+          let image = {
+            class: await ImageContract.methods.getClass().call(),
+            value: await ImageContract.methods.getValue().call(),
+            approved: await ImageContract.methods.getApproved().call(),
+          };
+
           images.push(image);
         }
-        console.log(images);
 
         datasetsTemp.push({
-          name: await DatasetContract.methods.name().call(),
-          description: await DatasetContract.methods.description().call(),
+          name: await DatasetContract.methods.getName().call(),
+          description: await DatasetContract.methods.getDescription().call(),
           images: images,
         });
 
@@ -81,20 +98,28 @@ function DashboardPage() {
         {datasets.map((dataset) => {
           console.log(dataset);
           return (
-            <li>
+            <li key={dataset.name}>
               <p>{dataset.name}</p>
               <p>{dataset.description}</p>
+              <p>
+                <Link to={"/dataset?id=1"}>Link</Link>
+              </p>
               <p>Images:</p>
               <ul>
                 {dataset.images.map((image) => {
+                  console.log(image);
                   return (
-                    <li>
-                      <p>{image.value}</p>
+                    <li key={String(Math.random())}>
                       <p>{image.class}</p>
-                      <p>{image.approved ? "Approved" : "Not Approved"}</p>
                       <p>
-                        <Link to="/dataset?id=1">Link</Link>
+                        {image.value.substring(0, 22) ===
+                        "data:image/png;base64," ? (
+                          <img src={image.value} alt={image.class} />
+                        ) : (
+                          image.value
+                        )}
                       </p>
+                      <p>{image.approved ? "Approved" : "Not Approved"}</p>
                     </li>
                   );
                 })}

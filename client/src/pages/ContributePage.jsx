@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import web3 from "web3";
 
 import DropdownMenu from "../components/DropdownMenu";
@@ -8,9 +8,12 @@ import { DataContext } from "../components/DataProvider";
 import { getABI } from "../api/abi";
 
 import styles from "../styles/pages/ContributePage.module.css";
+import { getDataset } from "../api/dataset";
 
 function ImageUploader() {
   document.title = "Contribute | SeBRUS";
+
+  const navigate = useNavigate();
 
   const { accounts } = useContext(DataContext);
 
@@ -33,7 +36,7 @@ function ImageUploader() {
       alert("Please upload a file");
       return;
     }
-    if (file.size > 10000000) {
+    if (file.size > 1000000) {
       alert("File size must be less than 10MB");
       return;
     }
@@ -70,26 +73,23 @@ function ImageUploader() {
       alert("Error loading dataset ABI.");
       return;
     }
+    console.log(abi);
+    console.log(selected);
+
+    let address = selected;
 
     window.web3 = new web3(window.ethereum);
-    let DatasetContract = new window.web3.eth.Contract(abi, selected);
-    DatasetContract.setProvider(window.ethereum);
+    let DatasetContract = new window.web3.eth.Contract(abi, address);
 
-    DatasetContract.methods
+    console.log(image);
+    console.log(label);
+
+    await DatasetContract.methods
       .createData(image, label)
-      .send({ from: accounts[0] })
-      .on("receipt", function (receipt) {
-        console.log(receipt);
-      })
-      .on("error", function (error) {
-        console.log(error);
-      })
-      .on("confirmation", function (confirmationNumber, receipt) {
-        console.log(confirmationNumber);
-        console.log(receipt);
-      });
+      .send({ from: window.ethereum.selectedAddress });
 
     alert("Image uploaded successfully!");
+    navigate("/dashboard");
   };
 
   return (

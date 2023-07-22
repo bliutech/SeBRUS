@@ -25,26 +25,31 @@ function CreateDatasetPage() {
 
     let abi = await getABI("0");
 
+    console.log(abi);
+
     let datasetManager = await getDataset("0");
+
+    console.log(datasetManager);
 
     let address = datasetManager[0].address;
 
-    let datasetABI = await getABI("1");
+    console.log(address);
 
-    if (abi === null || datasetManager === null || datasetABI === null) {
+    if (abi === null || datasetManager === null || address === null) {
       alert("Error loading dataset manager or dataset ABI.");
       return;
     }
 
     window.web3 = new web3(window.ethereum);
     let DatasetManagerContract = new window.web3.eth.Contract(abi, address);
+    DatasetManagerContract.setProvider(window.ethereum);
 
     await DatasetManagerContract.methods
       .createDataset(name, description)
-      .send({ from: accounts[0], gas: 2000000 });
+      .send({ from: window.ethereum.selectedAddress });
 
     let datasetCount = await DatasetManagerContract.methods
-      .datasetCount()
+      .getDatasetCount()
       .call();
 
     console.log(datasetCount);
@@ -54,8 +59,10 @@ function CreateDatasetPage() {
     console.log(typeof index);
 
     let newAddress = await DatasetManagerContract.methods
-      .datasets(index)
+      .getDataset(index)
       .call();
+
+    console.log(newAddress);
 
     let data = await createDataset(name, description, newAddress, 1);
 
