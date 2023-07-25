@@ -63,7 +63,7 @@ function DashboardPage() {
         let imageCount = await DatasetContract.methods.getImageCount().call();
 
         for (let j = 0; j < imageCount; j++) {
-          let imageAddress = await DatasetContract.methods.getImages(j).call();
+          let imageAddress = await DatasetContract.methods.getImage(j).call();
 
           let ImageContract = await new window.web3.eth.Contract(
             imageABI,
@@ -94,13 +94,15 @@ function DashboardPage() {
   return (
     <div className="page">
       <h1>Datasets</h1>
-      <ul>
+      <ul className={styles.list}>
         {datasets.map((dataset) => {
           console.log(dataset);
           return (
-            <li key={dataset.name}>
-              <p>{dataset.name}</p>
-              <p>{dataset.description}</p>
+            <li className={styles.datasets} key={dataset.name}>
+              <p className={styles.name}>Dataset name: {dataset.name}</p>
+              <p className={styles.description}>
+                Description: {dataset.description}
+              </p>
               <p>
                 <Link to={"/dataset?id=1"}>Link</Link>
               </p>

@@ -1,4 +1,4 @@
-.contribute {
+.create {
     background-color: #282c34;
     color: snow;
     margin: 50px;
@@ -12,27 +12,18 @@
 .header {
     color: snow;
     margin-top: 30px;
+    margin-bottom: 80px;
 }
 
-.image {
-    width: 90%;
-    object-fit: contain;
-}
-
-.file {
+.box {
+    display: block;
     margin: 1rem auto;
-    display: block;
-}
-
-.label {
-    display: block;
-    margin: 2rem auto;
     padding: 1rem;
+    width: 200px;
     border-radius: 1rem;
-    height: 5px;
 }
 
-.uploader {
+.button {
     font-family: Verdana, sans-serif;
     border-radius: 30px;
     border-color: black;
@@ -40,7 +31,6 @@
     height: 40px;
     font-size: 12pt;
     color: 282c34;
-    margin: 0 px;
-    bottom: 0px;
+    margin-top: 50px;
     background-color: snow;
 }

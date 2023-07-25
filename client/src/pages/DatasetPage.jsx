@@ -8,7 +8,7 @@ import styles from "../styles/pages/DatasetPage.module.css";
 import dog from "../assets/dog1.png";
 
 function DatasetPage() {
-  document.title = "Dataset | SeBRUS";
+  document.title = "Datasets | SeBRUS";
 
   const [id, setId] = useState(null);
 
