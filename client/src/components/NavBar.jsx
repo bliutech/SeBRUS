@@ -36,8 +36,8 @@ function NavBar() {
         ) : null}
         {auth ? (
           <li>
-            <Link id={styles.navLink} to="/datasets">
-              Datasets
+            <Link id={styles.navLink} to="/create">
+              Create a Dataset
             </Link>
           </li>
         ) : null}

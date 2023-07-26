@@ -40,7 +40,7 @@ print("Dataset:", dataset)
 test_data = dataset.data
 
 for i, tensor in enumerate(test_data):
-    img = transforms.ToPILImage()(tensor)
+    img = transforms.ToPILImage()(test_data[1])
     base64_img = base64.b64encode(img.tobytes())
     img.save("data/" + str(i) + ".png")
     break

@@ -63,7 +63,7 @@ function DashboardPage() {
         let imageCount = await DatasetContract.methods.getImageCount().call();
 
         for (let j = 0; j < imageCount; j++) {
-          let imageAddress = await DatasetContract.methods.getImages(j).call();
+          let imageAddress = await DatasetContract.methods.getImage(j).call();
 
           let ImageContract = await new window.web3.eth.Contract(
             imageABI,
@@ -94,36 +94,18 @@ function DashboardPage() {
   return (
     <div className="page">
       <h1>Datasets</h1>
-      <ul>
-        {datasets.map((dataset) => {
+      <ul className={styles.list}>
+        {datasets.map((dataset, index) => {
           console.log(dataset);
           return (
-            <li key={dataset.name}>
-              <p>{dataset.name}</p>
-              <p>{dataset.description}</p>
-              <p>
-                <Link to={"/dataset?id=1"}>Link</Link>
+            <li className={styles.datasets} key={dataset.name}>
+              <p className={styles.name}>Dataset name: {dataset.name}</p>
+              <p className={styles.description}>
+                Description: {dataset.description}
               </p>
-              <p>Images:</p>
-              <ul>
-                {dataset.images.map((image) => {
-                  console.log(image);
-                  return (
-                    <li key={String(Math.random())}>
-                      <p>{image.class}</p>
-                      <p>
-                        {image.value.substring(0, 22) ===
-                        "data:image/png;base64," ? (
-                          <img src={image.value} alt={image.class} />
-                        ) : (
-                          image.value
-                        )}
-                      </p>
-                      <p>{image.approved ? "Approved" : "Not Approved"}</p>
-                    </li>
-                  );
-                })}
-              </ul>
+              <p>
+                <Link to={"/datasets?id=" + (index + 1).toString()}>Link</Link>
+              </p>
             </li>
           );
         })}

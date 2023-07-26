@@ -7,8 +7,10 @@ import { getDataset, createDataset } from "../api/dataset";
 
 import { DataContext } from "../components/DataProvider";
 
+import styles from "../styles/pages/CreateDatasetPage.module.css";
+
 function CreateDatasetPage() {
-  document.title = "Create Dataset | SeBRUS";
+  document.title = "Create a Dataset | SeBRUS";
 
   const navigate = useNavigate();
 
@@ -77,20 +79,26 @@ function CreateDatasetPage() {
 
   return (
     <div className="page">
-      <h1>Create Dataset</h1>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <button onClick={() => handleClick()}>Create</button>
+      <div className={styles.create}>
+        <p className={styles.header}>Create Dataset</p>
+        <input
+          className={styles.box}
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          className={styles.box}
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <button className={styles.button} onClick={() => handleClick()}>
+          Create
+        </button>
+      </div>
     </div>
   );
 }
