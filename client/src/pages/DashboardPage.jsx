@@ -95,7 +95,7 @@ function DashboardPage() {
     <div className="page">
       <h1>Datasets</h1>
       <ul className={styles.list}>
-        {datasets.map((dataset) => {
+        {datasets.map((dataset, index) => {
           console.log(dataset);
           return (
             <li className={styles.datasets} key={dataset.name}>
@@ -104,28 +104,8 @@ function DashboardPage() {
                 Description: {dataset.description}
               </p>
               <p>
-                <Link to={"/dataset?id=1"}>Link</Link>
+                <Link to={"/datasets?id=" + (index + 1).toString()}>Link</Link>
               </p>
-              <p>Images:</p>
-              <ul>
-                {dataset.images.map((image) => {
-                  console.log(image);
-                  return (
-                    <li key={String(Math.random())}>
-                      <p>{image.class}</p>
-                      <p>
-                        {image.value.substring(0, 22) ===
-                        "data:image/png;base64," ? (
-                          <img src={image.value} alt={image.class} />
-                        ) : (
-                          image.value
-                        )}
-                      </p>
-                      <p>{image.approved ? "Approved" : "Not Approved"}</p>
-                    </li>
-                  );
-                })}
-              </ul>
             </li>
           );
         })}
