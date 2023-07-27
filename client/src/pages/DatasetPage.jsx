@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import web3 from "web3";
 
-// import { Grid } from "react-visual-grid";
-
 import { Image } from "../components/Image";
 import { getABI } from "../api/abi";
 import { getDataset } from "../api/dataset";
@@ -10,8 +8,6 @@ import { getDataset } from "../api/dataset";
 import { DataContext } from "../components/DataProvider";
 
 import styles from "../styles/pages/DatasetPage.module.css";
-
-import dog from "../assets/dog1.png";
 
 function DatasetPage() {
   document.title = "Datasets | SeBRUS";
@@ -158,23 +154,27 @@ function DatasetPage() {
 
   return (
     <div className="page">
-      <div className={styles.data}>
-        <ul>
-          {dataImages.map((image, index) => (
-            <li key={index}>
-              <p>{image.class}</p>
-              <img src={image.value} alt={image.class + index} />
-              <button onClick={() => verifyImage(index)}>
-                {image.approved ? "Approved" : "Not approved"}
+      <header className={styles.head}> {"Dataset ID: " + id}</header>
+      <ul>
+        {dataImages.map((image, index) => (
+          <li className={styles.imageGrid} key={index}>
+            <div className={styles.grid}>
+              <img
+                className={styles.image}
+                src={image.value}
+                alt={image.class + index}
+              />
+              <p className={styles.label}>Label: {image.class}</p>
+              <button
+                className={image.approved ? styles.approve : styles.nApprove}
+                onClick={() => verifyImage(index)}
+              >
+                {image.approved ? "Approved" : "Click to approve"}
               </button>
-            </li>
-          ))}
-        </ul>
-
-        <Image></Image>
-        {/* {data && data.length>0 && data.map((item)=><p>{item.about}</p>)} */}
-        {"ID:" + id}
-      </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css?family=Dosis");
+
+.imageGrid {
+    list-style: none;
+    display: inline-block;
+}
+
+.image {
+    width:200px;
+    height:200px;
+    margin-bottom: -25px;
+}
+
+.grid {
+    width:200px;
+    height:200px;
+    margin:2vw;
+    justify-content: center;
+}
+
+.label {
+    font-family: Verdana, sans-serif;
+    font-size:12pt;
+    margin-bottom:-20px;
+}
+
+.approve {
+    width:125px;
+    background-color:rgb(189, 222, 189);
+    border-radius:5px;
+    border-width: 0.5px;
+    border-color: #282c34;
+    color: #282c34;
+}
+
+.nApprove {
+    width:125px;
+    background-color:rgb(234, 176, 176);
+    border-radius:5px;
+    border-width: 0.5px;
+    border-color: #282c34;
+    color: #282c34;
+}

@@ -6,7 +6,7 @@ class Dataset(db.Model):
 
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    description = db.Column(db.String(80), unique=True, nullable=False)
+    description = db.Column(db.String(80), nullable=False)
     address = db.Column(db.String(80), unique=True, nullable=False)
     abi_id = db.Column(db.Integer, db.ForeignKey("abis.id"), nullable=False)
 
