@@ -8,7 +8,7 @@ import { getDataset } from "../api/dataset";
 
 import { DataContext } from "../components/DataProvider";
 
-import AltProfile from "../assets/AltProfile.png";
+import DefaultCover from "../assets/DefaultDataset.png";
 
 import styles from "../styles/pages/DashboardPage.module.css";
 
@@ -115,7 +115,7 @@ function DashboardPage() {
                       src={
                         dataset.images[0] !== undefined
                           ? dataset.images[0].value
-                          : AltProfile
+                          : DefaultCover
                       }
                     />
                     <p className={styles.name}>Name: {dataset.name}</p>

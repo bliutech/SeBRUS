@@ -1,58 +1,43 @@
-.container {
-    position: relative;
-    overflow: hidden;
-}
+@import url("https://fonts.googleapis.com/css?family=Dosis");
 
-.list {
-    text-align: center;
-}
-
-.display {
-    width: 100%;
-    height: 400px;
-    border-radius: 10px;
-}
-
-.images {
+.imageGrid {
     list-style: none;
     display: inline-block;
 }
 
 .image {
-    background-color: snow;
-    border-radius: 10px;
-    border-color: transparent;
-    padding: 3rem;
-    width: 400px;
-    margin: 2vw;
+    width:200px;
+    height:200px;
+    margin-bottom: -25px;
 }
 
-.labelName {
-    margin: 0.5rem 0;
-    font-size: 15pt;
+.grid {
+    width:200px;
+    height:200px;
+    margin:2vw;
+    justify-content: center;
+}
+
+.label {
     font-family: Verdana, sans-serif;
-    text-align: left;
-    color: black;
+    font-size:12pt;
+    margin-bottom:-20px;
 }
 
 .approve {
-    border-radius: 10px;
-    border-color: transparent;
-    padding: 0.5rem;
-    width: 100px;
-    margin: 2vw;
-    color: white;
+    width:125px;
+    background-color:rgb(189, 222, 189);
+    border-radius:5px;
+    border-width: 0.5px;
+    border-color: #282c34;
+    color: #282c34;
 }
 
-.approve:hover {
-    cursor: pointer;
-    background-color: #4CAF50;
-}
-
-.approved {
-    background-color: green;
-}
-
-.notApproved {
-    background-color: red;
+.nApprove {
+    width:125px;
+    background-color:rgb(234, 176, 176);
+    border-radius:5px;
+    border-width: 0.5px;
+    border-color: #282c34;
+    color: #282c34;
 }

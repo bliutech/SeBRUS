@@ -154,34 +154,27 @@ function DatasetPage() {
 
   return (
     <div className="page">
-      <div className={styles.data}>
-        <ul className={styles.list}>
-          {dataImages.map((image, index) => (
-            <li key={index} className={styles.images}>
-              <div className={styles.container}>
-                <div className={styles.image}>
-                  <img
-                    src={image.value}
-                    alt={image.class + index}
-                    className={styles.display}
-                  />
-                  <p className={styles.labelName}>Label: {image.class}</p>
-                  <button
-                    onClick={() => verifyImage(index)}
-                    className={
-                      styles.approve +
-                      " " +
-                      (image.approved ? styles.approved : styles.notApproved)
-                    }
-                  >
-                    {image.approved ? "Approved" : "Not approved"}
-                  </button>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <header className={styles.head}> {"Dataset ID: " + id}</header>
+      <ul>
+        {dataImages.map((image, index) => (
+          <li className={styles.imageGrid} key={index}>
+            <div className={styles.grid}>
+              <img
+                className={styles.image}
+                src={image.value}
+                alt={image.class + index}
+              />
+              <p className={styles.label}>Label: {image.class}</p>
+              <button
+                className={image.approved ? styles.approve : styles.nApprove}
+                onClick={() => verifyImage(index)}
+              >
+                {image.approved ? "Approved" : "Click to approve"}
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -5,11 +5,13 @@ a:link,
 a:visited {
   color: black;
   cursor: auto;
+  text-decoration: none;
 }
 
 a:link:active,
 a:visited:active {
   color: black;
+  text-decoration: none;
 }
 
 .logo {
