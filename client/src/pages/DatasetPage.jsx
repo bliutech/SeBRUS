@@ -11,8 +11,6 @@ import { DataContext } from "../components/DataProvider";
 
 import styles from "../styles/pages/DatasetPage.module.css";
 
-import dog from "../assets/dog1.png";
-
 function DatasetPage() {
   document.title = "Datasets | SeBRUS";
 

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import web3 from "web3";
 
+import { Image } from "../components/Image";
 import { getABI } from "../api/abi";
 import { getDataset } from "../api/dataset";
 
@@ -11,6 +12,8 @@ import styles from "../styles/pages/DashboardPage.module.css";
 
 function DashboardPage() {
   document.title = "Dashboard | SeBRUS";
+
+  const [dataImages, setDataImages] = useState([]);
 
   const [datasets, setDatasets] = useState([]);
 
@@ -62,8 +65,8 @@ function DashboardPage() {
 
         let imageCount = await DatasetContract.methods.getImageCount().call();
 
-        for (let j = 0; j < imageCount; j++) {
-          let imageAddress = await DatasetContract.methods.getImage(j).call();
+        if (imageCount > 0) {
+          let imageAddress = await DatasetContract.methods.getImage(0).call();
 
           let ImageContract = await new window.web3.eth.Contract(
             imageABI,
@@ -77,6 +80,9 @@ function DashboardPage() {
           };
 
           images.push(image);
+        }
+
+        if (imageCount < 0) {
         }
 
         datasetsTemp.push({
@@ -99,13 +105,26 @@ function DashboardPage() {
           console.log(dataset);
           return (
             <li className={styles.datasets} key={dataset.name}>
-              <p className={styles.name}>Dataset name: {dataset.name}</p>
-              <p className={styles.description}>
-                Description: {dataset.description}
-              </p>
-              <p>
-                <Link to={"/datasets?id=" + (index + 1).toString()}>Link</Link>
-              </p>
+              <div className={styles.container}>
+                <Link to={"/datasets?id=" + (index + 1).toString()}>
+                  <button className={styles.dataset}>
+                    <div className={styles.bck}>
+                      {dataset.images.map((image) => {
+                        return (
+                          <img className={styles.display} src={image.value} />
+                        );
+                      })}
+                    </div>
+
+                    <div className={styles.name}>
+                      Name: {dataset.name}
+                      <p className={styles.description}>
+                        Description: {dataset.description}
+                      </p>
+                    </div>
+                  </button>
+                </Link>
+              </div>
             </li>
           );
         })}

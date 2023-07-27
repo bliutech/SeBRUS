@@ -1,7 +1,49 @@
+.container {
+    position: relative;
+    overflow:hidden;
+}
+
 .list {
-    text-align: left;
+    text-align: center;
+}
+
+.display {
+    min-width: 100%;
+    border-radius: 10px;
+    opacity: 50%;
 }
 
 .datasets {
-    
+    list-style: none;
+    display: inline-block;
+}
+
+.description {
+    font-size: 15pt;
+    font-family: Verdana, sans-serif;
+}
+
+.dataset {
+    background-color: snow;
+    border-radius: 10px;
+    border-color: transparent;
+    padding: 10px;
+    width: 400px;
+    height: 300px;
+    margin: 2vw;
+}
+
+.name {
+    margin-top: 40%;
+    background-color: snow;
+    padding-top: 15px;
+    font-family: Verdana, sans-serif;
+    text-align: left;
+    font-size: 20pt;
+    position: relative;
+}
+
+.bck {
+    position: absolute;
+    width: 400px;
 }
