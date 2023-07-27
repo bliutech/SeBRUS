@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import web3 from "web3";
 
-// import { Grid } from "react-visual-grid";
-
 import { Image } from "../components/Image";
 import { getABI } from "../api/abi";
 import { getDataset } from "../api/dataset";
@@ -157,21 +155,32 @@ function DatasetPage() {
   return (
     <div className="page">
       <div className={styles.data}>
-        <ul>
+        <ul className={styles.list}>
           {dataImages.map((image, index) => (
-            <li key={index}>
-              <p>{image.class}</p>
-              <img src={image.value} alt={image.class + index} />
-              <button onClick={() => verifyImage(index)}>
-                {image.approved ? "Approved" : "Not approved"}
-              </button>
+            <li key={index} className={styles.images}>
+              <div className={styles.container}>
+                <div className={styles.image}>
+                  <img
+                    src={image.value}
+                    alt={image.class + index}
+                    className={styles.display}
+                  />
+                  <p className={styles.labelName}>Label: {image.class}</p>
+                  <button
+                    onClick={() => verifyImage(index)}
+                    className={
+                      styles.approve +
+                      " " +
+                      (image.approved ? styles.approved : styles.notApproved)
+                    }
+                  >
+                    {image.approved ? "Approved" : "Not approved"}
+                  </button>
+                </div>
+              </div>
             </li>
           ))}
         </ul>
-
-        <Image></Image>
-        {/* {data && data.length>0 && data.map((item)=><p>{item.about}</p>)} */}
-        {"ID:" + id}
       </div>
     </div>
   );

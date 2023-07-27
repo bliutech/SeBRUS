@@ -8,6 +8,8 @@ import { getDataset } from "../api/dataset";
 
 import { DataContext } from "../components/DataProvider";
 
+import AltProfile from "../assets/AltProfile.png";
+
 import styles from "../styles/pages/DashboardPage.module.css";
 
 function DashboardPage() {
@@ -104,25 +106,23 @@ function DashboardPage() {
         {datasets.map((dataset, index) => {
           console.log(dataset);
           return (
-            <li className={styles.datasets} key={dataset.name}>
+            <li className={styles.datasets} key={index}>
               <div className={styles.container}>
                 <Link to={"/datasets?id=" + (index + 1).toString()}>
-                  <button className={styles.dataset}>
-                    <div className={styles.bck}>
-                      {dataset.images.map((image) => {
-                        return (
-                          <img className={styles.display} src={image.value} />
-                        );
-                      })}
-                    </div>
-
-                    <div className={styles.name}>
-                      Name: {dataset.name}
-                      <p className={styles.description}>
-                        Description: {dataset.description}
-                      </p>
-                    </div>
-                  </button>
+                  <div className={styles.dataset}>
+                    <img
+                      className={styles.display}
+                      src={
+                        dataset.images[0] !== undefined
+                          ? dataset.images[0].value
+                          : AltProfile
+                      }
+                    />
+                    <p className={styles.name}>Name: {dataset.name}</p>
+                    <p className={styles.description}>
+                      Description: {dataset.description}
+                    </p>
+                  </div>
                 </Link>
               </div>
             </li>
