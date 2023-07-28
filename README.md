@@ -1,35 +1,32 @@
-# gset23bsg
-Repository for the Blockchain for Social Good project for GSET 2023.
+# SeBRUS: Crowdsourced Dataset Security with Blockchain
+Repository for the Blockchain for Social Good project for the Governor's School of Engineering and Technology 2023.
 
-## Contributing
-The following workflow should be used when contributing to this repository.
 
-```bash
-git clone https://github.com/bliutech/gset23bsg.git
-cd gset23bsg
-git checkout -b <wip-feature-name>
-# Make changes
-git add -A
-git commit -m "Add a commit message"
-git push origin <wip-feature-name>
-# Open a pull request on GitHub and request a review
-```
+## Explanation
+This git comprises the physical build associated with our GSET research.
 
-## Installation
-This project is broken into three parts, `client`, `server`, and `blockchain`.
+  This is SeBRUS (pronounced cerberus without the 'r'). It comprises our experimentation and coding using blockchain to ensure the security of crowdsourced contributions to machine learning datasets. SeBRUS, or Secure Blockchain Regularization Upload System, is built to allow for simple and secure machine learning dataset contribution. 
 
-### Client
-Run the following commands to install the dependencies and start the client. You should be able to view the client at http://localhost:3000 in your browser.
+The paper is linked here: []
 
-```bash
-cd client
-yarn install
-yarn start
-```
 
-### Server
-Run the following commands to install the dependencies and start the server. You should be be able to have the server running at http://localhost:5000.
+## Abstract
+In the face of increasingly omnipotent machine learning systems, sufficient defense mechanisms have not been developed to neutralize the threat of data poisoning attacks. The decentralized nature of blockchain offers exciting solutions to this problem. The aim of this research was to investigate the deployment of Ethereum smart contracts to facilitate  comprehensive systems, foster statistical diversity, and ensure the security of crowdsourced data. The novel voting networks and poisoned data detection systems demonstrate the efficacy of a lightweight approach to detection schemes. Upon comparison  to currently implemented data collection defense systems, the developed application showed advantages in irreversibility, traceability, and public availability. The framework’s threat model is outlined to understand its contributions and limitations regarding secure crowdsourced data collection. This solution proposes a comprehensive and holistic method to attenuate the damage caused by various adversaries. 
 
+
+### Required Installs
+Metamask [https://metamask.io/]
+
+Ganache [https://www.npmjs.com/package/truffle]
+
+Python 3.0 + PIP
+Node.js + NPM
+
+
+## Starting the System
+Set up the blockchain. Start running Ganache and connect Metamask to the blockchain and add the private key from one of the wallets (just not the first one, this is reserved for deploying contracts with Truffle).
+
+Run the Server
 ```bash
 cd server
 virtualenv venv --python=3.10
@@ -38,8 +35,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-### Blockchain
-Run the follow commands to deploy the smart contracts to the local blockchain.
+Deploy the Smart Contracts
 
 ```
 cd blockchain
@@ -48,27 +44,11 @@ truffle migrate
 python register.py
 ```
 
-## Linting
-This project supports CI/CD for linting. For the client application, it uses `prettier` for linting. To check if any formatting changes need to be made, run the following.
-
-```
-npm run check
-```
-
-To resolve any needed changes run
-```
-npm run fix
-```
-
-For the server application, it uses `black` for linting. To check if any formatting changes need to be made, run the following.
-
-```
-python -m black --check *.py */*.py
-```
-
-To resolve any needed changes run
-```
-python -m black *.py */*.py
+Run the Client
+```bash
+cd client
+yarn install
+yarn start
 ```
 
 ## Authors
