@@ -1,7 +1,9 @@
 # SeBRUS: Mitigating Data Poisoning Attacks on Crowdsourced Datasets with Blockchain
-![System overview for SeBRUS](./.github/overview.png)
+![Home page for SeBRUS](./.github/ui.png)
 
 With the rise in prominence of crowdsourced datasets in machine learning, data poisoning attacks pose a considerable threat. Many current defenses fall short because they are overly specialized for certain attacks, lack contribution incentives, and are difficult to integrate into current platforms. This paper explores the underaddressed system security problem posed by data poisoning through SeBRUS, a comprehensive data contribution application that leverages Ethereum smart contracts to secure crowdsourced datasets. SeBRUS introduces a voting network and poisoned data detection model, allowing for easy implementation with current platforms to defend against label-flipping, clean-label, and backdoor attacks.
+
+![System overview for SeBRUS](./.github/overview.png)
 
 This is [SeBRUS (SEH-BRUS)](https://en.wikipedia.org/wiki/Cerberus), or Secure Blockchain Regularization Upload System. This repository consists of the code for the SeBRUS application associated with our group's research. SeBRUS is built to allow for simple and secure machine learning dataset contribution by using the Ethereum blockchain to ensure the security of crowdsourced contributions to machine learning datasets.
 
